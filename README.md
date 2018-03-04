@@ -1,2 +1,2 @@
 # SDL-texture
-SDL texture simple program
+An SDL texture simple program
