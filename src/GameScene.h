@@ -10,10 +10,14 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 class GameScene {
     SDL_Renderer *renderer = NULL;
-    SDL_Texture *img = NULL;
+
+    SDL_Texture *wall = NULL;
+    SDL_Texture* Message = NULL;
+
     int w, h;
     SDL_Window * window;
 
