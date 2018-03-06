@@ -15,6 +15,11 @@
 /* Window height */
 #define HEIGHT 600
 
+#define LETTER_HEIGHT 100
+#define LETTER_WIDTH 100
 
+#define FONT_NAME  "/usr/share/fonts/truetype/freefont/FreeSans.ttf"
+
+#define TIMER_DELAY 50
 
 #endif /* CONFIG_H_ */

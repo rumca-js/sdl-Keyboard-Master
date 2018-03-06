@@ -8,10 +8,14 @@
 #include "MainController.h"
 
 #include "config.h"
+#include "time.h"
 
 
 MainController::MainController() {
     SDL_Init(SDL_INIT_VIDEO);
+
+    // Initialize time with seed
+    srand (time(NULL));
 
     window = SDL_CreateWindow(
         "An SDL2 window",

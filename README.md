@@ -1,17 +1,14 @@
 # Overview
-This is a keyboard game. Still in alpha. Nearly nothing works yet.
+This is a keyboard game. Still in development.
 
-The game should contain:
- - solid background
- - letters falling in funny way from above
+In this game letters fall from above. The player needs to destroy letters by typing them.
 
-The user has to press the characters in order to 'destroy' them.
+Uses Linux ttf fonts. 
+
+Developped using eclipse under Linux Mint.
 
 # License
 GPLv3
 
-# Graphics
 Program uses graphics from 
-https://www.pexels.com/search/sky/
-
-Uses Linux ttf fonts. Tested on Linux Mint.
+https://www.pexels.com

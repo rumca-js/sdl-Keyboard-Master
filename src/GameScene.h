@@ -10,16 +10,19 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <vector>
+#include "Letter.h"
 
 class GameScene {
     SDL_Renderer *renderer = NULL;
+    TTF_Font* Sans = NULL;
 
     SDL_Texture *wall = NULL;
-    SDL_Texture* Message = NULL;
 
     int w, h;
     SDL_Window * window;
+    std::vector<Letter> letters;
+    SDL_TimerID my_timer_id;
 
 public:
 	GameScene();
@@ -31,6 +34,8 @@ public:
 	 * @brief Writes scene on the window
 	 */
 	void write();
+	bool move_letters();
+	void display_letters();
 	/**
 	 * @brief Closes the scene, disposes elements.
 	 */
