@@ -14,13 +14,16 @@ class Letter {
 	SDL_Texture* Message = NULL;
 	SDL_Renderer *renderer = NULL;
 	unsigned x,y;
+	char letter;
 
 public:
 	Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter);
 	void move();
 	void display();
-	unsigned int getX();
-	unsigned int getY();
+	unsigned getX();
+	unsigned getY();
+	void setX(unsigned _x);
+	bool is(char key);
 	virtual ~Letter();
 };
 

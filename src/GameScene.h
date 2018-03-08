@@ -36,6 +36,7 @@ public:
 	void write();
 	bool move_letters();
 	void display_letters();
+	void check_if_killed(char key);
 	/**
 	 * @brief Closes the scene, disposes elements.
 	 */

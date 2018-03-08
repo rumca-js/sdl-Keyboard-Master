@@ -8,12 +8,13 @@
 #include "config.h"
 #include "Letter.h"
 
-Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter) {
+Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
 	renderer = ren;
 	char text[4];
 
-	text[0] = letter;
+	text[0] = _letter;
 	text[1] = '\0';
+	letter= _letter;
 
     if (Sans != NULL)
     {
@@ -26,11 +27,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter) {
     	printf("Could not open font");
     }
 
-    unsigned min, max;
-    max = WIDTH-LETTER_WIDTH;
-    min = 0;
 
-    x = min + (rand() % static_cast<int>(max - min + 1));
     y = 0;
 }
 
@@ -40,14 +37,26 @@ void Letter::move()
 	y += 1;
 }
 
-unsigned int Letter::getX()
+unsigned Letter::getX()
 {
 	return x;
 }
 
-unsigned int Letter::getY()
+unsigned Letter::getY()
 {
 	return y;
+}
+
+void Letter::setX(unsigned _x)
+{
+	x = _x;
+}
+
+bool Letter::is(char key)
+{
+	if (key == letter)
+		return true;
+	return false;
 }
 
 void Letter::display()

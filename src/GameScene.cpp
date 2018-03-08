@@ -33,6 +33,10 @@ Uint32 my_callbackfunc(Uint32 interval, void *param)
     return(interval);
 }
 
+unsigned rand_min_max(unsigned min, unsigned max)
+{
+	return min + (rand() % static_cast<int>(max - min + 1));
+}
 
 
 GameScene::GameScene() {
@@ -54,7 +58,8 @@ void GameScene::init(SDL_Window * win)
 
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
-    letters.push_back(Letter(renderer, Sans, 'A'));
+    letters.push_back(Letter(renderer, Sans, 'a'));
+    letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(TIMER_DELAY, my_callbackfunc, &param);
@@ -81,6 +86,22 @@ void GameScene::display_letters()
 	}
 }
 
+void GameScene::check_if_killed(char key)
+{
+	for(unsigned int i=0; i<letters.size(); i++)
+	{
+		if (letters[i].is(key))
+		{
+			letters.pop_back();
+
+			char letter = rand_min_max(97, 122);
+
+			letters.push_back(Letter(renderer, Sans, letter));
+			letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+		}
+	}
+}
+
 void GameScene::write()
 {
 	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = WIDTH; texr.h = HEIGHT;
@@ -96,12 +117,7 @@ void GameScene::write()
 				break;
 			else if (e.type == SDL_KEYDOWN)
 			{
-				if ((char)e.key.keysym.sym == SDLK_a)
-				{
-					letters.pop_back();
-
-					letters.push_back(Letter(renderer, Sans, 'B'));
-				}
+				check_if_killed((char)e.key.keysym.sym);
 			}
 			else if (e.type == SDL_USEREVENT)
 			{
