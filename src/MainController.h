@@ -12,12 +12,15 @@
 #include <SDL2/SDL_image.h>
 
 #include <stdio.h>
+#include "InitScene.h"
 #include "GameScene.h"
 
 
 class MainController {
 	SDL_Window *window;
-	GameScene scene;
+	InitScene iscene;
+	GameScene gscene;
+	SDL_Renderer *renderer = NULL;
 
 public:
 	/**

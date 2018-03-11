@@ -1,11 +1,10 @@
 # Overview
-This is a keyboard game. Still in development.
+Keyboard-Master is a keyboard game, where letters fall from above. User needs to type the letter in order to 'destroy it'.
 
-In this game letters fall from above. The player needs to destroy letters by typing them.
+# Environment
+This program is written in SDL2, on Linux Mint. Uses Linux fonts, locations, which means that it will not work as is on Windows build.
 
-Uses Linux ttf fonts. 
-
-Developped using eclipse under Linux Mint.
+Developped using eclipse.
 
 # License
 GPLv3

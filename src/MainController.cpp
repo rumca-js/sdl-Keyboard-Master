@@ -31,17 +31,36 @@ MainController::MainController() {
         return;
     }
 
-	scene.init(window);
+    if (TTF_Init() != 0)
+    {
+    	printf("Could not initialize TTF");
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	iscene.init(renderer, window);
+	gscene.init(renderer, window);
 }
 
 int MainController::run()   {
-    scene.write();
 
-    return 0;
+	int status = iscene.write();
+	if (status == InitScene::SCENE_EXIT)
+	{
+		return 0;
+	}
+	if (status == InitScene::SCENE_NEXT)
+	{
+		return gscene.write();
+	}
+	return 0;
 }
 
 MainController::~MainController() {
-	scene.close();
+	iscene.close();
+	gscene.close();
+	SDL_DestroyRenderer(renderer);
+
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

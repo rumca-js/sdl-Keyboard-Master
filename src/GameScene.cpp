@@ -11,7 +11,6 @@
 #include "stdio.h"
 
 
-
 Uint32 my_callbackfunc(Uint32 interval, void *param)
 {
     SDL_Event event;
@@ -40,21 +39,14 @@ unsigned rand_min_max(unsigned min, unsigned max)
 
 
 GameScene::GameScene() {
-	// TODO Auto-generated constructor stub
+	timer_delay = 50;
 }
 
-void GameScene::init(SDL_Window * win)
+void GameScene::init(SDL_Renderer *ren, SDL_Window * window)
 {
-	window = win;
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    //SDL_QueryTexture(img, NULL, NULL, &w, &h); to know how big the picture is
+	renderer = ren;
 
     wall = IMG_LoadTexture(renderer, "sky.jpg");
-
-    if (TTF_Init() != 0)
-    {
-    	printf("Could not initialize TTF");
-    }
 
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
@@ -62,7 +54,7 @@ void GameScene::init(SDL_Window * win)
     letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
 
     uint32_t param;
-    my_timer_id = SDL_AddTimer(TIMER_DELAY, my_callbackfunc, &param);
+    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
 }
 
 bool GameScene::move_letters()
@@ -102,7 +94,7 @@ void GameScene::check_if_killed(char key)
 	}
 }
 
-void GameScene::write()
+int GameScene::write()
 {
 	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = WIDTH; texr.h = HEIGHT;
 
@@ -136,6 +128,8 @@ void GameScene::write()
 
 		SDL_RenderPresent(renderer);
 	}
+
+	return 0;
 }
 
 void GameScene::close()
@@ -143,7 +137,6 @@ void GameScene::close()
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
 	SDL_DestroyTexture(wall);
-	SDL_DestroyRenderer(renderer);
 }
 
 GameScene::~GameScene() {
