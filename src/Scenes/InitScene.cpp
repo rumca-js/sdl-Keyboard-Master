@@ -5,7 +5,7 @@
  *      Author: hunter
  */
 
-#include "config.h"
+#include "../config.h"
 
 
 #include "InitScene.h"
@@ -20,28 +20,25 @@ void InitScene::init(SDL_Renderer *ren, SDL_Window * window)
 	renderer = ren;
 	fullscreen = false;
 
+	config = &MainConfiguration::getConfig();
+
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
-    wall = IMG_LoadTexture(renderer, "sky.jpg");
+    wall = IMG_LoadTexture(renderer, SKY_WALLPAPER);
 
 	SDL_Color White = {0, 0, 255};
 
-	SDL_Surface* surf1 = TTF_RenderText_Solid(Sans, "Press 'f' to toggle full screen" , White);
+	SDL_Surface* surf1 = TTF_RenderText_Solid(Sans, TEXT_FULL_SCREEN , White);
 	mFull = SDL_CreateTextureFromSurface(renderer, surf1);
 
-	SDL_Surface* surf2 = TTF_RenderText_Solid(Sans, "Press 'Enter' for to start" , White);
+	SDL_Surface* surf2 = TTF_RenderText_Solid(Sans, TEXT_ENTER , White);
 	mEnter = SDL_CreateTextureFromSurface(renderer, surf2);
 
-	SDL_Surface* surf3 = TTF_RenderText_Solid(Sans, "Press 'Escape' for to exit" , White);
+	SDL_Surface* surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
 int InitScene::write()
 {
-	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = WIDTH; texr.h = HEIGHT;
-	SDL_Rect rFull; rFull.x = 200; rFull.y = 230; rFull.w = 400; rFull.h = 50;
-	SDL_Rect rEnter; rEnter.x = 200; rEnter.y = 300; rEnter.w = 300; rEnter.h = 50;
-	SDL_Rect rExit; rExit.x = 200; rExit.y = 370; rExit.w = 300; rExit.h = 50;
-
 	int status = 0;
 
 
@@ -64,7 +61,7 @@ int InitScene::write()
 				status = SCENE_NEXT;
 				break;
 			}
-			else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f)
+			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f)
 			{
 				fullscreen = !fullscreen;
 				if (fullscreen)
@@ -76,6 +73,9 @@ int InitScene::write()
 
 					windowMode.h = DM.h;
 					windowMode.w = DM.w;
+
+					config->setWindowSize(DM.w, DM.h);
+
 					SDL_SetWindowDisplayMode(win, &windowMode);
 
 
@@ -83,12 +83,24 @@ int InitScene::write()
 				}
 				else
 				{
+					// TODO do not use WIDTH or HEIGHT definitions directly
+					config->setWindowSize(WIDTH, HEIGHT);
+
 					SDL_SetWindowFullscreen(win, 0);
 				}
 			}
 		}
 
 		SDL_RenderClear(renderer);
+
+		unsigned int letter_width = config->getWidth()/50;
+		unsigned int letter_height = config->getHeight()/10;
+
+		SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
+
+		SDL_Rect rFull; rFull.x = config->getWidth()/3; rFull.y = config->getHeight()*1/4; rFull.w = letter_width * strlen(TEXT_FULL_SCREEN); rFull.h = letter_height;
+		SDL_Rect rEnter; rEnter.x = config->getWidth()/3; rEnter.y = config->getHeight()*2/4; rEnter.w = letter_width * strlen(TEXT_ENTER); rEnter.h = letter_height;
+		SDL_Rect rExit; rExit.x = config->getWidth()/3; rExit.y = config->getHeight()*3/4; rExit.w = letter_width * strlen(TEXT_ESCAPE); rExit.h = letter_height;
 
 		SDL_RenderCopy(renderer, wall, NULL, &texr);
 

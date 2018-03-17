@@ -27,7 +27,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     	printf("Could not open font");
     }
 
-
+    x = 0;
     y = 0;
 }
 
@@ -45,11 +45,6 @@ unsigned Letter::getX()
 unsigned Letter::getY()
 {
 	return y;
-}
-
-void Letter::setX(unsigned _x)
-{
-	x = _x;
 }
 
 bool Letter::is(char key)
@@ -72,5 +67,15 @@ void Letter::display()
 
 Letter::~Letter() {
 	// TODO Auto-generated destructor stub
+}
+
+void Letter::setX(unsigned _x)
+{
+	x = _x;
+}
+
+void Letter::setY(unsigned _y)
+{
+	y = _y;
 }
 

@@ -18,6 +18,7 @@
 #define LETTER_HEIGHT 100
 #define LETTER_WIDTH 100
 
-#define FONT_NAME  "/usr/share/fonts/truetype/freefont/FreeSans.ttf"
+#define SKY_WALLPAPER "./data/wallpapers/sky.jpg"
+#define FONT_NAME  "./data/fonts/freefont/FreeSans.ttf"
 
 #endif /* CONFIG_H_ */

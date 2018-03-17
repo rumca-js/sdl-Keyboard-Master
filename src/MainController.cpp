@@ -6,6 +6,7 @@
  */
 
 #include "MainController.h"
+#include "MainConfiguration.h"
 
 #include "config.h"
 #include "time.h"
@@ -17,12 +18,17 @@ MainController::MainController() {
     // Initialize time with seed
     srand (time(NULL));
 
+    MainConfiguration config = MainConfiguration::getConfig();
+
+    //config.setWidth(WIDTH);
+    //config.setHeight(HEIGHT);
+
     window = SDL_CreateWindow(
         "An SDL2 window",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        WIDTH,
-        HEIGHT,
+        config.getWidth(),
+        config.getHeight(),
         SDL_WINDOW_OPENGL
     );
 

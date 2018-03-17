@@ -10,8 +10,12 @@
 
 #include <SDL2/SDL_ttf.h>
 
-#include "SceneInterface.h"
+#include "../SceneInterface.h"
+#include "../MainConfiguration.h"
 
+#define TEXT_FULL_SCREEN "Press 'f' to toggle full screen"
+#define TEXT_ENTER "Press 'Enter' for to start"
+#define TEXT_ESCAPE "Press 'Escape' for to exit"
 
 class InitScene : public SceneInterface {
 	SDL_Renderer* renderer;
@@ -22,6 +26,8 @@ class InitScene : public SceneInterface {
 	SDL_Texture* mExit;
 	bool fullscreen;
 	SDL_Window* win;
+
+	MainConfiguration * config;
 
 public:
 	InitScene();

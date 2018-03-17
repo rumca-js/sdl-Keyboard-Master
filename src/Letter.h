@@ -22,9 +22,11 @@ public:
 	void display();
 	unsigned getX();
 	unsigned getY();
-	void setX(unsigned _x);
 	bool is(char key);
 	virtual ~Letter();
+
+	void setX(unsigned);
+	void setY(unsigned);
 };
 
 #endif /* LETTER_H_ */

@@ -10,21 +10,23 @@
 
 
 #include <vector>
-#include "Letter.h"
+#include "../Letter.h"
 
-#include "SceneInterface.h"
+#include "../SceneInterface.h"
+#include "../MainConfiguration.h"
 
 class GameScene : public SceneInterface {
     SDL_Renderer *renderer = NULL;
+    MainConfiguration * config;
     TTF_Font* Sans = NULL;
-
     SDL_Texture *wall = NULL;
+
+    std::vector<Letter> letters;
+
+    SDL_TimerID my_timer_id;
     unsigned int timer_delay;
 
-    int w, h;
-    //SDL_Window * window;
-    std::vector<Letter> letters;
-    SDL_TimerID my_timer_id;
+    unsigned int speed_factor;
 
 public:
 	GameScene();
@@ -47,7 +49,7 @@ public:
 	/**
 	 * @brief Checks if letter should be destroyed.
 	 */
-	void check_if_killed(char key);
+	bool check_if_killed(char key);
 	/**
 	 * @brief Closes the scene, disposes elements.
 	 */

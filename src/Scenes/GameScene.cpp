@@ -5,7 +5,7 @@
  *      Author: hunter
  */
 
-#include "config.h"
+#include "../config.h"
 
 #include "GameScene.h"
 #include "stdio.h"
@@ -40,13 +40,15 @@ unsigned rand_min_max(unsigned min, unsigned max)
 
 GameScene::GameScene() {
 	timer_delay = 50;
+	speed_factor = 1;
 }
 
 void GameScene::init(SDL_Renderer *ren, SDL_Window * window)
 {
+	config = &MainConfiguration::getConfig();
 	renderer = ren;
 
-    wall = IMG_LoadTexture(renderer, "sky.jpg");
+    wall = IMG_LoadTexture(renderer, SKY_WALLPAPER);
 
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
@@ -61,7 +63,10 @@ bool GameScene::move_letters()
 {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
-		letters[i].move();
+		letters[i].setY(letters[i].getY() + speed_factor);
+
+
+		/*letters[i].move(speed_factor);*/
 
 		if (letters[i].getY() > HEIGHT-LETTER_HEIGHT)
 			return true;
@@ -78,8 +83,10 @@ void GameScene::display_letters()
 	}
 }
 
-void GameScene::check_if_killed(char key)
+bool GameScene::check_if_killed(char key)
 {
+	bool killed = false;
+
 	for(unsigned int i=0; i<letters.size(); i++)
 	{
 		if (letters[i].is(key))
@@ -90,13 +97,17 @@ void GameScene::check_if_killed(char key)
 
 			letters.push_back(Letter(renderer, Sans, letter));
 			letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+
+			killed = true;
 		}
 	}
+
+	return killed;
 }
 
 int GameScene::write()
 {
-	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = WIDTH; texr.h = HEIGHT;
+	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
 
 
 	while (1) {
@@ -109,7 +120,10 @@ int GameScene::write()
 				break;
 			else if (e.type == SDL_KEYDOWN)
 			{
-				check_if_killed((char)e.key.keysym.sym);
+				if (check_if_killed((char)e.key.keysym.sym) )
+				{
+					speed_factor++;
+				}
 			}
 			else if (e.type == SDL_USEREVENT)
 			{

@@ -12,8 +12,8 @@
 #include <SDL2/SDL_image.h>
 
 #include <stdio.h>
-#include "InitScene.h"
-#include "GameScene.h"
+#include "Scenes/InitScene.h"
+#include "Scenes/GameScene.h"
 
 
 class MainController {
