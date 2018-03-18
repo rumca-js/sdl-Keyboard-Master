@@ -11,8 +11,7 @@
 #include "stdio.h"
 
 
-Uint32 my_callbackfunc(Uint32 interval, void *param)
-{
+Uint32 my_callbackfunc(Uint32 interval, void *param)   {
     SDL_Event event;
     SDL_UserEvent userevent;
 
@@ -32,19 +31,30 @@ Uint32 my_callbackfunc(Uint32 interval, void *param)
     return(interval);
 }
 
-unsigned rand_min_max(unsigned min, unsigned max)
-{
+unsigned rand_min_max(unsigned min, unsigned max)  {
 	return min + (rand() % static_cast<int>(max - min + 1));
 }
 
 
 GameScene::GameScene() {
+	config = NULL;
+	my_timer_id = -1;
+
 	timer_delay = 50;
 	speed_factor = 1;
 }
 
-void GameScene::init(SDL_Renderer *ren, SDL_Window * window)
+void GameScene::reset()
 {
+	speed_factor = 1;
+
+	letters.clear();
+
+    letters.push_back(Letter(renderer, Sans, 'a'));
+    letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+}
+
+void GameScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	config = &MainConfiguration::getConfig();
 	renderer = ren;
 
@@ -52,39 +62,32 @@ void GameScene::init(SDL_Renderer *ren, SDL_Window * window)
 
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
-    letters.push_back(Letter(renderer, Sans, 'a'));
-    letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
-
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
 }
 
-bool GameScene::move_letters()
-{
+bool GameScene::move_letters()  {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
 		letters[i].setY(letters[i].getY() + speed_factor);
 
-
-		/*letters[i].move(speed_factor);*/
-
-		if (letters[i].getY() > HEIGHT-LETTER_HEIGHT)
+		/*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
+			return true;
+			*/
+		if (letters[i].getY() > config->getHeight())
 			return true;
 	}
 
 	return false;
 }
 
-void GameScene::display_letters()
-{
-	for(unsigned int i=0; i<letters.size();i++)
-	{
+void GameScene::display_letters()  {
+	for(unsigned int i=0; i<letters.size();i++)   {
 		letters[i].display();
 	}
 }
 
-bool GameScene::check_if_killed(char key)
-{
+bool GameScene::check_if_killed(char key)   {
 	bool killed = false;
 
 	for(unsigned int i=0; i<letters.size(); i++)
@@ -105,10 +108,8 @@ bool GameScene::check_if_killed(char key)
 	return killed;
 }
 
-int GameScene::write()
-{
+int GameScene::write()   {
 	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
-
 
 	while (1) {
 
@@ -129,7 +130,7 @@ int GameScene::write()
 			{
 				if (this->move_letters() )
 				{
-					break;
+					return SceneInterface::SCENE_FINISHED;
 				}
 			}
 		}
@@ -146,13 +147,11 @@ int GameScene::write()
 	return 0;
 }
 
-void GameScene::close()
-{
+void GameScene::close()  {
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
 	SDL_DestroyTexture(wall);
 }
-
 GameScene::~GameScene() {
 	// TODO Auto-generated destructor stub
 }

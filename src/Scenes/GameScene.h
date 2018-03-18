@@ -29,7 +29,10 @@ class GameScene : public SceneInterface {
     unsigned int speed_factor;
 
 public:
+
 	GameScene();
+
+	void reset();
 	/**
 	 * @brief Performs initialization
 	 */
@@ -54,6 +57,7 @@ public:
 	 * @brief Closes the scene, disposes elements.
 	 */
 	void close();
+
 	virtual ~GameScene();
 };
 

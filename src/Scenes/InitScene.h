@@ -32,9 +32,6 @@ class InitScene : public SceneInterface {
 public:
 	InitScene();
 
-	static const int SCENE_EXIT=0;
-	static const int SCENE_NEXT=1;
-
 	void init(SDL_Renderer *ren, SDL_Window * window);
 	int write();
 	void close();

@@ -31,36 +31,26 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     y = 0;
 }
 
-void Letter::move()
-{
-	//x += 1;
-	y += 1;
-}
-
-unsigned Letter::getX()
-{
+unsigned Letter::getX()   {
 	return x;
 }
 
-unsigned Letter::getY()
-{
+unsigned Letter::getY()   {
 	return y;
 }
 
-bool Letter::is(char key)
-{
+bool Letter::is(char key)   {
 	if (key == letter)
 		return true;
 	return false;
 }
 
-void Letter::display()
-{
+void Letter::display()   {
 	SDL_Rect Message_rect; //create a rect
 	Message_rect.x = x;  //controls the rect's x coordinate
 	Message_rect.y = y; // controls the rect's y coordinte
-	Message_rect.w = 100; // controls the width of the rect
-	Message_rect.h = 100; // controls the height of the rect
+	Message_rect.w = LETTER_WIDTH; // controls the width of the rect
+	Message_rect.h = LETTER_HEIGHT; // controls the height of the rect
 
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
 }
@@ -69,13 +59,11 @@ Letter::~Letter() {
 	// TODO Auto-generated destructor stub
 }
 
-void Letter::setX(unsigned _x)
-{
+void Letter::setX(unsigned _x)   {
 	x = _x;
 }
 
-void Letter::setY(unsigned _y)
-{
+void Letter::setY(unsigned _y)   {
 	y = _y;
 }
 

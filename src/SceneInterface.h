@@ -18,6 +18,9 @@ public:
 	virtual void init(SDL_Renderer *renderer, SDL_Window * window) = 0;
 	virtual int write() = 0;
 	virtual void close() = 0;
+
+	static const int SCENE_EXIT=0;
+	static const int SCENE_FINISHED=1;
 };
 
 

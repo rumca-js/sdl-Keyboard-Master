@@ -16,13 +16,18 @@
 #include "Scenes/GameScene.h"
 
 
+
 class MainController {
 	SDL_Window *window;
 	InitScene iscene;
 	GameScene gscene;
 	SDL_Renderer *renderer = NULL;
+	int state;
 
 public:
+	static const int STATE_MENU = 0;
+	static const int STATE_GAME = 1;
+
 	/**
 	 * @brief Creates the window
 	 */

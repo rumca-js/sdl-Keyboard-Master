@@ -11,11 +11,21 @@
 #include "InitScene.h"
 
 InitScene::InitScene() {
-	// TODO Auto-generated constructor stub
+	fullscreen = false;
+
+	renderer = NULL;
+	win 	 = NULL;
+
+	mExit 	= NULL;
+	mFull   = NULL;
+	mEnter  = NULL;
+	wall 	= NULL;
+	Sans 	= NULL;
+
+	config = NULL;
 }
 
-void InitScene::init(SDL_Renderer *ren, SDL_Window * window)
-{
+void InitScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	win = window;
 	renderer = ren;
 	fullscreen = false;
@@ -37,8 +47,7 @@ void InitScene::init(SDL_Renderer *ren, SDL_Window * window)
 	SDL_Surface* surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
-int InitScene::write()
-{
+int InitScene::write()   {
 	int status = 0;
 
 
@@ -58,7 +67,7 @@ int InitScene::write()
 			}
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN)
 			{
-				status = SCENE_NEXT;
+				status = SCENE_FINISHED;
 				break;
 			}
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f)
@@ -113,8 +122,7 @@ int InitScene::write()
 
 	return status;
 }
-void InitScene::close()
-{
+void InitScene::close()  {
 	SDL_DestroyTexture(wall);
 	TTF_CloseFont(Sans);
 }

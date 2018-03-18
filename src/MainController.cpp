@@ -37,8 +37,7 @@ MainController::MainController() {
         return;
     }
 
-    if (TTF_Init() != 0)
-    {
+    if (TTF_Init() != 0)     {
     	printf("Could not initialize TTF");
     }
 
@@ -46,19 +45,36 @@ MainController::MainController() {
 
 	iscene.init(renderer, window);
 	gscene.init(renderer, window);
+
+	state = STATE_MENU;
 }
 
-int MainController::run()   {
+int MainController::run() {
 
-	int status = iscene.write();
-	if (status == InitScene::SCENE_EXIT)
-	{
-		return 0;
+	int status;
+
+	while(true) {
+		if (state == STATE_MENU) {
+			status = iscene.write();
+			if (status == InitScene::SCENE_EXIT) {
+				return 0;
+			}
+			if (status == InitScene::SCENE_FINISHED)  {
+				state = STATE_GAME;
+			}
+		}
+		if (state == STATE_GAME)  {
+			gscene.reset();
+			status = gscene.write();
+			if (status == GameScene::SCENE_EXIT)  {
+				return 0;
+			}
+			if (status == GameScene::SCENE_FINISHED)  {
+				state = STATE_MENU;
+			}
+		}
 	}
-	if (status == InitScene::SCENE_NEXT)
-	{
-		return gscene.write();
-	}
+
 	return 0;
 }
 
