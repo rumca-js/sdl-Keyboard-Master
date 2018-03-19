@@ -56,10 +56,10 @@ int MainController::run() {
 	while(true) {
 		if (state == STATE_MENU) {
 			status = iscene.write();
-			if (status == InitScene::SCENE_EXIT) {
+			if (status == MenuScene::SCENE_EXIT) {
 				return 0;
 			}
-			if (status == InitScene::SCENE_FINISHED)  {
+			if (status == MenuScene::SCENE_FINISHED)  {
 				state = STATE_GAME;
 			}
 		}

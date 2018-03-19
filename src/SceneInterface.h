@@ -15,8 +15,18 @@
 class SceneInterface
 {
 public:
+    /*!
+     \brief Initializes scene.
+    */
 	virtual void init(SDL_Renderer *renderer, SDL_Window * window) = 0;
+    /*!
+     \brief Writes the scene.
+     \returns the scene return code.
+    */
 	virtual int write() = 0;
+    /*!
+     \brief Closes scene.
+    */
 	virtual void close() = 0;
 
 	static const int SCENE_EXIT=0;

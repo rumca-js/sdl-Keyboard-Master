@@ -12,14 +12,14 @@
 #include <SDL2/SDL_image.h>
 
 #include <stdio.h>
-#include "Scenes/InitScene.h"
 #include "Scenes/GameScene.h"
+#include "Scenes/MenuScene.h"
 
 
 
 class MainController {
 	SDL_Window *window;
-	InitScene iscene;
+	MenuScene iscene;
 	GameScene gscene;
 	SDL_Renderer *renderer = NULL;
 	int state;
@@ -29,15 +29,15 @@ public:
 	static const int STATE_GAME = 1;
 
 	/**
-	 * @brief Creates the window
+	 * \brief Creates the window
 	 */
 	MainController();
 	/**
-	 * @brief Draws on window (polls scenes to draw on the window)
+	 * \brief Draws on window (polls scenes to draw on the window)
 	 */
 	int run();
 	/**
-	 * @brief Cleans up
+	 * \brief Cleans up
 	 */
 	virtual ~MainController();
 };

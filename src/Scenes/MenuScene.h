@@ -17,7 +17,7 @@
 #define TEXT_ENTER "Press 'Enter' for to start"
 #define TEXT_ESCAPE "Press 'Escape' for to exit"
 
-class InitScene : public SceneInterface {
+class MenuScene : public SceneInterface {
 	SDL_Renderer* renderer;
 	SDL_Texture* wall;
 	TTF_Font* Sans;
@@ -30,13 +30,13 @@ class InitScene : public SceneInterface {
 	MainConfiguration * config;
 
 public:
-	InitScene();
+	MenuScene();
 
 	void init(SDL_Renderer *ren, SDL_Window * window);
 	int write();
 	void close();
 
-	virtual ~InitScene();
+	virtual ~MenuScene();
 };
 
 #endif /* INITSCENE_H_ */

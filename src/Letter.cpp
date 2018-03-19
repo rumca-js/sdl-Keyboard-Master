@@ -46,12 +46,11 @@ bool Letter::is(char key)   {
 }
 
 void Letter::display()   {
-	SDL_Rect Message_rect; //create a rect
-	Message_rect.x = x;  //controls the rect's x coordinate
-	Message_rect.y = y; // controls the rect's y coordinte
-	Message_rect.w = LETTER_WIDTH; // controls the width of the rect
-	Message_rect.h = LETTER_HEIGHT; // controls the height of the rect
-
+        SDL_Rect Message_rect;
+        Message_rect.x = x;
+        Message_rect.y = y;
+        Message_rect.w = LETTER_WIDTH;
+        Message_rect.h = LETTER_HEIGHT;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
 }
 

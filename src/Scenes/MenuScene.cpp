@@ -5,12 +5,13 @@
  *      Author: hunter
  */
 
+#include "MenuScene.h"
+
 #include "../config.h"
 
 
-#include "InitScene.h"
 
-InitScene::InitScene() {
+MenuScene::MenuScene() {
 	fullscreen = false;
 
 	renderer = NULL;
@@ -25,7 +26,7 @@ InitScene::InitScene() {
 	config = NULL;
 }
 
-void InitScene::init(SDL_Renderer *ren, SDL_Window * window)  {
+void MenuScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	win = window;
 	renderer = ren;
 	fullscreen = false;
@@ -47,7 +48,7 @@ void InitScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	SDL_Surface* surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
-int InitScene::write()   {
+int MenuScene::write()   {
 	int status = 0;
 
 
@@ -122,12 +123,12 @@ int InitScene::write()   {
 
 	return status;
 }
-void InitScene::close()  {
+void MenuScene::close()  {
 	SDL_DestroyTexture(wall);
 	TTF_CloseFont(Sans);
 }
 
-InitScene::~InitScene() {
+MenuScene::~MenuScene() {
 	// TODO Auto-generated destructor stub
 }
 

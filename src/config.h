@@ -9,10 +9,10 @@
 #define CONFIG_H_
 
 
-/* Window height */
+// Window height
 #define WIDTH 800
 
-/* Window height */
+// Window height
 #define HEIGHT 600
 
 #define LETTER_HEIGHT 100

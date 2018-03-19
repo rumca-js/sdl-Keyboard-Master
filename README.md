@@ -11,3 +11,4 @@ GPLv3
 
 Program uses graphics from 
 https://www.pexels.com
+www.freepik.com
