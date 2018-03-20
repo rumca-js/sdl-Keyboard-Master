@@ -14,19 +14,24 @@
 #include <stdio.h>
 #include "Scenes/GameScene.h"
 #include "Scenes/MenuScene.h"
+#include "Scenes/IntroScene.h"
 
 
 
 class MainController {
 	SDL_Window *window;
-	MenuScene iscene;
+	MenuScene mscene;
 	GameScene gscene;
+	IntroScene iscene;
+
 	SDL_Renderer *renderer = NULL;
 	int state;
+	MainConfiguration * config;
 
 public:
-	static const int STATE_MENU = 0;
-	static const int STATE_GAME = 1;
+	static const int STATE_INTRO = 0;
+	static const int STATE_MENU = 1;
+	static const int STATE_GAME = 2;
 
 	/**
 	 * \brief Creates the window
@@ -36,6 +41,10 @@ public:
 	 * \brief Draws on window (polls scenes to draw on the window)
 	 */
 	int run();
+	/**
+	 * \brief sets to full screen.
+	 */
+	void setFullScreen();
 	/**
 	 * \brief Cleans up
 	 */

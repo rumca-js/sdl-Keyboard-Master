@@ -15,6 +15,15 @@
 class SceneInterface
 {
 public:
+
+	/*!
+	 * \brief Indicates exit.
+	 */
+	static const int SCENE_EXIT=0;
+	/*!
+	 * \brief Indicates that we should transition to the next scene.
+	 */
+	static const int SCENE_FINISHED=1;
     /*!
      \brief Initializes scene.
     */
@@ -28,9 +37,6 @@ public:
      \brief Closes scene.
     */
 	virtual void close() = 0;
-
-	static const int SCENE_EXIT=0;
-	static const int SCENE_FINISHED=1;
 };
 
 

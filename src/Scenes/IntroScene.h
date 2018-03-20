@@ -5,19 +5,17 @@
  *      Author: hunter
  */
 
-#ifndef MENUSCENE_H_
-#define MENUSCENE_H_
+#ifndef INITSCENE_H_
+#define INITSCENE_H_
 
 #include <SDL2/SDL_ttf.h>
 
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
-#define TEXT_FULL_SCREEN "Press 'f' to toggle full screen"
-#define TEXT_ENTER "Press 'Enter' for to start"
-#define TEXT_ESCAPE "Press 'Escape' for to exit"
+#define TEXT_LOGO "SLAVE STUDIO 1"
 
-class MenuScene : public SceneInterface {
+class IntroScene : public SceneInterface {
 	/*!
 	 * \brief SDL Renderer pointer.
 	 */
@@ -30,22 +28,17 @@ class MenuScene : public SceneInterface {
 	 * \brief Configuration instance pointer.
 	 */
 	MainConfiguration * config;
-
-	TTF_Font* Sans;
-	SDL_Texture* wall;
-	SDL_Texture* mFull;
-	SDL_Texture* mEnter;
-	SDL_Texture* mExit;
-	bool fullscreen;
+	SDL_Texture* logo;
+	SDL_TimerID my_timer_id;
 
 public:
-	MenuScene();
+	IntroScene();
 
 	void init(SDL_Renderer *ren, SDL_Window * window);
 	int write();
 	void close();
 
-	virtual ~MenuScene();
+	virtual ~IntroScene();
 };
 
-#endif /* MENUSCENE_H_ */
+#endif /* INITSCENE_H_ */

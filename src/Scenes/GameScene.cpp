@@ -52,18 +52,18 @@ void GameScene::reset()
 
     letters.push_back(Letter(renderer, Sans, 'a'));
     letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+
+    uint32_t param;
+    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
 }
 
 void GameScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	config = &MainConfiguration::getConfig();
 	renderer = ren;
 
-    wall = IMG_LoadTexture(renderer, SKY_WALLPAPER);
+    wall = IMG_LoadTexture(renderer, IMAGE_SKY);
 
-    Sans = TTF_OpenFont(FONT_NAME, 24);
-
-    uint32_t param;
-    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+    Sans = TTF_OpenFont(FONT_NAME, 50);
 }
 
 bool GameScene::move_letters()  {
@@ -109,6 +109,10 @@ bool GameScene::check_if_killed(char key)   {
 }
 
 int GameScene::write()   {
+	int status = SCENE_EXIT;
+
+	reset();
+
 	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
 
 	while (1) {
@@ -130,7 +134,8 @@ int GameScene::write()   {
 			{
 				if (this->move_letters() )
 				{
-					return SceneInterface::SCENE_FINISHED;
+					status = SceneInterface::SCENE_FINISHED;
+					break;
 				}
 			}
 		}
@@ -144,10 +149,12 @@ int GameScene::write()   {
 		SDL_RenderPresent(renderer);
 	}
 
-	return 0;
+	return status;
 }
 
 void GameScene::close()  {
+	SDL_RemoveTimer(my_timer_id);
+
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
 	SDL_DestroyTexture(wall);

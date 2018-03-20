@@ -16,23 +16,35 @@
 #include "../MainConfiguration.h"
 
 class GameScene : public SceneInterface {
+	/*!
+	 * \brief SDL Renderer pointer.
+	 */
     SDL_Renderer *renderer = NULL;
+    /*!
+	 * \brief Configuration instance pointer.
+	 */
     MainConfiguration * config;
+
     TTF_Font* Sans = NULL;
     SDL_Texture *wall = NULL;
-
+    SDL_TimerID my_timer_id;
     std::vector<Letter> letters;
 
-    SDL_TimerID my_timer_id;
+    /*!
+     * \brief defines how fast the letter counter is updated.
+     */
     unsigned int timer_delay;
-
+    /*!
+     * \brief defines how the consecutive letter speed up.
+     */
     unsigned int speed_factor;
-
+    /*!
+     * \brief Resets to a default state.
+     */
+	void reset();
 public:
 
 	GameScene();
-
-	void reset();
 	/**
 	 * @brief Performs initialization
 	 */

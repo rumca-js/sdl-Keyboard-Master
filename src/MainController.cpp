@@ -18,17 +18,17 @@ MainController::MainController() {
     // Initialize time with seed
     srand (time(NULL));
 
-    MainConfiguration config = MainConfiguration::getConfig();
+    config = &MainConfiguration::getConfig();
 
     //config.setWidth(WIDTH);
     //config.setHeight(HEIGHT);
 
     window = SDL_CreateWindow(
-        "An SDL2 window",
+        "Keyboard master",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        config.getWidth(),
-        config.getHeight(),
+        config->getWidth(),
+        config->getHeight(),
         SDL_WINDOW_OPENGL
     );
 
@@ -43,10 +43,30 @@ MainController::MainController() {
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+    setFullScreen();
+
 	iscene.init(renderer, window);
+	mscene.init(renderer, window);
 	gscene.init(renderer, window);
 
-	state = STATE_MENU;
+	state = STATE_INTRO;
+}
+
+void MainController::setFullScreen()
+{
+	SDL_DisplayMode DM, windowMode;
+	SDL_GetCurrentDisplayMode(0, &DM);
+
+	SDL_GetWindowDisplayMode(window, &windowMode);
+
+	windowMode.h = DM.h;
+	windowMode.w = DM.w;
+
+	config->setWindowSize(DM.w, DM.h);
+
+	SDL_SetWindowDisplayMode(window, &windowMode);
+
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 }
 
 int MainController::run() {
@@ -54,8 +74,17 @@ int MainController::run() {
 	int status;
 
 	while(true) {
-		if (state == STATE_MENU) {
+		if (state == STATE_INTRO) {
 			status = iscene.write();
+			if (status == MenuScene::SCENE_EXIT) {
+				return 0;
+			}
+			if (status == MenuScene::SCENE_FINISHED)  {
+				state = STATE_MENU;
+			}
+		}
+		if (state == STATE_MENU) {
+			status = mscene.write();
 			if (status == MenuScene::SCENE_EXIT) {
 				return 0;
 			}
@@ -64,10 +93,9 @@ int MainController::run() {
 			}
 		}
 		if (state == STATE_GAME)  {
-			gscene.reset();
 			status = gscene.write();
 			if (status == GameScene::SCENE_EXIT)  {
-				return 0;
+				state = STATE_MENU;
 			}
 			if (status == GameScene::SCENE_FINISHED)  {
 				state = STATE_MENU;
@@ -80,6 +108,7 @@ int MainController::run() {
 
 MainController::~MainController() {
 	iscene.close();
+	mscene.close();
 	gscene.close();
 	SDL_DestroyRenderer(renderer);
 

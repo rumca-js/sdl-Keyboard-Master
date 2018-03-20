@@ -35,7 +35,7 @@ void MenuScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 
     Sans = TTF_OpenFont(FONT_NAME, 24);
 
-    wall = IMG_LoadTexture(renderer, SKY_WALLPAPER);
+    wall = IMG_LoadTexture(renderer, IMAGE_SKY);
 
 	SDL_Color White = {0, 0, 255};
 
@@ -49,8 +49,7 @@ void MenuScene::init(SDL_Renderer *ren, SDL_Window * window)  {
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
 int MenuScene::write()   {
-	int status = 0;
-
+	int status = SCENE_EXIT;
 
 	while (1) {
 
@@ -87,7 +86,6 @@ int MenuScene::write()   {
 					config->setWindowSize(DM.w, DM.h);
 
 					SDL_SetWindowDisplayMode(win, &windowMode);
-
 
 					SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
 				}

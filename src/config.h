@@ -18,7 +18,8 @@
 #define LETTER_HEIGHT 100
 #define LETTER_WIDTH 100
 
-#define SKY_WALLPAPER "./data/wallpapers/sky.jpg"
+#define IMAGE_SKY "./data/wallpapers/sky.jpg"
+#define IMAGE_SLAVE "./data/wallpapers/slave.jpg"
 #define FONT_NAME  "./data/fonts/freefont/FreeSans.ttf"
 
 #endif /* CONFIG_H_ */
