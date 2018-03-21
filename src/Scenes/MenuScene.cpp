@@ -11,11 +11,11 @@
 
 
 
-MenuScene::MenuScene() {
+MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	fullscreen = false;
 
-	renderer = NULL;
-	win 	 = NULL;
+	win = window;
+	renderer = ren;
 
 	mExit 	= NULL;
 	mFull   = NULL;
@@ -26,9 +26,8 @@ MenuScene::MenuScene() {
 	config = NULL;
 }
 
-void MenuScene::init(SDL_Renderer *ren, SDL_Window * window)  {
-	win = window;
-	renderer = ren;
+void MenuScene::init()  {
+
 	fullscreen = false;
 
 	config = &MainConfiguration::getConfig();

@@ -36,7 +36,9 @@ unsigned rand_min_max(unsigned min, unsigned max)  {
 }
 
 
-GameScene::GameScene() {
+GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
+	renderer = ren;
+
 	config = NULL;
 	my_timer_id = -1;
 
@@ -57,9 +59,8 @@ void GameScene::reset()
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
 }
 
-void GameScene::init(SDL_Renderer *ren, SDL_Window * window)  {
+void GameScene::init()  {
 	config = &MainConfiguration::getConfig();
-	renderer = ren;
 
     wall = IMG_LoadTexture(renderer, IMAGE_SKY);
 

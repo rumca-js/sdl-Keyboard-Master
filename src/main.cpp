@@ -4,5 +4,5 @@
 int main(int argc, char* argv[]) {
 	MainController main;
 
-	return main.run();
+	main.run();
 }

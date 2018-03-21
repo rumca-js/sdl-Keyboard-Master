@@ -39,9 +39,9 @@ class MenuScene : public SceneInterface {
 	bool fullscreen;
 
 public:
-	MenuScene();
+	MenuScene(SDL_Renderer *ren, SDL_Window * window);
 
-	void init(SDL_Renderer *ren, SDL_Window * window);
+	void init();
 	int write();
 	void close();
 

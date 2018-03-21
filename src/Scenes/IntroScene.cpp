@@ -35,10 +35,10 @@ Uint32 my_callbackfunc1(Uint32 interval, void *param)   {
     return(interval);
 }
 
-IntroScene::IntroScene() {
+IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 
-	renderer = NULL;
-	win 	 = NULL;
+	win = window;
+	renderer = ren;
 
 	logo    = NULL;
 
@@ -47,9 +47,8 @@ IntroScene::IntroScene() {
 	config = &MainConfiguration::getConfig();
 }
 
-void IntroScene::init(SDL_Renderer *ren, SDL_Window * window)  {
-	win = window;
-	renderer = ren;
+void IntroScene::init()  {
+
 
     logo = IMG_LoadTexture(renderer, IMAGE_SLAVE);
 }

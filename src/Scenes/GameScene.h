@@ -44,11 +44,11 @@ class GameScene : public SceneInterface {
 	void reset();
 public:
 
-	GameScene();
+	GameScene(SDL_Renderer *ren, SDL_Window * window);
 	/**
 	 * @brief Performs initialization
 	 */
-	void init(SDL_Renderer *ren, SDL_Window * window);
+	void init();
 	/**
 	 * @brief Writes scene on the window
 	 */

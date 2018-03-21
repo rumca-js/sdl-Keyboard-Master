@@ -5,6 +5,8 @@
  *      Author: hunter
  */
 
+#include <SDL2/SDL_ttf.h>
+
 #include "MainController.h"
 #include "MainConfiguration.h"
 
@@ -37,7 +39,7 @@ MainController::MainController() {
         return;
     }
 
-    if (TTF_Init() != 0)     {
+    if (TTF_Init() != 0)  {
     	printf("Could not initialize TTF");
     }
 
@@ -45,11 +47,7 @@ MainController::MainController() {
 
     setFullScreen();
 
-	iscene.init(renderer, window);
-	mscene.init(renderer, window);
-	gscene.init(renderer, window);
-
-	state = STATE_INTRO;
+    machine.load(renderer, window);
 }
 
 void MainController::setFullScreen()
@@ -69,47 +67,13 @@ void MainController::setFullScreen()
 	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 }
 
-int MainController::run() {
-
-	int status;
-
-	while(true) {
-		if (state == STATE_INTRO) {
-			status = iscene.write();
-			if (status == MenuScene::SCENE_EXIT) {
-				return 0;
-			}
-			if (status == MenuScene::SCENE_FINISHED)  {
-				state = STATE_MENU;
-			}
-		}
-		if (state == STATE_MENU) {
-			status = mscene.write();
-			if (status == MenuScene::SCENE_EXIT) {
-				return 0;
-			}
-			if (status == MenuScene::SCENE_FINISHED)  {
-				state = STATE_GAME;
-			}
-		}
-		if (state == STATE_GAME)  {
-			status = gscene.write();
-			if (status == GameScene::SCENE_EXIT)  {
-				state = STATE_MENU;
-			}
-			if (status == GameScene::SCENE_FINISHED)  {
-				state = STATE_MENU;
-			}
-		}
-	}
-
-	return 0;
+void MainController::run() {
+	machine.write();
 }
 
 MainController::~MainController() {
-	iscene.close();
-	mscene.close();
-	gscene.close();
+	machine.close();
+
 	SDL_DestroyRenderer(renderer);
 
     SDL_DestroyWindow(window);
