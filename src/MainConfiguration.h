@@ -11,7 +11,13 @@
 #define MAINCONFIGURATION_H_
 
 class MainConfiguration {
+	/*!
+	 * \brief width.
+	 */
 	unsigned int _w;
+	/*!
+	 * \brief height.
+	 */
 	unsigned int _h;
 	MainConfiguration();
 

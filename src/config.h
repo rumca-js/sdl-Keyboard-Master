@@ -8,6 +8,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+/* Configuration */
 
 // Window height
 #define WIDTH 800
@@ -18,10 +19,18 @@
 #define LETTER_HEIGHT 100
 #define LETTER_WIDTH 100
 
+/* Files */
+
+// Images are below
+
 #define IMAGE_SKY "./data/wallpapers/sky.jpg"
 #define IMAGE_SLAVE "./data/wallpapers/slave.jpg"
 
+// Fonts are below
+
 #define FONT_NAME  "./data/fonts/freefont/FreeSans.ttf"
+
+// Audio files are below
 
 #define SOUND_A "./data/audio/68437__pinkyfinger__piano-a.wav"
 #define SOUND_B "./data/audio/68438__pinkyfinger__piano-b.wav"

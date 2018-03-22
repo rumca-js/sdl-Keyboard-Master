@@ -11,22 +11,54 @@
 #include <SDL2/SDL_ttf.h>
 
 class Letter {
-	SDL_Texture* Message = NULL;
+	/*!
+	 * \brief SDL renderer
+	 */
 	SDL_Renderer *renderer = NULL;
+	/*!
+	 * \brief SDL texture for letter.
+	 */
+	SDL_Texture* Message = NULL;
+	/*!
+	 * \brief Position of the letter.
+	 */
 	unsigned x,y;
+	/*!
+	 * \brief The actual letter that will be displayed.
+	 */
 	char letter;
 
 public:
+	/*!
+	 * \brief The constructor just copy the pointers.
+	 */
 	Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter);
-	void move();
+	/*!
+	 * \brief Displays the letter using renderer.
+	 */
 	void display();
+	/*!
+	 * \brief Returns X position.
+	 */
 	unsigned getX();
+	/*!
+	 * \brief Returns Y position.
+	 */
 	unsigned getY();
+	/*!
+	 * \brief Sets X position.
+	 */
+	void setX(unsigned);
+	/*!
+	 * \brief Sets Y position.
+	 */
+	void setY(unsigned);
+	/*!
+	 * \brief Returns true if this char is equal to <key>.
+	 */
 	bool is(char key);
 	virtual ~Letter();
 
-	void setX(unsigned);
-	void setY(unsigned);
 };
 
 #endif /* LETTER_H_ */

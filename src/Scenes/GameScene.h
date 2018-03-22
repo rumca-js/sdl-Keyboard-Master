@@ -28,12 +28,22 @@ class GameScene : public SceneInterface {
 	 * \brief Configuration instance pointer.
 	 */
     MainConfiguration * config;
-
+    /*!
+     * \brief Font for game.
+     */
     TTF_Font* Sans = NULL;
+    /*!
+     * \brief The background texture.
+     */
     SDL_Texture *wall = NULL;
+    /*!
+     * \brief The letter fall timer.
+     */
     SDL_TimerID my_timer_id;
+    /*!
+     * The letters placeholder.
+     */
     std::vector<Letter> letters;
-
     /*!
      * \brief defines how fast the letter counter is updated.
      */
@@ -42,10 +52,14 @@ class GameScene : public SceneInterface {
      * \brief defines how the consecutive letter speed up.
      */
     unsigned int speed_factor;
-
+    /*!
+     * \brief Piano notes A-G.
+     */
 	Mix_Chunk* notes[7];
+	/*!
+	 * \brief Sound for the end of the game.
+	 */
 	Mix_Chunk* note_eog;
-
     /*!
      * \brief Resets to a default state.
      */

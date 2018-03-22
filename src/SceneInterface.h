@@ -37,7 +37,9 @@ public:
      \brief Closes scene.
     */
 	virtual void close() = 0;
-
+	/*!
+	 * \brief Provied destructor. Otherwise compiler would complain.
+	 */
 	virtual ~SceneInterface() {}
 };
 

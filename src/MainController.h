@@ -17,11 +17,21 @@
 #include "SceneMachine.h"
 
 class MainController {
-	SDL_Window *window;
-	SceneMachine machine;
-
+	/*!
+	 * \brief SDL window.
+	 */
+	SDL_Window *window = NULL;
+	/*!
+	 * \brief SDL renderer.
+	 */
 	SDL_Renderer *renderer = NULL;
-	int state;
+	/*!
+	 * \brief Scene state machine.
+	 */
+	SceneMachine machine;
+	/*!
+	 * \brief Global configuration (for window sizes).
+	 */
 	MainConfiguration * config;
 
 public:
