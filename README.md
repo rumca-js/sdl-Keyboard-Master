@@ -16,6 +16,9 @@ Uses the following SDL2 libraries:
 
 Developped using eclipse.
 
+# Screenshot
+[![Screenshot](https://github.com/rumca-js/Keyboard-Master/raw/master/data/wallpapers/screenshot1.png)]
+
 # License
 GPLv3
 
