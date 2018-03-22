@@ -12,6 +12,7 @@ Uses the following SDL2 libraries:
  - SDL2
  - SDL2_image
  - SDL2_ttf
+ - SDL2_mixer
 
 Developped using eclipse.
 

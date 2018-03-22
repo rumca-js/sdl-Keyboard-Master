@@ -10,10 +10,14 @@
 
 
 #include <vector>
+#include <SDL2/SDL_mixer.h>
+
 #include "../Letter.h"
 
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
+
+
 
 class GameScene : public SceneInterface {
 	/*!
@@ -38,6 +42,10 @@ class GameScene : public SceneInterface {
      * \brief defines how the consecutive letter speed up.
      */
     unsigned int speed_factor;
+
+	Mix_Chunk* notes[7];
+	Mix_Chunk* note_eog;
+
     /*!
      * \brief Resets to a default state.
      */

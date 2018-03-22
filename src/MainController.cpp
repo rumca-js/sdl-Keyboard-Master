@@ -6,6 +6,7 @@
  */
 
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "MainController.h"
 #include "MainConfiguration.h"
@@ -15,7 +16,7 @@
 
 
 MainController::MainController() {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_EVERYTHING);
 
     // Initialize time with seed
     srand (time(NULL));
@@ -41,6 +42,12 @@ MainController::MainController() {
 
     if (TTF_Init() != 0)  {
     	printf("Could not initialize TTF");
+    }
+
+    //Initialize SDL_mixer
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
+    	printf("Could not open audio");
+    	return;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -73,6 +80,7 @@ void MainController::run() {
 
 MainController::~MainController() {
 	machine.close();
+	Mix_CloseAudio();
 
 	SDL_DestroyRenderer(renderer);
 
