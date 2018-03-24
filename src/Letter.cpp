@@ -19,7 +19,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     if (Sans != NULL)
     {
    	    SDL_Color White = {255, 0, 0};
-  	    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], White);
+  	    surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], White);
   	    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     }
     else
@@ -55,7 +55,8 @@ void Letter::display()   {
 }
 
 Letter::~Letter() {
-	//SDL_DestroyTexture(Message);
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
 }
 
 void Letter::setX(unsigned _x)   {

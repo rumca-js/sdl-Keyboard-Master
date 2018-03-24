@@ -56,7 +56,7 @@ class GameScene : public SceneInterface {
     /*!
      * The letters placeholder.
      */
-    std::vector<Letter> letters;
+    std::vector<Letter*> letters;
     /*!
      * \brief defines how fast the letter counter is updated.
      */

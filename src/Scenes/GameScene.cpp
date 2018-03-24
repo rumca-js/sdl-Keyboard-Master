@@ -57,8 +57,8 @@ void GameScene::reset()
 
 	letters.clear();
 
-    letters.push_back(Letter(renderer, Sans, 'a'));
-    letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+    letters.push_back(new Letter(renderer, Sans, 'a'));
+    letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
@@ -87,12 +87,12 @@ void GameScene::init()  {
 bool GameScene::move_letters()  {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
-		letters[i].setY(letters[i].getY() + speed_factor);
+		letters[i]->setY(letters[i]->getY() + speed_factor);
 
 		/*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
 			return true;
 			*/
-		if (letters[i].getY() > config->getHeight())  {
+		if (letters[i]->getY() > config->getHeight())  {
 
 			if( Mix_PlayChannel( -1, note_eog, 0 ) == -1 )   {
 				printf("Could not play a note");
@@ -107,7 +107,7 @@ bool GameScene::move_letters()  {
 
 void GameScene::display_letters()  {
 	for(unsigned int i=0; i<letters.size();i++)   {
-		letters[i].display();
+		letters[i]->display();
 	}
 }
 
@@ -117,12 +117,13 @@ void GameScene::new_letter()
 		printf("Could not play a note");
 	}
 
+	delete letters[letters.size()-1];
 	letters.pop_back();
 
 	char letter = rand_min_max(97, 122);
 
-	letters.push_back(Letter(renderer, Sans, letter));
-	letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+	letters.push_back(new Letter(renderer, Sans, letter));
+	letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
 
 	config->setHighScore(config->getHighScore()+1);
 
@@ -134,7 +135,7 @@ bool GameScene::check_if_killed(char key)   {
 
 	for(unsigned int i=0; i<letters.size(); i++)
 	{
-		if (letters[i].is(key))
+		if (letters[i]->is(key))
 		{
 			killed = true;
 			new_letter();

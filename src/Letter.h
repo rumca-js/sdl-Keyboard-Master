@@ -19,6 +19,7 @@ class Letter {
 	 * \brief SDL texture for letter.
 	 */
 	SDL_Texture* Message = NULL;
+	SDL_Surface* surfaceMessage;
 	/*!
 	 * \brief Position of the letter.
 	 */
