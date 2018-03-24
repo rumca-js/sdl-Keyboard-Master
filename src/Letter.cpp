@@ -9,12 +9,16 @@
 #include "Letter.h"
 
 Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
-	renderer = ren;
 	char text[4];
+
+	renderer = ren;
 
 	text[0] = _letter;
 	text[1] = '\0';
+
 	letter= _letter;
+	_w = LETTER_WIDTH;
+	_h = LETTER_HEIGHT;
 
     if (Sans != NULL)
     {
@@ -49,8 +53,8 @@ void Letter::display()   {
         SDL_Rect Message_rect;
         Message_rect.x = x;
         Message_rect.y = y;
-        Message_rect.w = LETTER_WIDTH;
-        Message_rect.h = LETTER_HEIGHT;
+        Message_rect.w = _w;
+        Message_rect.h = _h;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
 }
 
@@ -66,4 +70,11 @@ void Letter::setX(unsigned _x)   {
 void Letter::setY(unsigned _y)   {
 	y = _y;
 }
-
+void Letter::setWidth(unsigned int width)
+{
+	_w = width;
+}
+void Letter::setHeight(unsigned int height)
+{
+	_h = height;
+}

@@ -38,7 +38,7 @@ void MenuScene::init()  {
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
-    wall = IMG_LoadTexture(renderer, IMAGE_SKY);
+    wall = IMG_LoadTexture(renderer, IMAGE_MENU);
 
 	SDL_Color White = {0, 0, 255};
 

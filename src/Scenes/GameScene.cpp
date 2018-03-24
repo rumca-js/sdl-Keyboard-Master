@@ -59,6 +59,8 @@ void GameScene::reset()
 
     letters.push_back(new Letter(renderer, Sans, 'a'));
     letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
+    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
@@ -124,6 +126,8 @@ void GameScene::new_letter()
 
 	letters.push_back(new Letter(renderer, Sans, letter));
 	letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
+    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
 
 	config->setHighScore(config->getHighScore()+1);
 

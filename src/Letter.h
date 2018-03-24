@@ -24,6 +24,7 @@ class Letter {
 	 * \brief Position of the letter.
 	 */
 	unsigned x,y;
+	unsigned _w, _h;
 	/*!
 	 * \brief The actual letter that will be displayed.
 	 */
@@ -46,6 +47,14 @@ public:
 	 * \brief Returns Y position.
 	 */
 	unsigned getY();
+	/*!
+	 * \brief Sets width.
+	 */
+	void setWidth(unsigned int);
+	/*!
+	 * \brief Sets height.
+	 */
+	void setHeight(unsigned int);
 	/*!
 	 * \brief Sets X position.
 	 */
