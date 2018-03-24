@@ -23,6 +23,10 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	wall 	= NULL;
 	Sans 	= NULL;
 
+	surf1 = NULL;
+	surf2 = NULL;
+	surf3 = NULL;
+
 	config = NULL;
 }
 
@@ -32,19 +36,19 @@ void MenuScene::init()  {
 
 	config = &MainConfiguration::getConfig();
 
-    Sans = TTF_OpenFont(FONT_NAME, 24);
+    Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
     wall = IMG_LoadTexture(renderer, IMAGE_SKY);
 
 	SDL_Color White = {0, 0, 255};
 
-	SDL_Surface* surf1 = TTF_RenderText_Solid(Sans, TEXT_FULL_SCREEN , White);
+	surf1 = TTF_RenderText_Solid(Sans, TEXT_FULL_SCREEN , White);
 	mFull = SDL_CreateTextureFromSurface(renderer, surf1);
 
-	SDL_Surface* surf2 = TTF_RenderText_Solid(Sans, TEXT_ENTER , White);
+	surf2 = TTF_RenderText_Solid(Sans, TEXT_ENTER , White);
 	mEnter = SDL_CreateTextureFromSurface(renderer, surf2);
 
-	SDL_Surface* surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
+	surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
 int MenuScene::write()   {
@@ -123,6 +127,9 @@ int MenuScene::write()   {
 void MenuScene::close()  {
 	SDL_DestroyTexture(wall);
 	TTF_CloseFont(Sans);
+	SDL_FreeSurface(surf1);
+	SDL_FreeSurface(surf2);
+	SDL_FreeSurface(surf3);
 }
 
 MenuScene::~MenuScene() {

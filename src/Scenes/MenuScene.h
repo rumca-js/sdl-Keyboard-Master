@@ -36,6 +36,11 @@ class MenuScene : public SceneInterface {
 	SDL_Texture* mFull;
 	SDL_Texture* mEnter;
 	SDL_Texture* mExit;
+
+	SDL_Surface* surf1;
+	SDL_Surface* surf2;
+	SDL_Surface* surf3;
+
 	bool fullscreen;
 
 public:

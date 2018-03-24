@@ -11,6 +11,8 @@
 MainConfiguration::MainConfiguration() {
 	_w = WIDTH;
 	_h = HEIGHT;
+
+	_high_score = 0;
 }
 
 MainConfiguration & MainConfiguration::getConfig()   {
@@ -28,7 +30,14 @@ unsigned int MainConfiguration::getWidth()   {
 unsigned int MainConfiguration::getHeight()   {
 	return _h;
 }
-
+unsigned int MainConfiguration::getXpercent(double x)
+{
+	return x*(double)getWidth();
+}
+unsigned int MainConfiguration::getYpercent(double y)
+{
+	return y*(double)getHeight();
+}
 void MainConfiguration::setWidth(unsigned int width)    {
 	_w = width;
 }
@@ -38,4 +47,12 @@ void MainConfiguration::setHeight(unsigned int height)    {
 void MainConfiguration::setWindowSize(unsigned int width, unsigned int height)  {
 	_w = width;
 	_h = height;
+}
+void MainConfiguration::setHighScore(unsigned int high_score)
+{
+	_high_score = high_score;
+}
+unsigned int MainConfiguration::getHighScore()
+{
+	return _high_score;
 }

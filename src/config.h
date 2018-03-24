@@ -28,6 +28,7 @@
 
 // Fonts are below
 
+#define FONT_SIZE 50
 #define FONT_NAME  "./data/fonts/freefont/FreeSans.ttf"
 
 // Audio files are below

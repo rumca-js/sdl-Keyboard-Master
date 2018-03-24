@@ -55,7 +55,7 @@ void Letter::display()   {
 }
 
 Letter::~Letter() {
-	// TODO Auto-generated destructor stub
+	//SDL_DestroyTexture(Message);
 }
 
 void Letter::setX(unsigned _x)   {

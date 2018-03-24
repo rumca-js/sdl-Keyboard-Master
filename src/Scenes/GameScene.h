@@ -10,6 +10,7 @@
 
 
 #include <vector>
+#include <string>
 #include <SDL2/SDL_mixer.h>
 
 #include "../Letter.h"
@@ -36,6 +37,18 @@ class GameScene : public SceneInterface {
      * \brief The background texture.
      */
     SDL_Texture *wall = NULL;
+    /*!
+     * \brief The high score counter texture.
+     */
+    SDL_Texture * counter_text = NULL;
+    /*!
+     * \brief Counter surface.
+     */
+    SDL_Surface* counter_surface;
+    /*!
+     * \brief Counter text (digits).
+     */
+    std::string counter_string;
     /*!
      * \brief The letter fall timer.
      */
@@ -64,6 +77,10 @@ class GameScene : public SceneInterface {
      * \brief Resets to a default state.
      */
 	void reset();
+	/*!
+	 * \brief Updates high score counter.
+	 */
+	void updateCounter();
 public:
 
 	GameScene(SDL_Renderer *ren, SDL_Window * window);
@@ -87,6 +104,10 @@ public:
 	 * @brief Checks if letter should be destroyed.
 	 */
 	bool check_if_killed(char key);
+	/*!
+	 * \brief Disposes previous letter and creates new letter.
+	 */
+	void new_letter();
 	/**
 	 * @brief Closes the scene, disposes elements.
 	 */

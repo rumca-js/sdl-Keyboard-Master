@@ -5,8 +5,6 @@
  *      Author: hunter
  */
 
-
-
 #include "../config.h"
 
 #include "GameScene.h"
@@ -41,10 +39,15 @@ unsigned rand_min_max(unsigned min, unsigned max)  {
 GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	renderer = ren;
 
-	config = NULL;
-	my_timer_id = -1;
+	// Initializers
+	note_eog = NULL;
+	counter_text  = NULL;
+	counter_surface = NULL;
+	config   = NULL;
 
-	timer_delay = 50;
+	//configuration
+	my_timer_id  = -1;
+	timer_delay  = 50;
 	speed_factor = 1;
 }
 
@@ -59,6 +62,8 @@ void GameScene::reset()
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+
+    config->setHighScore(0);
 }
 
 void GameScene::init()  {
@@ -66,7 +71,7 @@ void GameScene::init()  {
 
     wall = IMG_LoadTexture(renderer, IMAGE_SKY);
 
-    Sans = TTF_OpenFont(FONT_NAME, 50);
+    Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
     notes[0] = Mix_LoadWAV( SOUND_A );
     notes[1] = Mix_LoadWAV( SOUND_B );
@@ -106,6 +111,24 @@ void GameScene::display_letters()  {
 	}
 }
 
+void GameScene::new_letter()
+{
+	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 )   {
+		printf("Could not play a note");
+	}
+
+	letters.pop_back();
+
+	char letter = rand_min_max(97, 122);
+
+	letters.push_back(Letter(renderer, Sans, letter));
+	letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+
+	config->setHighScore(config->getHighScore()+1);
+
+	updateCounter();
+}
+
 bool GameScene::check_if_killed(char key)   {
 	bool killed = false;
 
@@ -113,19 +136,14 @@ bool GameScene::check_if_killed(char key)   {
 	{
 		if (letters[i].is(key))
 		{
-			if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 )   {
-				printf("Could not play a note");
-			}
-
-			letters.pop_back();
-
-			char letter = rand_min_max(97, 122);
-
-			letters.push_back(Letter(renderer, Sans, letter));
-			letters[0].setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
-
 			killed = true;
+			new_letter();
 		}
+	}
+
+	if (killed)
+	{
+		speed_factor++;
 	}
 
 	return killed;
@@ -148,10 +166,7 @@ int GameScene::write()   {
 				break;
 			else if (e.type == SDL_KEYDOWN)
 			{
-				if (check_if_killed((char)e.key.keysym.sym) )
-				{
-					speed_factor++;
-				}
+				check_if_killed((char)e.key.keysym.sym);
 			}
 			else if (e.type == SDL_USEREVENT)
 			{
@@ -168,6 +183,16 @@ int GameScene::write()   {
 		SDL_RenderCopy(renderer, wall, NULL, &texr);
 
 		this->display_letters();
+
+		if (counter_text)
+		{
+			SDL_Rect Message_rect;
+			Message_rect.x = config->getXpercent(0.9);
+			Message_rect.y = config->getYpercent(0.05);
+			Message_rect.w = LETTER_WIDTH;
+			Message_rect.h = LETTER_HEIGHT;
+			SDL_RenderCopy(renderer, counter_text, NULL, &Message_rect);
+		}
 
 		SDL_RenderPresent(renderer);
 	}
@@ -192,6 +217,21 @@ void GameScene::close()  {
 	SDL_RemoveTimer( my_timer_id );
 	SDL_DestroyTexture(wall);
 }
+
+void GameScene::updateCounter()
+{
+	SDL_Color White = {0, 255, 0};
+	counter_string = std::to_string(config->getHighScore() );
+
+	if (counter_text != NULL)
+	{
+		SDL_DestroyTexture(counter_text);
+	}
+
+	counter_surface = TTF_RenderText_Solid(Sans, counter_string.c_str(), White);
+	counter_text = SDL_CreateTextureFromSurface(renderer, counter_surface);
+}
+
 GameScene::~GameScene() {
 	// TODO Auto-generated destructor stub
 }
