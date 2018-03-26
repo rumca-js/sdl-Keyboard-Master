@@ -11,7 +11,7 @@
 #include "stdio.h"
 
 
-Uint32 my_callbackfunc(Uint32 interval, void *param)   {
+Uint32 my_callbackfunc(Uint32 interval, void *param) {
     SDL_Event event;
     SDL_UserEvent userevent;
 
@@ -31,7 +31,7 @@ Uint32 my_callbackfunc(Uint32 interval, void *param)   {
     return(interval);
 }
 
-unsigned rand_min_max(unsigned min, unsigned max)  {
+unsigned rand_min_max(unsigned min, unsigned max) {
 	return min + (rand() % static_cast<int>(max - min + 1));
 }
 
@@ -51,8 +51,7 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	speed_factor = 1;
 }
 
-void GameScene::reset()
-{
+void GameScene::reset() {
 	speed_factor = 1;
 
 	letters.clear();
@@ -68,7 +67,7 @@ void GameScene::reset()
     config->setHighScore(0);
 }
 
-void GameScene::init()  {
+void GameScene::init() {
 	config = &MainConfiguration::getConfig();
 
     wall = IMG_LoadTexture(renderer, IMAGE_SKY);
@@ -86,7 +85,7 @@ void GameScene::init()  {
     note_eog = Mix_LoadWAV( SOUND_END_OF_GAME );
 }
 
-bool GameScene::move_letters()  {
+bool GameScene::move_letters() {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
 		letters[i]->setY(letters[i]->getY() + speed_factor);
@@ -107,15 +106,15 @@ bool GameScene::move_letters()  {
 	return false;
 }
 
-void GameScene::display_letters()  {
-	for(unsigned int i=0; i<letters.size();i++)   {
+void GameScene::display_letters() {
+	for(unsigned int i=0; i<letters.size();i++) {
 		letters[i]->display();
 	}
 }
 
 void GameScene::new_letter()
 {
-	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 )   {
+	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 ) {
 		printf("Could not play a note");
 	}
 
@@ -134,27 +133,24 @@ void GameScene::new_letter()
 	updateCounter();
 }
 
-bool GameScene::check_if_killed(char key)   {
+bool GameScene::check_if_killed(char key) {
 	bool killed = false;
 
-	for(unsigned int i=0; i<letters.size(); i++)
-	{
-		if (letters[i]->is(key))
-		{
+	for(unsigned int i=0; i<letters.size(); i++) {
+		if (letters[i]->is(key)) {
 			killed = true;
 			new_letter();
 		}
 	}
 
-	if (killed)
-	{
+	if (killed) {
 		speed_factor++;
 	}
 
 	return killed;
 }
 
-int GameScene::write()   {
+int GameScene::write() {
 	int status = SCENE_EXIT;
 
 	reset();
@@ -169,14 +165,11 @@ int GameScene::write()   {
 				break;
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
 				break;
-			else if (e.type == SDL_KEYDOWN)
-			{
+			else if (e.type == SDL_KEYDOWN) {
 				check_if_killed((char)e.key.keysym.sym);
 			}
-			else if (e.type == SDL_USEREVENT)
-			{
-				if (this->move_letters() )
-				{
+			else if (e.type == SDL_USEREVENT) {
+				if (this->move_letters() ) {
 					status = SceneInterface::SCENE_FINISHED;
 					break;
 				}
@@ -189,8 +182,7 @@ int GameScene::write()   {
 
 		this->display_letters();
 
-		if (counter_text)
-		{
+		if (counter_text) {
 			SDL_Rect Message_rect;
 			Message_rect.x = config->getXpercent(0.9);
 			Message_rect.y = config->getYpercent(0.05);
@@ -205,7 +197,7 @@ int GameScene::write()   {
 	return status;
 }
 
-void GameScene::close()  {
+void GameScene::close() {
 	SDL_RemoveTimer(my_timer_id);
 
 	Mix_FreeChunk( notes[0]);
@@ -223,13 +215,11 @@ void GameScene::close()  {
 	SDL_DestroyTexture(wall);
 }
 
-void GameScene::updateCounter()
-{
+void GameScene::updateCounter() {
 	SDL_Color White = {0, 255, 0};
 	counter_string = std::to_string(config->getHighScore() );
 
-	if (counter_text != NULL)
-	{
+	if (counter_text != NULL) {
 		SDL_DestroyTexture(counter_text);
 	}
 

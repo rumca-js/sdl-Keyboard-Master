@@ -19,7 +19,7 @@ SceneMachine::SceneMachine() {
 	current = SCENE_STM_START;
 }
 
-void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when)  {
+void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when) {
 	TransitionInfo val;
 	val.from = from;
 	val.to = to;
@@ -30,19 +30,19 @@ void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when)  
 SceneMachine::~SceneMachine() {
 }
 
-void SceneMachine::write()  {
+void SceneMachine::write() {
 
-    while(true)   {
+    while(true) {
 
 		SceneInterface * scene = scenes[current];
 		int status = scene->write();
 
-		for(unsigned int i=0; i<transitions.size(); i++)  {
-			if ( (int)transitions[i].from == current && transitions[i].when == status)  {
-				if ( (int)transitions[i].to == SCENE_STM_STOP)  {
+		for(unsigned int i=0; i<transitions.size(); i++) {
+			if ( (int)transitions[i].from == current && transitions[i].when == status) {
+				if ( (int)transitions[i].to == SCENE_STM_STOP) {
 					return;
 				}
-				else  {
+				else {
 					current = transitions[i].to;
 					break;
 				}
@@ -51,8 +51,7 @@ void SceneMachine::write()  {
 	}
 }
 
-bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window)
-{
+bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 	current = SCENE_STM_START;
 
 	scenes.push_back(new IntroScene(renderer, window) );
@@ -70,20 +69,19 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window)
 	join(3, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
 	join(3, SCENE_STM_STOP, SceneInterface::SCENE_FINISHED);
 
-	if (current == SCENE_STM_START)
-	{
+	if (current == SCENE_STM_START) {
 		current = transitions[0].to;
 	}
 
-	for(unsigned int i=0;i<scenes.size();i++)   {
+	for(unsigned int i=0;i<scenes.size();i++) {
 		scenes[i]->init();
 	}
 
 	return true;
 }
 
-void SceneMachine::close()  {
-	for(unsigned int i=0;i<scenes.size();i++)   {
+void SceneMachine::close() {
+	for(unsigned int i=0;i<scenes.size();i++) {
 		scenes[i]->close();
 		delete scenes[i];
 	}

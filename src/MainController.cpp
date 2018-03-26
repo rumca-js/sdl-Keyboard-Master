@@ -57,8 +57,7 @@ MainController::MainController() {
     machine.load(renderer, window);
 }
 
-void MainController::setFullScreen()
-{
+void MainController::setFullScreen() {
 	SDL_DisplayMode DM, windowMode;
 	SDL_GetCurrentDisplayMode(0, &DM);
 

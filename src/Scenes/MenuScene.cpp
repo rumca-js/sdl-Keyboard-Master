@@ -10,7 +10,6 @@
 #include "../config.h"
 
 
-
 MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	fullscreen = false;
 
@@ -30,7 +29,7 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	config = NULL;
 }
 
-void MenuScene::init()  {
+void MenuScene::init() {
 
 	fullscreen = false;
 
@@ -40,44 +39,40 @@ void MenuScene::init()  {
 
     wall = IMG_LoadTexture(renderer, IMAGE_MENU);
 
-	SDL_Color White = {0, 0, 255};
+    SDL_Color color = {0, 0, 255};
 
-	surf1 = TTF_RenderText_Solid(Sans, TEXT_FULL_SCREEN , White);
+	surf1 = TTF_RenderText_Solid(Sans, TEXT_FULL_SCREEN , color);
 	mFull = SDL_CreateTextureFromSurface(renderer, surf1);
 
-	surf2 = TTF_RenderText_Solid(Sans, TEXT_ENTER , White);
+	surf2 = TTF_RenderText_Solid(Sans, TEXT_ENTER , color);
 	mEnter = SDL_CreateTextureFromSurface(renderer, surf2);
 
-	surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , White);
+	surf3 = TTF_RenderText_Solid(Sans, TEXT_ESCAPE , color);
 	mExit = SDL_CreateTextureFromSurface(renderer, surf3);
 }
-int MenuScene::write()   {
+int MenuScene::write() {
 	int status = SCENE_EXIT;
 
 	while (1) {
 
 		SDL_Event e;
 		if ( SDL_PollEvent(&e) ) {
-			if (e.type == SDL_QUIT)
-			{
+			if (e.type == SDL_QUIT) {
 				status = SCENE_EXIT;
 				break;
 			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-			{
+			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
 				status = SCENE_EXIT;
 				break;
 			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN)
-			{
+			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
 				status = SCENE_FINISHED;
 				break;
 			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f)
-			{
+			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f) {
 				fullscreen = !fullscreen;
-				if (fullscreen)
-				{
+
+				if (fullscreen) {
 					SDL_DisplayMode DM, windowMode;
 					SDL_GetCurrentDisplayMode(0, &DM);
 
@@ -92,8 +87,7 @@ int MenuScene::write()   {
 
 					SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
 				}
-				else
-				{
+				else {
 					// TODO do not use WIDTH or HEIGHT definitions directly
 					config->setWindowSize(WIDTH, HEIGHT);
 
@@ -107,12 +101,11 @@ int MenuScene::write()   {
 		unsigned int letter_width = config->getWidth()/50;
 		unsigned int letter_height = config->getHeight()/10;
 
-		SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
-
 		SDL_Rect rFull; rFull.x = config->getWidth()/3; rFull.y = config->getHeight()*1/4; rFull.w = letter_width * strlen(TEXT_FULL_SCREEN); rFull.h = letter_height;
 		SDL_Rect rEnter; rEnter.x = config->getWidth()/3; rEnter.y = config->getHeight()*2/4; rEnter.w = letter_width * strlen(TEXT_ENTER); rEnter.h = letter_height;
 		SDL_Rect rExit; rExit.x = config->getWidth()/3; rExit.y = config->getHeight()*3/4; rExit.w = letter_width * strlen(TEXT_ESCAPE); rExit.h = letter_height;
 
+		SDL_Rect texr = config->getFullScreenSize();
 		SDL_RenderCopy(renderer, wall, NULL, &texr);
 
 		SDL_RenderCopy(renderer, mFull, NULL, &rFull);
@@ -124,7 +117,7 @@ int MenuScene::write()   {
 
 	return status;
 }
-void MenuScene::close()  {
+void MenuScene::close() {
 	SDL_DestroyTexture(wall);
 	TTF_CloseFont(Sans);
 	SDL_FreeSurface(surf1);

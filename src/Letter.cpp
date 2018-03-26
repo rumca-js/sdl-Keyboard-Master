@@ -20,14 +20,12 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
 	_w = LETTER_WIDTH;
 	_h = LETTER_HEIGHT;
 
-    if (Sans != NULL)
-    {
+    if (Sans != NULL) {
    	    SDL_Color White = {255, 0, 0};
   	    surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], White);
   	    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     }
-    else
-    {
+    else {
     	printf("Could not open font");
     }
 
@@ -35,26 +33,26 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     y = 0;
 }
 
-unsigned Letter::getX()   {
+unsigned Letter::getX() {
 	return x;
 }
 
-unsigned Letter::getY()   {
+unsigned Letter::getY() {
 	return y;
 }
 
-bool Letter::is(char key)   {
+bool Letter::is(char key) {
 	if (key == letter)
 		return true;
 	return false;
 }
 
-void Letter::display()   {
-        SDL_Rect Message_rect;
-        Message_rect.x = x;
-        Message_rect.y = y;
-        Message_rect.w = _w;
-        Message_rect.h = _h;
+void Letter::display() {
+	SDL_Rect Message_rect;
+	Message_rect.x = x;
+	Message_rect.y = y;
+	Message_rect.w = _w;
+	Message_rect.h = _h;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
 }
 
@@ -63,18 +61,16 @@ Letter::~Letter() {
 	SDL_DestroyTexture(Message);
 }
 
-void Letter::setX(unsigned _x)   {
+void Letter::setX(unsigned _x) {
 	x = _x;
 }
 
-void Letter::setY(unsigned _y)   {
+void Letter::setY(unsigned _y) {
 	y = _y;
 }
-void Letter::setWidth(unsigned int width)
-{
+void Letter::setWidth(unsigned int width) {
 	_w = width;
 }
-void Letter::setHeight(unsigned int height)
-{
+void Letter::setHeight(unsigned int height) {
 	_h = height;
 }
