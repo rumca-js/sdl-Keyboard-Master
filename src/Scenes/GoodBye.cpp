@@ -5,6 +5,8 @@
  *      Author: hunter
  */
 
+#include "../config.h"
+
 #include "GoodBye.h"
 
 
@@ -34,8 +36,14 @@ Uint32 my_callbackfunc2(Uint32 interval, void *param)   {
 
 
 GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window) {
-	win = window;
+	win      = window;
 	renderer = ren;
+
+	wall = NULL;
+
+	my_timer_id = -1;
+
+	config = &MainConfiguration::getConfig();
 }
 
 GoodBye::~GoodBye() {
@@ -43,13 +51,12 @@ GoodBye::~GoodBye() {
 }
 
 void GoodBye::init() {
-
+	wall = IMG_LoadTexture(renderer, IMAGE_EXIT);
 }
 int GoodBye::write() {
 	int status = SCENE_EXIT;
 
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
-    bool display = false;
 
 	while (1) {
 
@@ -73,6 +80,9 @@ int GoodBye::write() {
 		}
 
 		SDL_RenderClear(renderer);
+
+		SDL_Rect texr = config->getFullScreenSize();
+		SDL_RenderCopy(renderer, wall, NULL, &texr );
 
 		SDL_RenderPresent(renderer);
 	}

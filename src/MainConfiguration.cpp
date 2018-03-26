@@ -56,3 +56,8 @@ unsigned int MainConfiguration::getHighScore()
 {
 	return _high_score;
 }
+SDL_Rect MainConfiguration::getFullScreenSize()
+{
+	SDL_Rect rect; rect.x = 0; rect.y = 0; rect.w = this->getWidth(); rect.h = this->getHeight();
+	return rect;
+}

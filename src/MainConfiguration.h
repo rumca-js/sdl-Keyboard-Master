@@ -10,6 +10,8 @@
 #ifndef MAINCONFIGURATION_H_
 #define MAINCONFIGURATION_H_
 
+#include <SDL2/SDL.h>
+
 class MainConfiguration {
 	/*!
 	 * \brief width.
@@ -29,7 +31,10 @@ class MainConfiguration {
 	MainConfiguration();
 
 public:
-
+	/*!
+	 * \brief Destructor.
+	 */
+	virtual ~MainConfiguration();
     /*!
      \brief Returns desired Width.
     */
@@ -70,8 +75,10 @@ public:
      \brief Returns configuration singleton.
     */
 	static MainConfiguration & getConfig();
-
-	virtual ~MainConfiguration();
+	/*!
+	 * \brief Returns window size in Rect structure.
+	 */
+	SDL_Rect getFullScreenSize();
 };
 
 #endif /* MAINCONFIGURATION_H_ */

@@ -50,7 +50,7 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 void IntroScene::init()  {
 
 
-    logo = IMG_LoadTexture(renderer, IMAGE_SLAVE);
+    logo = IMG_LoadTexture(renderer, IMAGE_INTRO);
 }
 int IntroScene::write()   {
 	int status = SCENE_EXIT;

@@ -23,9 +23,11 @@
 
 // Images are below
 
-#define IMAGE_SKY "./data/wallpapers/sky.jpg"
-#define IMAGE_SLAVE "./data/wallpapers/slave.jpg"
+#define IMAGE_INTRO "./data/wallpapers/image_start.jpg"
 #define IMAGE_MENU "./data/wallpapers/abstract-ancient-antique-235985.jpg"
+#define IMAGE_EXIT "./data/wallpapers/image_exit.jpg"
+
+#define IMAGE_SKY "./data/wallpapers/sky.jpg"
 
 // Fonts are below
 

@@ -30,17 +30,41 @@ class MenuScene : public SceneInterface {
 	 * \brief Configuration instance pointer.
 	 */
 	MainConfiguration * config;
-
+	/*!
+	 * \brief Font that is used.
+	 */
 	TTF_Font* Sans;
+	/*!
+	 * \brief The background picture.
+	 */
 	SDL_Texture* wall;
+	/*!
+	 * \brief The full screen text texture.
+	 */
 	SDL_Texture* mFull;
+	/*!
+	 * \brief The start game text texture.
+	 */
 	SDL_Texture* mEnter;
+	/*!
+	 * \brief The exit text texture.
+	 */
 	SDL_Texture* mExit;
-
+	/*!
+	 * \brief full screen text surface.
+	 */
 	SDL_Surface* surf1;
+	/*!
+	 * \brief The start game text surface.
+	 */
 	SDL_Surface* surf2;
+	/*!
+	 * \brief The exit text surface.
+	 */
 	SDL_Surface* surf3;
-
+	/*!
+	 * \brief Full screen indication.
+	 */
 	bool fullscreen;
 
 public:
