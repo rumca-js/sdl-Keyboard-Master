@@ -45,12 +45,11 @@ class MenuScene : public SceneInterface {
 
 public:
 	MenuScene(SDL_Renderer *ren, SDL_Window * window);
+	virtual ~MenuScene();
 
 	void init();
 	int write();
 	void close();
-
-	virtual ~MenuScene();
 };
 
 #endif /* MENUSCENE_H_ */

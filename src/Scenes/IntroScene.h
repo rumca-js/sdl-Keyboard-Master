@@ -28,17 +28,36 @@ class IntroScene : public SceneInterface {
 	 * \brief Configuration instance pointer.
 	 */
 	MainConfiguration * config;
+	/*!
+	 * \brief logo texture.
+	 */
 	SDL_Texture* logo;
+	/*!
+	 * Timer for displaying logo.
+	 */
 	SDL_TimerID my_timer_id;
-
 public:
+	/*!
+	 * \brief Constructor.
+	 */
 	IntroScene(SDL_Renderer *ren, SDL_Window * window);
-
+	/*!
+	 * \brief Destructor.
+	 */
+	virtual ~IntroScene();
+	/*!
+	 * \brief Scene init function.
+	 */
 	void init();
+	/*!
+	 * \brief Scene write function.
+	 */
 	int write();
+	/*!
+	 * \brief Scene close function.
+	 */
 	void close();
 
-	virtual ~IntroScene();
 };
 
 #endif /* INITSCENE_H_ */

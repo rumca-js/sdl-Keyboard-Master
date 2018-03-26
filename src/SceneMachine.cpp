@@ -12,6 +12,7 @@
 #include "Scenes/GameScene.h"
 #include "Scenes/MenuScene.h"
 #include "Scenes/IntroScene.h"
+#include "Scenes/GoodBye.h"
 
 
 SceneMachine::SceneMachine() {
@@ -57,13 +58,17 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window)
 	scenes.push_back(new IntroScene(renderer, window) );
 	scenes.push_back(new MenuScene(renderer, window) );
 	scenes.push_back(new GameScene(renderer, window) );
+	scenes.push_back(new GoodBye(renderer, window) );
 
 	join(SCENE_STM_START, 0, SceneInterface::SCENE_FINISHED);
 	join(0, 1, SceneInterface::SCENE_FINISHED);
 	join(1, 2, SceneInterface::SCENE_FINISHED);
-	join(1, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
+	join(1, 3, SceneInterface::SCENE_EXIT);
 	join(2, 1, SceneInterface::SCENE_FINISHED);
 	join(2, 1, SceneInterface::SCENE_EXIT);
+
+	join(3, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
+	join(3, SCENE_STM_STOP, SceneInterface::SCENE_FINISHED);
 
 	if (current == SCENE_STM_START)
 	{
