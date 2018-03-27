@@ -47,11 +47,20 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 	config = &MainConfiguration::getConfig();
 }
 
+IntroScene::~IntroScene() {
+	// TODO Auto-generated destructor stub
+}
+
 void IntroScene::init() {
 
 
     logo = IMG_LoadTexture(renderer, IMAGE_INTRO);
 }
+
+void IntroScene::close() {
+	SDL_DestroyTexture(logo);
+}
+
 int IntroScene::write() {
 	int status = SCENE_EXIT;
 
@@ -100,11 +109,5 @@ int IntroScene::write() {
 
 	return status;
 }
-void IntroScene::close() {
-	SDL_DestroyTexture(logo);
-}
 
-IntroScene::~IntroScene() {
-	// TODO Auto-generated destructor stub
-}
 

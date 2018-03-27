@@ -53,6 +53,11 @@ GoodBye::~GoodBye() {
 void GoodBye::init() {
 	wall = IMG_LoadTexture(renderer, IMAGE_EXIT);
 }
+
+void GoodBye::close() {
+
+}
+
 int GoodBye::write() {
 	int status = SCENE_EXIT;
 
@@ -91,6 +96,4 @@ int GoodBye::write() {
 
 	return status;
 }
-void GoodBye::close() {
 
-}

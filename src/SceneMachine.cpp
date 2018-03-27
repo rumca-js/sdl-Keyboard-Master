@@ -19,36 +19,7 @@ SceneMachine::SceneMachine() {
 	current = SCENE_STM_START;
 }
 
-void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when) {
-	TransitionInfo val;
-	val.from = from;
-	val.to = to;
-	val.when = when;
-	transitions.push_back(val);
-}
-
 SceneMachine::~SceneMachine() {
-}
-
-void SceneMachine::write() {
-
-    while(true) {
-
-		SceneInterface * scene = scenes[current];
-		int status = scene->write();
-
-		for(unsigned int i=0; i<transitions.size(); i++) {
-			if ( (int)transitions[i].from == current && transitions[i].when == status) {
-				if ( (int)transitions[i].to == SCENE_STM_STOP) {
-					return;
-				}
-				else {
-					current = transitions[i].to;
-					break;
-				}
-			}
-		}
-	}
 }
 
 bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
@@ -59,7 +30,16 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 	scenes.push_back(new GameScene(renderer, window) );
 	scenes.push_back(new GoodBye(renderer, window) );
 
+	/*
+	join(SCENE_STM_START, 1, SceneInterface::SCENE_FINISHED);
+
+	join(0, 1, SceneInterface::SCENE_FINISHED);
+	join(1, SCENE_STM_STOP, SceneInterface::SCENE_FINISHED);
+	join(1, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
+	*/
+
 	join(SCENE_STM_START, 0, SceneInterface::SCENE_FINISHED);
+
 	join(0, 1, SceneInterface::SCENE_FINISHED);
 	join(1, 2, SceneInterface::SCENE_FINISHED);
 	join(1, 3, SceneInterface::SCENE_EXIT);
@@ -87,3 +67,34 @@ void SceneMachine::close() {
 	}
 
 }
+
+void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when) {
+	TransitionInfo val;
+	val.from = from;
+	val.to = to;
+	val.when = when;
+	transitions.push_back(val);
+}
+
+void SceneMachine::write() {
+
+    while(true) {
+
+		SceneInterface * scene = scenes[current];
+		int status = scene->write();
+
+		for(unsigned int i=0; i<transitions.size(); i++) {
+			if ( (int)transitions[i].from == current && transitions[i].when == status) {
+				if ( (int)transitions[i].to == SCENE_STM_STOP) {
+					return;
+				}
+				else {
+					current = transitions[i].to;
+					break;
+				}
+			}
+		}
+	}
+}
+
+

@@ -9,13 +9,18 @@
 #define MENUSCENE_H_
 
 #include <SDL2/SDL_ttf.h>
+#include <vector>
 
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
-#define TEXT_FULL_SCREEN "Press 'f' to toggle full screen"
-#define TEXT_ENTER "Press 'Enter' for to start"
-#define TEXT_ESCAPE "Press 'Escape' for to exit"
+#include "../GUI/Button.h"
+
+// Text Defines
+#define TEXT_ENTER "Start"
+#define TEXT_FULL_SCREEN "Full Screen"
+#define TEXT_ESCAPE "EXIT"
+
 
 class MenuScene : public SceneInterface {
 	/*!
@@ -39,34 +44,29 @@ class MenuScene : public SceneInterface {
 	 */
 	SDL_Texture* wall;
 	/*!
-	 * \brief The full screen text texture.
-	 */
-	SDL_Texture* mFull;
-	/*!
-	 * \brief The start game text texture.
-	 */
-	SDL_Texture* mEnter;
-	/*!
-	 * \brief The exit text texture.
-	 */
-	SDL_Texture* mExit;
-	/*!
-	 * \brief full screen text surface.
-	 */
-	SDL_Surface* surf1;
-	/*!
-	 * \brief The start game text surface.
-	 */
-	SDL_Surface* surf2;
-	/*!
-	 * \brief The exit text surface.
-	 */
-	SDL_Surface* surf3;
-	/*!
 	 * \brief Full screen indication.
 	 */
 	bool fullscreen;
-
+	/*!
+	 * \brief Buttons list.
+	 */
+	std::vector<Button *> buttons;
+	/*!
+	 * \brief
+	 */
+	unsigned int selected;
+	/*!
+	 * \brief increments selected button id;
+	 */
+	void selected_increment();
+	/*!
+	 * \brief decrements selected button id.
+	 */
+	void selected_decrement();
+	/*!
+	 * \brief Toggles full screen.
+	 */
+	void setFullScreen();
 public:
 	MenuScene(SDL_Renderer *ren, SDL_Window * window);
 	virtual ~MenuScene();

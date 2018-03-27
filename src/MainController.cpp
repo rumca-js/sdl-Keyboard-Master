@@ -57,6 +57,16 @@ MainController::MainController() {
     machine.load(renderer, window);
 }
 
+MainController::~MainController() {
+	machine.close();
+	Mix_CloseAudio();
+
+	SDL_DestroyRenderer(renderer);
+
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
 void MainController::setFullScreen() {
 	SDL_DisplayMode DM, windowMode;
 	SDL_GetCurrentDisplayMode(0, &DM);
@@ -77,13 +87,4 @@ void MainController::run() {
 	machine.write();
 }
 
-MainController::~MainController() {
-	machine.close();
-	Mix_CloseAudio();
-
-	SDL_DestroyRenderer(renderer);
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
 

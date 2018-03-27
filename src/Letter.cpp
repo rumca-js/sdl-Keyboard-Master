@@ -33,6 +33,11 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     y = 0;
 }
 
+Letter::~Letter() {
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
+}
+
 unsigned Letter::getX() {
 	return x;
 }
@@ -54,11 +59,6 @@ void Letter::display() {
 	Message_rect.w = _w;
 	Message_rect.h = _h;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-}
-
-Letter::~Letter() {
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
 }
 
 void Letter::setX(unsigned _x) {

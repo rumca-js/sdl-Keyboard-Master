@@ -35,7 +35,6 @@ unsigned rand_min_max(unsigned min, unsigned max) {
 	return min + (rand() % static_cast<int>(max - min + 1));
 }
 
-
 GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	renderer = ren;
 
@@ -51,20 +50,8 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	speed_factor = 1;
 }
 
-void GameScene::reset() {
-	speed_factor = 1;
-
-	letters.clear();
-
-    letters.push_back(new Letter(renderer, Sans, 'a'));
-    letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
-    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
-    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
-
-    uint32_t param;
-    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
-
-    config->setHighScore(0);
+GameScene::~GameScene() {
+	// TODO Auto-generated destructor stub
 }
 
 void GameScene::init() {
@@ -83,6 +70,40 @@ void GameScene::init() {
     notes[6] = Mix_LoadWAV( SOUND_G );
 
     note_eog = Mix_LoadWAV( SOUND_END_OF_GAME );
+}
+
+void GameScene::close() {
+	SDL_RemoveTimer(my_timer_id);
+
+	Mix_FreeChunk( notes[0]);
+	Mix_FreeChunk( notes[1]);
+	Mix_FreeChunk( notes[2]);
+	Mix_FreeChunk( notes[3]);
+	Mix_FreeChunk( notes[4]);
+	Mix_FreeChunk( notes[5]);
+	Mix_FreeChunk( notes[6]);
+
+	Mix_FreeChunk( note_eog);
+
+	TTF_CloseFont(Sans);
+	SDL_RemoveTimer( my_timer_id );
+	SDL_DestroyTexture(wall);
+}
+
+void GameScene::reset() {
+	speed_factor = 1;
+
+	letters.clear();
+
+    letters.push_back(new Letter(renderer, Sans, 'a'));
+    letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
+    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
+    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
+
+    uint32_t param;
+    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+
+    config->setHighScore(0);
 }
 
 bool GameScene::move_letters() {
@@ -197,24 +218,6 @@ int GameScene::write() {
 	return status;
 }
 
-void GameScene::close() {
-	SDL_RemoveTimer(my_timer_id);
-
-	Mix_FreeChunk( notes[0]);
-	Mix_FreeChunk( notes[1]);
-	Mix_FreeChunk( notes[2]);
-	Mix_FreeChunk( notes[3]);
-	Mix_FreeChunk( notes[4]);
-	Mix_FreeChunk( notes[5]);
-	Mix_FreeChunk( notes[6]);
-
-	Mix_FreeChunk( note_eog);
-
-	TTF_CloseFont(Sans);
-	SDL_RemoveTimer( my_timer_id );
-	SDL_DestroyTexture(wall);
-}
-
 void GameScene::updateCounter() {
 	SDL_Color White = {0, 255, 0};
 	counter_string = std::to_string(config->getHighScore() );
@@ -227,7 +230,4 @@ void GameScene::updateCounter() {
 	counter_text = SDL_CreateTextureFromSurface(renderer, counter_surface);
 }
 
-GameScene::~GameScene() {
-	// TODO Auto-generated destructor stub
-}
 
