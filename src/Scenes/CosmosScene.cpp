@@ -8,10 +8,12 @@
 #include "../config.h"
 #include "../Utilities.h"
 
-#include "HeavenScene.h"
+#include "CosmosScene.h"
 
 
-Uint32 my_callbackfunc(Uint32 interval, void *param) {
+
+
+Uint32 my_callbackfunc3(Uint32 interval, void *param) {
     SDL_Event event;
     SDL_UserEvent userevent;
 
@@ -31,7 +33,8 @@ Uint32 my_callbackfunc(Uint32 interval, void *param) {
     return(interval);
 }
 
-GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
+
+CosmosScene::CosmosScene(SDL_Renderer *ren, SDL_Window * window) {
 	renderer = ren;
 
 	// Initializers
@@ -46,14 +49,14 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	speed_factor = 1;
 }
 
-GameScene::~GameScene() {
+CosmosScene::~CosmosScene() {
 	// TODO Auto-generated destructor stub
 }
 
-void GameScene::init() {
+void CosmosScene::init() {
 	config = &MainConfiguration::getConfig();
 
-    wall = IMG_LoadTexture(renderer, IMAGE_SKY);
+    wall = IMG_LoadTexture(renderer, IMAGE_COSMOS);
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
@@ -68,7 +71,7 @@ void GameScene::init() {
     note_eog = Mix_LoadWAV( SOUND_END_OF_GAME );
 }
 
-void GameScene::close() {
+void CosmosScene::close() {
 	SDL_RemoveTimer(my_timer_id);
 
 	Mix_FreeChunk( notes[0]);
@@ -86,7 +89,7 @@ void GameScene::close() {
 	SDL_DestroyTexture(wall);
 }
 
-void GameScene::reset() {
+void CosmosScene::reset() {
 	speed_factor = 1;
 
 	letters.clear();
@@ -97,12 +100,12 @@ void GameScene::reset() {
     letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
 
     uint32_t param;
-    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc3, &param);
 
     config->setHighScore(0);
 }
 
-bool GameScene::move_letters() {
+bool CosmosScene::move_letters() {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
 		letters[i]->setY(letters[i]->getY() + speed_factor);
@@ -123,13 +126,13 @@ bool GameScene::move_letters() {
 	return false;
 }
 
-void GameScene::display_letters() {
+void CosmosScene::display_letters() {
 	for(unsigned int i=0; i<letters.size();i++) {
 		letters[i]->display();
 	}
 }
 
-void GameScene::new_letter()
+void CosmosScene::new_letter()
 {
 	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 ) {
 		printf("Could not play a note");
@@ -150,7 +153,7 @@ void GameScene::new_letter()
 	updateCounter();
 }
 
-bool GameScene::check_if_killed(char key) {
+bool CosmosScene::check_if_killed(char key) {
 	bool killed = false;
 
 	for(unsigned int i=0; i<letters.size(); i++) {
@@ -167,7 +170,7 @@ bool GameScene::check_if_killed(char key) {
 	return killed;
 }
 
-int GameScene::write() {
+int CosmosScene::write() {
 	int status = SCENE_EXIT;
 
 	reset();
@@ -183,13 +186,12 @@ int GameScene::write() {
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
 				break;
 			else if (e.type == SDL_KEYDOWN) {
-				if (check_if_killed((char)e.key.keysym.sym)) {
-					if (config->getHighScore() > 10) {
+				if (check_if_killed((char)e.key.keysym.sym) ) {
+					if (config->getHighScore() > 20) {
 						status = SceneInterface::SCENE_FINISHED;
 						break;
 					}
 				}
-
 			}
 			else if (e.type == SDL_USEREVENT) {
 				if (this->move_letters() ) {
@@ -220,7 +222,7 @@ int GameScene::write() {
 	return status;
 }
 
-void GameScene::updateCounter() {
+void CosmosScene::updateCounter() {
 	SDL_Color White = {0, 255, 0};
 	counter_string = std::to_string(config->getHighScore() );
 

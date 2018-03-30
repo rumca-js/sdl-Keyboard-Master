@@ -5,8 +5,8 @@
  *      Author: hunter
  */
 
-#ifndef GAMESCENE_H_
-#define GAMESCENE_H_
+#ifndef COSMOSSCENE_H_
+#define COSMOSSCENE_H_
 
 
 #include <vector>
@@ -14,12 +14,13 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "../Letter.h"
+
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
 
 
-class GameScene : public SceneInterface {
+class CosmosScene : public SceneInterface {
 	/*!
 	 * \brief SDL Renderer pointer.
 	 */
@@ -84,11 +85,11 @@ public:
 	/*!
 	 * \brief Constructor.
 	 */
-	GameScene(SDL_Renderer *ren, SDL_Window * window);
+	CosmosScene(SDL_Renderer *ren, SDL_Window * window);
 	/*!
 	 * \brief Destructor.
 	 */
-	virtual ~GameScene();
+	virtual ~CosmosScene();
 	/**
 	 * @brief Performs initialization
 	 */
@@ -119,4 +120,4 @@ public:
 	void close();
 };
 
-#endif /* GAMESCENE_H_ */
+#endif /* COSMOSSCENE_H_ */

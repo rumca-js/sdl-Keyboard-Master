@@ -27,6 +27,7 @@
 #define IMAGE_EXIT "./data/wallpapers/image_exit.jpg"
 #define IMAGE_MENU "./data/wallpapers/image_menu.jpg"
 #define IMAGE_ANTIC "./data/wallpapers/abstract-ancient-antique-235985.jpg"
+#define IMAGE_COSMOS "./data/wallpapers/astrology-astronomy-beautiful-920534.jpg"
 
 #define IMAGE_SKY "./data/wallpapers/sky.jpg"
 
