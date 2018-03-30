@@ -7,8 +7,8 @@
 
 #include "../config.h"
 
-#include "GameScene.h"
 #include "stdio.h"
+#include "HeavenScene.h"
 
 
 Uint32 my_callbackfunc(Uint32 interval, void *param) {
@@ -35,7 +35,7 @@ unsigned rand_min_max(unsigned min, unsigned max) {
 	return min + (rand() % static_cast<int>(max - min + 1));
 }
 
-GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
+HeavenScene::HeavenScene(SDL_Renderer *ren, SDL_Window * window) {
 	renderer = ren;
 
 	// Initializers
@@ -50,11 +50,11 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	speed_factor = 1;
 }
 
-GameScene::~GameScene() {
+HeavenScene::~HeavenScene() {
 	// TODO Auto-generated destructor stub
 }
 
-void GameScene::init() {
+void HeavenScene::init() {
 	config = &MainConfiguration::getConfig();
 
     wall = IMG_LoadTexture(renderer, IMAGE_SKY);
@@ -72,7 +72,7 @@ void GameScene::init() {
     note_eog = Mix_LoadWAV( SOUND_END_OF_GAME );
 }
 
-void GameScene::close() {
+void HeavenScene::close() {
 	SDL_RemoveTimer(my_timer_id);
 
 	Mix_FreeChunk( notes[0]);
@@ -90,7 +90,7 @@ void GameScene::close() {
 	SDL_DestroyTexture(wall);
 }
 
-void GameScene::reset() {
+void HeavenScene::reset() {
 	speed_factor = 1;
 
 	letters.clear();
@@ -106,7 +106,7 @@ void GameScene::reset() {
     config->setHighScore(0);
 }
 
-bool GameScene::move_letters() {
+bool HeavenScene::move_letters() {
 	for(unsigned int i=0; i<letters.size();i++)
 	{
 		letters[i]->setY(letters[i]->getY() + speed_factor);
@@ -127,13 +127,13 @@ bool GameScene::move_letters() {
 	return false;
 }
 
-void GameScene::display_letters() {
+void HeavenScene::display_letters() {
 	for(unsigned int i=0; i<letters.size();i++) {
 		letters[i]->display();
 	}
 }
 
-void GameScene::new_letter()
+void HeavenScene::new_letter()
 {
 	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 ) {
 		printf("Could not play a note");
@@ -154,7 +154,7 @@ void GameScene::new_letter()
 	updateCounter();
 }
 
-bool GameScene::check_if_killed(char key) {
+bool HeavenScene::check_if_killed(char key) {
 	bool killed = false;
 
 	for(unsigned int i=0; i<letters.size(); i++) {
@@ -171,7 +171,7 @@ bool GameScene::check_if_killed(char key) {
 	return killed;
 }
 
-int GameScene::write() {
+int HeavenScene::write() {
 	int status = SCENE_EXIT;
 
 	reset();
@@ -218,7 +218,7 @@ int GameScene::write() {
 	return status;
 }
 
-void GameScene::updateCounter() {
+void HeavenScene::updateCounter() {
 	SDL_Color White = {0, 255, 0};
 	counter_string = std::to_string(config->getHighScore() );
 

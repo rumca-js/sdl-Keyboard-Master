@@ -20,7 +20,7 @@
 
 
 
-class GameScene : public SceneInterface {
+class HeavenScene : public SceneInterface {
 	/*!
 	 * \brief SDL Renderer pointer.
 	 */
@@ -83,7 +83,7 @@ class GameScene : public SceneInterface {
 	void updateCounter();
 public:
 
-	GameScene(SDL_Renderer *ren, SDL_Window * window);
+	HeavenScene(SDL_Renderer *ren, SDL_Window * window);
 	/**
 	 * @brief Performs initialization
 	 */
@@ -113,7 +113,7 @@ public:
 	 */
 	void close();
 
-	virtual ~GameScene();
+	virtual ~HeavenScene();
 };
 
 #endif /* GAMESCENE_H_ */
