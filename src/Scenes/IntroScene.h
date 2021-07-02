@@ -10,6 +10,7 @@
 
 #include <SDL2/SDL_ttf.h>
 
+#include "../Images/DrawTexture.h"
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
@@ -31,7 +32,7 @@ class IntroScene : public SceneInterface {
 	/*!
 	 * \brief logo texture.
 	 */
-	SDL_Texture* logo;
+	DrawTexture logo;
 	/*!
 	 * Timer for displaying logo.
 	 */

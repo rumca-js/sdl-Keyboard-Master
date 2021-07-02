@@ -3,7 +3,15 @@
 #include "DrawTexture.h"
 
 
+DrawTexture::DrawTexture()
+{
+}
+
 DrawTexture::DrawTexture(std::string path, SDL_Renderer * aRenderer) {
+	open(path, aRenderer);
+}
+
+bool DrawTexture::open(std::string path, SDL_Renderer * aRenderer) {
 	renderer = aRenderer;
 
 	//SDL_Surface * Loading_Surf = SDL_LoadBMP(path.c_str());
@@ -11,6 +19,7 @@ DrawTexture::DrawTexture(std::string path, SDL_Renderer * aRenderer) {
 	if (!Loading_Surf)
 	{
 		std::cout << "Cannot load surface" << std::endl;
+		return false;
 	}
 
   	texture = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
@@ -18,9 +27,12 @@ DrawTexture::DrawTexture(std::string path, SDL_Renderer * aRenderer) {
 	{
 		std::cout << "Cannot load texture" << std::endl;
 		std::cout << SDL_GetError();
+		return false;
 	}
 
   	SDL_FreeSurface(Loading_Surf);
+
+	return true;
 }
 
 DrawTexture::~DrawTexture() {
@@ -45,10 +57,14 @@ void DrawTexture::close() {
 }
 
 Uint16 DrawTexture::getWidth() {
-	return 100;
+	int w,h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	return w;
 }
 
 Uint16 DrawTexture::getHeight() {
-	return 100;
+	int w,h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	return h;
 }
 

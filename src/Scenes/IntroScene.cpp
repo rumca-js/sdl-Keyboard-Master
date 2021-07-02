@@ -40,8 +40,6 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
 	win = window;
 	renderer = ren;
 
-	logo    = NULL;
-
 	my_timer_id = -1;
 
 	config = &MainConfiguration::getConfig();
@@ -52,13 +50,10 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
-
-
-    logo = IMG_LoadTexture(renderer, IMAGE_INTRO);
+    logo.open(IMAGE_INTRO, renderer);
 }
 
 void IntroScene::close() {
-	SDL_DestroyTexture(logo);
 }
 
 int IntroScene::write() {
@@ -91,15 +86,16 @@ int IntroScene::write() {
 		/* We display after some considerable amount of time */
 		if (display) {
 
-			int w, h;
-			SDL_QueryTexture(logo, NULL, NULL, &w, &h);
-
-			float ratio = config->getHeight()/(float)h;
+			float ratio = config->getHeight()/(float)logo.getHeight();
 			float margin = config->getWidth()/10;
 
-			SDL_Rect texr; texr.x = margin; texr.y = margin; texr.w = (int)(w*ratio-margin*2.0); texr.h = (int)(h*ratio-margin*2.0);
+			SDL_Rect texr;
+			texr.x = margin;
+			texr.y = margin; 
+			texr.w = (int)(logo.getWidth() *ratio-margin*2.0);
+			texr.h = (int)(logo.getHeight()*ratio-margin*2.0);
 
-			SDL_RenderCopy(renderer, logo, NULL, &texr);
+			logo.draw(NULL, &texr);
 		}
 
 		SDL_RenderPresent(renderer);

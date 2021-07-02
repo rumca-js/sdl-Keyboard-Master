@@ -16,6 +16,9 @@ class DrawTexture : public DrawItem
          * Constructs texture
          */
         DrawTexture(std::string path, SDL_Renderer * aRenderer);
+        DrawTexture();
+        bool open(std::string path, SDL_Renderer * aRenderer);
+
         ~DrawTexture();
         /*!
          * Updates flow of time
