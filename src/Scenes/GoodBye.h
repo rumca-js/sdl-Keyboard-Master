@@ -8,9 +8,9 @@
 #ifndef SCENES_GOODBYE_H_
 #define SCENES_GOODBYE_H_
 
+#include "../Images/DrawTexture.h"
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
-
 
 class GoodBye : public SceneInterface {
 	/*!
@@ -32,7 +32,7 @@ class GoodBye : public SceneInterface {
 	/*!
 	 * \brief The background picture.
 	 */
-	SDL_Texture* wall;
+	DrawTexture wall;
 public:
 	GoodBye(SDL_Renderer *ren, SDL_Window * window);
 	virtual ~GoodBye();

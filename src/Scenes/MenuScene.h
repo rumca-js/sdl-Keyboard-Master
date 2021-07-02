@@ -11,6 +11,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <vector>
 
+#include "../Images/DrawTexture.h"
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
@@ -42,7 +43,7 @@ class MenuScene : public SceneInterface {
 	/*!
 	 * \brief The background picture.
 	 */
-	SDL_Texture* wall;
+	DrawTexture wall;
 	/*!
 	 * \brief Full screen indication.
 	 */

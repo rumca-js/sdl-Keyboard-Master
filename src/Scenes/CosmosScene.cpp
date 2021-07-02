@@ -55,7 +55,7 @@ CosmosScene::~CosmosScene() {
 void CosmosScene::init() {
 	config = &MainConfiguration::getConfig();
 
-    wall = IMG_LoadTexture(renderer, IMAGE_COSMOS);
+    wall.open(IMAGE_COSMOS, renderer);
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
@@ -75,7 +75,6 @@ void CosmosScene::close() {
 
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
-	SDL_DestroyTexture(wall);
 }
 
 void CosmosScene::reset() {
@@ -192,7 +191,7 @@ int CosmosScene::write() {
 
 		SDL_RenderClear(renderer);
 
-		SDL_RenderCopy(renderer, wall, NULL, &texr);
+		wall.draw(NULL, &texr);
 
 		this->display_letters();
 

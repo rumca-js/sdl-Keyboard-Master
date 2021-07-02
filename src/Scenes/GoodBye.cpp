@@ -39,8 +39,6 @@ GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window) {
 	win      = window;
 	renderer = ren;
 
-	wall = NULL;
-
 	my_timer_id = -1;
 
 	config = &MainConfiguration::getConfig();
@@ -51,7 +49,7 @@ GoodBye::~GoodBye() {
 }
 
 void GoodBye::init() {
-	wall = IMG_LoadTexture(renderer, IMAGE_EXIT);
+	wall.open(IMAGE_EXIT, renderer);
 }
 
 void GoodBye::close() {
@@ -87,7 +85,7 @@ int GoodBye::write() {
 		SDL_RenderClear(renderer);
 
 		SDL_Rect texr = config->getFullScreenSize();
-		SDL_RenderCopy(renderer, wall, NULL, &texr );
+		wall.draw(NULL, &texr);
 
 		SDL_RenderPresent(renderer);
 	}

@@ -13,11 +13,11 @@
 #include <string>
 #include <SDL2/SDL_mixer.h>
 
+#include "../Images/DrawTexture.h"
 #include "../Letter.h"
 #include "../Audio/SdlAudio.h"
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
-
 
 
 class GameScene : public SceneInterface {
@@ -36,7 +36,7 @@ class GameScene : public SceneInterface {
     /*!
      * \brief The background texture.
      */
-    SDL_Texture *wall = NULL;
+    DrawTexture wall;
     /*!
      * \brief The high score counter texture.
      */

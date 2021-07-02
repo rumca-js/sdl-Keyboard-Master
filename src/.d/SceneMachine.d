@@ -205,10 +205,10 @@
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_image.h \
  /usr/include/SDL2/SDL.h Scenes/MenuScene.h /usr/include/SDL2/SDL_ttf.h \
+ Scenes/../Images/DrawTexture.h Scenes/../Images/DrawItem.h \
  Scenes/../SceneInterface.h Scenes/../MainConfiguration.h \
  Scenes/../GUI/Button.h Scenes/../GUI/../MainConfiguration.h \
- Scenes/IntroScene.h Scenes/../Images/DrawTexture.h \
- Scenes/../Images/DrawItem.h Scenes/GoodBye.h Scenes/HeavenScene.h \
+ Scenes/IntroScene.h Scenes/GoodBye.h Scenes/HeavenScene.h \
  /usr/include/SDL2/SDL_mixer.h Scenes/../Letter.h \
  Scenes/../Audio/SdlAudio.h Scenes/CosmosScene.h
 
@@ -756,6 +756,10 @@ Scenes/MenuScene.h:
 
 /usr/include/SDL2/SDL_ttf.h:
 
+Scenes/../Images/DrawTexture.h:
+
+Scenes/../Images/DrawItem.h:
+
 Scenes/../SceneInterface.h:
 
 Scenes/../MainConfiguration.h:
@@ -765,10 +769,6 @@ Scenes/../GUI/Button.h:
 Scenes/../GUI/../MainConfiguration.h:
 
 Scenes/IntroScene.h:
-
-Scenes/../Images/DrawTexture.h:
-
-Scenes/../Images/DrawItem.h:
 
 Scenes/GoodBye.h:
 

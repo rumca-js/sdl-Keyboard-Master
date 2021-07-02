@@ -52,7 +52,7 @@ GameScene::~GameScene() {
 void GameScene::init() {
 	config = &MainConfiguration::getConfig();
 
-    wall = IMG_LoadTexture(renderer, IMAGE_SKY);
+    wall.open(IMAGE_SKY, renderer);
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
@@ -72,7 +72,6 @@ void GameScene::close() {
 
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
-	SDL_DestroyTexture(wall);
 }
 
 void GameScene::reset() {
@@ -190,7 +189,7 @@ int GameScene::write() {
 
 		SDL_RenderClear(renderer);
 
-		SDL_RenderCopy(renderer, wall, NULL, &texr);
+		wall.draw(NULL, &texr);
 
 		this->display_letters();
 

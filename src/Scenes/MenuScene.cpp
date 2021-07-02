@@ -16,7 +16,6 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	win = window;
 	renderer = ren;
 
-	wall 	= NULL;
 	Sans 	= NULL;
 
 	config = NULL;
@@ -34,7 +33,7 @@ void MenuScene::init() {
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
-    wall = IMG_LoadTexture(renderer, IMAGE_MENU);
+    wall.open(IMAGE_MENU, renderer);
 
     buttons.push_back( new Button(renderer, TEXT_ENTER));
     buttons.push_back( new Button(renderer, TEXT_FULL_SCREEN));
@@ -64,7 +63,6 @@ void MenuScene::init() {
 }
 
 void MenuScene::close() {
-	SDL_DestroyTexture(wall);
 	TTF_CloseFont(Sans);
 
 	for(unsigned int i=0; i<buttons.size(); i++) {
@@ -114,7 +112,7 @@ int MenuScene::write() {
 		SDL_RenderClear(renderer);
 
 		SDL_Rect texr = config->getFullScreenSize();
-		SDL_RenderCopy(renderer, wall, NULL, &texr);
+		wall.draw(NULL, &texr);
 
 		for(unsigned int i=0; i<buttons.size(); i++)  {
 			buttons[i]->draw();

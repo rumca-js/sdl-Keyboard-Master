@@ -137,9 +137,10 @@
  /usr/include/SDL2/SDL_audio.h /usr/include/SDL2/SDL_endian.h \
  /usr/include/SDL2/SDL_mutex.h /usr/include/SDL2/SDL_thread.h \
  /usr/include/SDL2/SDL_atomic.h /usr/include/SDL2/SDL_version.h \
- Scenes/../Letter.h /usr/include/SDL2/SDL_ttf.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_assert.h \
- /usr/include/SDL2/SDL_clipboard.h /usr/include/SDL2/SDL_cpuinfo.h \
+ Scenes/../Images/DrawTexture.h /usr/include/SDL2/SDL_image.h \
+ /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
+ /usr/include/SDL2/SDL_assert.h /usr/include/SDL2/SDL_clipboard.h \
+ /usr/include/SDL2/SDL_cpuinfo.h \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/immintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/mmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/xmmintrin.h \
@@ -189,9 +190,9 @@
  /usr/include/SDL2/SDL_messagebox.h /usr/include/SDL2/SDL_power.h \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
- Scenes/../Audio/SdlAudio.h /usr/include/SDL2/SDL.h \
- Scenes/../SceneInterface.h /usr/include/SDL2/SDL_image.h \
- Scenes/../MainConfiguration.h
+ Scenes/../Images/DrawItem.h /usr/include/SDL2/SDL.h Scenes/../Letter.h \
+ /usr/include/SDL2/SDL_ttf.h Scenes/../Audio/SdlAudio.h \
+ Scenes/../SceneInterface.h Scenes/../MainConfiguration.h
 
 /usr/include/stdc-predef.h:
 
@@ -551,9 +552,9 @@ Scenes/CosmosScene.h:
 
 /usr/include/SDL2/SDL_version.h:
 
-Scenes/../Letter.h:
+Scenes/../Images/DrawTexture.h:
 
-/usr/include/SDL2/SDL_ttf.h:
+/usr/include/SDL2/SDL_image.h:
 
 /usr/include/SDL2/SDL.h:
 
@@ -689,12 +690,16 @@ Scenes/../Letter.h:
 
 /usr/include/SDL2/SDL_timer.h:
 
-Scenes/../Audio/SdlAudio.h:
+Scenes/../Images/DrawItem.h:
 
 /usr/include/SDL2/SDL.h:
 
-Scenes/../SceneInterface.h:
+Scenes/../Letter.h:
 
-/usr/include/SDL2/SDL_image.h:
+/usr/include/SDL2/SDL_ttf.h:
+
+Scenes/../Audio/SdlAudio.h:
+
+Scenes/../SceneInterface.h:
 
 Scenes/../MainConfiguration.h:

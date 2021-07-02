@@ -156,9 +156,8 @@
  /usr/include/c++/7/bits/stl_bvector.h \
  /usr/include/c++/7/bits/functional_hash.h \
  /usr/include/c++/7/bits/range_access.h \
- /usr/include/c++/7/bits/vector.tcc Scenes/../SceneInterface.h \
- /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_image.h \
- Scenes/../MainConfiguration.h Scenes/../GUI/Button.h \
+ /usr/include/c++/7/bits/vector.tcc Scenes/../Images/DrawTexture.h \
+ /usr/include/SDL2/SDL_image.h Scenes/../Images/DrawItem.h \
  /usr/include/c++/7/string /usr/include/c++/7/bits/stringfwd.h \
  /usr/include/c++/7/bits/char_traits.h /usr/include/c++/7/bits/postypes.h \
  /usr/include/c++/7/cwchar /usr/include/c++/7/cstdint \
@@ -188,8 +187,10 @@
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/c++/7/bits/basic_string.tcc \
- Scenes/../GUI/../MainConfiguration.h Scenes/../config.h
+ /usr/include/c++/7/bits/basic_string.tcc /usr/include/SDL2/SDL.h \
+ Scenes/../SceneInterface.h Scenes/../MainConfiguration.h \
+ Scenes/../GUI/Button.h Scenes/../GUI/../MainConfiguration.h \
+ Scenes/../config.h
 
 /usr/include/stdc-predef.h:
 
@@ -595,15 +596,11 @@ Scenes/MenuScene.h:
 
 /usr/include/c++/7/bits/vector.tcc:
 
-Scenes/../SceneInterface.h:
-
-/usr/include/SDL2/SDL.h:
+Scenes/../Images/DrawTexture.h:
 
 /usr/include/SDL2/SDL_image.h:
 
-Scenes/../MainConfiguration.h:
-
-Scenes/../GUI/Button.h:
+Scenes/../Images/DrawItem.h:
 
 /usr/include/c++/7/string:
 
@@ -688,6 +685,14 @@ Scenes/../GUI/Button.h:
 /usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/7/bits/basic_string.tcc:
+
+/usr/include/SDL2/SDL.h:
+
+Scenes/../SceneInterface.h:
+
+Scenes/../MainConfiguration.h:
+
+Scenes/../GUI/Button.h:
 
 Scenes/../GUI/../MainConfiguration.h:
 
