@@ -189,8 +189,9 @@
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/7/bits/basic_string.tcc /usr/include/SDL2/SDL.h \
  Scenes/../SceneInterface.h Scenes/../MainConfiguration.h \
- Scenes/../GUI/Button.h Scenes/../GUI/../MainConfiguration.h \
- Scenes/../config.h
+ Scenes/../GUI/Button.h Scenes/../GUI/../Images/DrawText.h \
+ Scenes/../GUI/../Images/DrawItem.h Scenes/../GUI/../Images/DrawTexture.h \
+ Scenes/../GUI/../MainConfiguration.h Scenes/../config.h
 
 /usr/include/stdc-predef.h:
 
@@ -693,6 +694,12 @@ Scenes/../SceneInterface.h:
 Scenes/../MainConfiguration.h:
 
 Scenes/../GUI/Button.h:
+
+Scenes/../GUI/../Images/DrawText.h:
+
+Scenes/../GUI/../Images/DrawItem.h:
+
+Scenes/../GUI/../Images/DrawTexture.h:
 
 Scenes/../GUI/../MainConfiguration.h:
 

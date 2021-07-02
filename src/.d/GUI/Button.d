@@ -182,7 +182,9 @@
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/7/bits/functional_hash.h \
- /usr/include/c++/7/bits/basic_string.tcc GUI/../MainConfiguration.h
+ /usr/include/c++/7/bits/basic_string.tcc GUI/../Images/DrawText.h \
+ GUI/../Images/DrawItem.h GUI/../Images/DrawTexture.h \
+ GUI/../MainConfiguration.h
 
 /usr/include/stdc-predef.h:
 
@@ -663,5 +665,11 @@ GUI/Button.h:
 /usr/include/c++/7/bits/functional_hash.h:
 
 /usr/include/c++/7/bits/basic_string.tcc:
+
+GUI/../Images/DrawText.h:
+
+GUI/../Images/DrawItem.h:
+
+GUI/../Images/DrawTexture.h:
 
 GUI/../MainConfiguration.h:

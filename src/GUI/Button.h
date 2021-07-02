@@ -14,6 +14,8 @@
 
 #include <string>
 
+#include "../Images/DrawText.h"
+#include "../Images/DrawTexture.h"
 #include "../MainConfiguration.h"
 
 class Button {
@@ -35,10 +37,6 @@ class Button {
 	 */
 	std::string _text;
 	/*!
-	 * \brief Surface of the button.
-	 */
-	SDL_Surface* surface;
-	/*!
 	 * \brief The font of the button.
 	 */
 	TTF_Font * _font;
@@ -49,15 +47,15 @@ class Button {
 	/*!
 	 * \brief Texture of the button.
 	 */
-	SDL_Texture * tex_normal;
+	DrawTexture tex_normal;
 	/*!
 	 * \brief texture of the button.
 	 */
-	SDL_Texture * tex_hover;
+	DrawTexture tex_hover;
 	/*!
 	 * \brief texture of the button text.
 	 */
-	SDL_Texture * tex_text;
+	DrawText text;
 
 public:
 	/*!

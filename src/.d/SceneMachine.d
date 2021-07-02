@@ -207,11 +207,13 @@
  /usr/include/SDL2/SDL.h Scenes/MenuScene.h /usr/include/SDL2/SDL_ttf.h \
  Scenes/../Images/DrawTexture.h Scenes/../Images/DrawItem.h \
  Scenes/../SceneInterface.h Scenes/../MainConfiguration.h \
- Scenes/../GUI/Button.h Scenes/../GUI/../MainConfiguration.h \
- Scenes/IntroScene.h Scenes/GoodBye.h Scenes/HeavenScene.h \
- /usr/include/SDL2/SDL_mixer.h Scenes/../Letter.h \
- Scenes/.././Images/DrawLetter.h Scenes/.././Images/DrawItem.h \
- Scenes/../Audio/SdlAudio.h Scenes/CosmosScene.h
+ Scenes/../GUI/Button.h Scenes/../GUI/../Images/DrawText.h \
+ Scenes/../GUI/../Images/DrawItem.h Scenes/../GUI/../Images/DrawTexture.h \
+ Scenes/../GUI/../MainConfiguration.h Scenes/IntroScene.h \
+ Scenes/GoodBye.h Scenes/HeavenScene.h /usr/include/SDL2/SDL_mixer.h \
+ Scenes/../Letter.h Scenes/.././Images/DrawLetter.h \
+ Scenes/.././Images/DrawItem.h Scenes/../Audio/SdlAudio.h \
+ Scenes/CosmosScene.h
 
 /usr/include/stdc-predef.h:
 
@@ -766,6 +768,12 @@ Scenes/../SceneInterface.h:
 Scenes/../MainConfiguration.h:
 
 Scenes/../GUI/Button.h:
+
+Scenes/../GUI/../Images/DrawText.h:
+
+Scenes/../GUI/../Images/DrawItem.h:
+
+Scenes/../GUI/../Images/DrawTexture.h:
 
 Scenes/../GUI/../MainConfiguration.h:
 
