@@ -14,6 +14,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "../Letter.h"
+#include "../Audio/SdlAudio.h"
 
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
@@ -68,11 +69,11 @@ class CosmosScene : public SceneInterface {
     /*!
      * \brief Piano notes A-G.
      */
-	Mix_Chunk* notes[7];
+	SdlAudio notes[7];
 	/*!
 	 * \brief Sound for the end of the game.
 	 */
-	Mix_Chunk* note_eog;
+	SdlAudio note_eog;
     /*!
      * \brief Resets to a default state.
      */

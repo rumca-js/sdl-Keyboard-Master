@@ -35,7 +35,6 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window) {
 	renderer = ren;
 
 	// Initializers
-	note_eog = NULL;
 	counter_text  = NULL;
 	counter_surface = NULL;
 	config   = NULL;
@@ -57,29 +56,19 @@ void GameScene::init() {
 
     Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
 
-    notes[0] = Mix_LoadWAV( SOUND_A );
-    notes[1] = Mix_LoadWAV( SOUND_B );
-    notes[2] = Mix_LoadWAV( SOUND_C );
-    notes[3] = Mix_LoadWAV( SOUND_D );
-    notes[4] = Mix_LoadWAV( SOUND_E );
-    notes[5] = Mix_LoadWAV( SOUND_F );
-    notes[6] = Mix_LoadWAV( SOUND_G );
+    notes[0].open( SOUND_A );
+    notes[1].open( SOUND_B );
+    notes[2].open( SOUND_C );
+    notes[3].open( SOUND_D );
+    notes[4].open( SOUND_E );
+    notes[5].open( SOUND_F );
+    notes[6].open( SOUND_G );
 
-    note_eog = Mix_LoadWAV( SOUND_END_OF_GAME );
+    note_eog.open( SOUND_END_OF_GAME );
 }
 
 void GameScene::close() {
 	SDL_RemoveTimer(my_timer_id);
-
-	Mix_FreeChunk( notes[0]);
-	Mix_FreeChunk( notes[1]);
-	Mix_FreeChunk( notes[2]);
-	Mix_FreeChunk( notes[3]);
-	Mix_FreeChunk( notes[4]);
-	Mix_FreeChunk( notes[5]);
-	Mix_FreeChunk( notes[6]);
-
-	Mix_FreeChunk( note_eog);
 
 	TTF_CloseFont(Sans);
 	SDL_RemoveTimer( my_timer_id );
@@ -112,7 +101,7 @@ bool GameScene::move_letters() {
 			*/
 		if (letters[i]->getY() > config->getHeight())  {
 
-			if( Mix_PlayChannel( -1, note_eog, 0 ) == -1 )   {
+			if( !note_eog.play()) {
 				printf("Could not play a note");
 			}
 
@@ -131,7 +120,7 @@ void GameScene::display_letters() {
 
 void GameScene::new_letter()
 {
-	if( Mix_PlayChannel( -1, notes[rand_min_max(0, 6)], 0 ) == -1 ) {
+	if (!notes[rand_min_max(0, 6)].play() ) {
 		printf("Could not play a note");
 	}
 
