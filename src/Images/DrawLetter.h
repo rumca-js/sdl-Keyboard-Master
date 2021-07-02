@@ -30,7 +30,9 @@ class DrawLetter : public DrawItem
 	char letter;
 
 	public:
-		DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans);
+		DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
+		DrawLetter();
+		bool open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
 		virtual ~DrawLetter();
 		void close();
 		void draw(SDL_Rect * srcRect, SDL_Rect * destRect);

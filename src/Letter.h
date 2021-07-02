@@ -9,6 +9,7 @@
 #define LETTER_H_
 
 #include <SDL2/SDL_ttf.h>
+#include "./Images/DrawLetter.h"
 
 class Letter {
 	/*!
@@ -18,8 +19,7 @@ class Letter {
 	/*!
 	 * \brief SDL texture for letter.
 	 */
-	SDL_Texture* Message = NULL;
-	SDL_Surface* surfaceMessage;
+	DrawLetter dletter;
 	/*!
 	 * \brief Position of the letter.
 	 */

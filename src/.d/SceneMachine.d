@@ -210,6 +210,7 @@
  Scenes/../GUI/Button.h Scenes/../GUI/../MainConfiguration.h \
  Scenes/IntroScene.h Scenes/GoodBye.h Scenes/HeavenScene.h \
  /usr/include/SDL2/SDL_mixer.h Scenes/../Letter.h \
+ Scenes/.././Images/DrawLetter.h Scenes/.././Images/DrawItem.h \
  Scenes/../Audio/SdlAudio.h Scenes/CosmosScene.h
 
 /usr/include/stdc-predef.h:
@@ -777,6 +778,10 @@ Scenes/HeavenScene.h:
 /usr/include/SDL2/SDL_mixer.h:
 
 Scenes/../Letter.h:
+
+Scenes/.././Images/DrawLetter.h:
+
+Scenes/.././Images/DrawItem.h:
 
 Scenes/../Audio/SdlAudio.h:
 

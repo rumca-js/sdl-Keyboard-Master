@@ -9,13 +9,19 @@
 #include "DrawText.h"
 
 
-DrawText::DrawText(std::string text, SDL_Renderer *ren, TTF_Font* Sans) {
+DrawText::DrawText() {
+}
+
+DrawText::DrawText(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
+	open(text, ren, Sans, color);
+}
+
+bool DrawText::open(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
 
     renderer = ren;
 
     if (Sans != NULL) {
-          SDL_Color White = {255, 0, 0, 255};
-          surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), White);
+          surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), color);
           Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     }
     else {

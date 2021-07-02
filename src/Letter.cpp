@@ -7,23 +7,18 @@
 
 #include "config.h"
 #include "Letter.h"
+#include "./Images/DrawLetter.h"
 
 Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
-	char text[4];
-
 	renderer = ren;
-
-	text[0] = _letter;
-	text[1] = '\0';
 
 	letter= _letter;
 	_w = LETTER_WIDTH;
 	_h = LETTER_HEIGHT;
 
     if (Sans != NULL) {
-   	    SDL_Color White = {255, 0, 0};
-  	    surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], White);
-  	    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+   	    SDL_Color White = {255, 0, 0, 255};
+  	    dletter.open(letter, ren, Sans, White);
     }
     else {
     	printf("Could not open font");
@@ -34,8 +29,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
 }
 
 Letter::~Letter() {
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
+	dletter.close();
 }
 
 unsigned Letter::getX() {
@@ -58,7 +52,7 @@ void Letter::display() {
 	Message_rect.y = y;
 	Message_rect.w = _w;
 	Message_rect.h = _h;
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+	dletter.draw(NULL, &Message_rect);
 }
 
 void Letter::setX(unsigned _x) {

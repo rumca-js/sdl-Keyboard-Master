@@ -191,7 +191,8 @@
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
  Scenes/../Images/DrawItem.h /usr/include/SDL2/SDL.h Scenes/../Letter.h \
- /usr/include/SDL2/SDL_ttf.h Scenes/../Audio/SdlAudio.h \
+ /usr/include/SDL2/SDL_ttf.h Scenes/.././Images/DrawLetter.h \
+ Scenes/.././Images/DrawItem.h Scenes/../Audio/SdlAudio.h \
  Scenes/../SceneInterface.h Scenes/../MainConfiguration.h
 
 /usr/include/stdc-predef.h:
@@ -697,6 +698,10 @@ Scenes/../Images/DrawItem.h:
 Scenes/../Letter.h:
 
 /usr/include/SDL2/SDL_ttf.h:
+
+Scenes/.././Images/DrawLetter.h:
+
+Scenes/.././Images/DrawItem.h:
 
 Scenes/../Audio/SdlAudio.h:
 

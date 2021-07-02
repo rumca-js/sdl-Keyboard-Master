@@ -9,7 +9,14 @@
 #include "DrawLetter.h"
 
 
-DrawLetter::DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans) {
+DrawLetter::DrawLetter() {
+}
+
+DrawLetter::DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
+	open(_letter, ren, Sans, color);
+}
+
+bool DrawLetter::open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
     char text[4];
 
     renderer = ren;
@@ -20,13 +27,15 @@ DrawLetter::DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans) {
     letter= _letter;
 
     if (Sans != NULL) {
-          SDL_Color White = {255, 0, 0, 255};
-          surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], White);
+          surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], color);
           Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     }
     else {
         printf("Could not open font");
+		return false;
     }
+
+	return true;
 }
 
 DrawLetter::~DrawLetter()

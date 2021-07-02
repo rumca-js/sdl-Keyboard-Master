@@ -3,7 +3,14 @@
 #include "DrawGif.h"
 
 
+DrawGif::DrawGif() {
+}
+
 DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
+	open(path, aRenderer);
+}
+
+bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
 
 	std::cout<< "Creating Gif"<<std::endl;
 
@@ -17,6 +24,8 @@ DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
     {
         textures.push_back(SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface));
     }
+
+	return true;
 }
 
 DrawGif::~DrawGif() {

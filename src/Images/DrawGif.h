@@ -28,7 +28,9 @@ class DrawGif : public DrawItem
     std::vector<SDL_Texture*> textures;
 
     public:
+        DrawGif();
         DrawGif(std::string path, SDL_Renderer * aRenderer);
+        bool open(std::string path, SDL_Renderer * aRenderer);
         virtual ~DrawGif();
         /*!
          * closes Gif
