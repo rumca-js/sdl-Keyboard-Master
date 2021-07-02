@@ -5,14 +5,32 @@
  *      Author: hunter
  */
 
+#include <iostream>
 #include "MainConfiguration.h"
 #include "config.h"
+
+using namespace std;
+using namespace libconfig;
 
 MainConfiguration::MainConfiguration() {
 	_w = WIDTH;
 	_h = HEIGHT;
 
 	_high_score = 0;
+
+	try
+	  {
+		cfg.readFile("config.cfg");
+	  }
+	  catch(const FileIOException &fioex)
+	  {
+		std::cerr << "I/O error while reading file." << std::endl;
+	  }
+	  catch(const ParseException &pex)
+	  {
+		std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
+				  << " - " << pex.getError() << std::endl;
+	  }
 }
 
 MainConfiguration & MainConfiguration::getConfig()   {

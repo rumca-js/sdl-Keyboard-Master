@@ -62,7 +62,7 @@ CPPFLAGS := -g -Wall -Wextra -pedantic
 # linker flags
 LDFLAGS := -L /usr/lib/x86_64-linux-gnu/
 # linker flags: libraries to link (e.g. -lfoo)
-LDLIBS := -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf -lgif
+LDLIBS := -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf -lgif -lconfig++
 # flags required for dependency generation; passed to compilers
 DEPFLAGS = -MT $@ -MD -MP -MF $(DEPDIR)/$*.Td
 

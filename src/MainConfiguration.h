@@ -11,6 +11,7 @@
 #define MAINCONFIGURATION_H_
 
 #include <SDL2/SDL.h>
+#include <libconfig.h++>
 
 class MainConfiguration {
 	/*!
@@ -25,6 +26,11 @@ class MainConfiguration {
 	 * \brief The high score.
 	 */
 	unsigned int _high_score;
+    /*!
+     * Configuration file
+     */
+    libconfig::Config cfg;
+
 	/*!
 	 * \brief Constructor.
 	 */
