@@ -85,6 +85,9 @@ public:
 	 * \brief Returns window size in Rect structure.
 	 */
 	SDL_Rect getFullScreenSize();
+
+    std::string getConfigString(std::string name);
+    int getConfigInt(std::string name);
 };
 
 #endif /* MAINCONFIGURATION_H_ */

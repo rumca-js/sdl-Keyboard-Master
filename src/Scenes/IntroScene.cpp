@@ -50,7 +50,7 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
-    logo.open(IMAGE_INTRO, renderer);
+    logo.open(config->getConfigString("IMAGE_INTRO"), renderer);
 }
 
 void IntroScene::close() {

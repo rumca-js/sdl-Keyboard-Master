@@ -79,3 +79,13 @@ SDL_Rect MainConfiguration::getFullScreenSize()
 	SDL_Rect rect; rect.x = 0; rect.y = 0; rect.w = this->getWidth(); rect.h = this->getHeight();
 	return rect;
 }
+
+std::string MainConfiguration::getConfigString(std::string name)
+{
+	return cfg.lookup(name);
+}
+
+int MainConfiguration::getConfigInt(std::string name)
+{
+	return cfg.lookup(name);
+}
