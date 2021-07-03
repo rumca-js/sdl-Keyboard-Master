@@ -5,7 +5,6 @@
  *      Author: hunter
  */
 
-#include "../config.h"
 #include "../Utilities.h"
 
 #include "CosmosScene.h"
@@ -55,19 +54,19 @@ CosmosScene::~CosmosScene() {
 void CosmosScene::init() {
 	config = &MainConfiguration::getConfig();
 
-    wall.open(IMAGE_COSMOS, renderer);
+    wall.open(config->getConfigString("IMAGE_COSMOS"), renderer);
 
-    Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
+    Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
 
-    notes[0].open( SOUND_A );
-    notes[1].open( SOUND_B );
-    notes[2].open( SOUND_C );
-    notes[3].open( SOUND_D );
-    notes[4].open( SOUND_E );
-    notes[5].open( SOUND_F );
-    notes[6].open( SOUND_G );
+    notes[0].open( config->getConfigString("SOUND_A") );
+    notes[1].open( config->getConfigString("SOUND_B") );
+    notes[2].open( config->getConfigString("SOUND_C") );
+    notes[3].open( config->getConfigString("SOUND_D") );
+    notes[4].open( config->getConfigString("SOUND_E") );
+    notes[5].open( config->getConfigString("SOUND_F") );
+    notes[6].open( config->getConfigString("SOUND_G") );
 
-    note_eog.open( SOUND_END_OF_GAME );
+    note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
 }
 
 void CosmosScene::close() {
@@ -83,9 +82,9 @@ void CosmosScene::reset() {
 	letters.clear();
 
     letters.push_back(new Letter(renderer, Sans, 'a'));
-    letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
-    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
-    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
+    letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth() ));
+    letters[0]->setWidth( rand_min_max(config->getLetterWidth() /2, config->getLetterWidth() ));
+    letters[0]->setHeight( rand_min_max(config->getLetterHeight() /2, config->getLetterHeight()));
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc3, &param);
@@ -98,9 +97,6 @@ bool CosmosScene::move_letters() {
 	{
 		letters[i]->setY(letters[i]->getY() + speed_factor);
 
-		/*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
-			return true;
-			*/
 		if (letters[i]->getY() > config->getHeight())  {
 
 			if( !note_eog.play()) {
@@ -132,9 +128,9 @@ void CosmosScene::new_letter()
 	char letter = rand_min_max(97, 122);
 
 	letters.push_back(new Letter(renderer, Sans, letter));
-	letters[0]->setX( rand_min_max(0, WIDTH-LETTER_WIDTH));
-    letters[0]->setWidth( rand_min_max(LETTER_WIDTH/2, LETTER_WIDTH));
-    letters[0]->setHeight( rand_min_max(LETTER_HEIGHT/2, LETTER_HEIGHT));
+	letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
+    letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
+    letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
 	config->setHighScore(config->getHighScore()+1);
 
@@ -199,8 +195,8 @@ int CosmosScene::write() {
 			SDL_Rect Message_rect;
 			Message_rect.x = config->getXpercent(0.9);
 			Message_rect.y = config->getYpercent(0.05);
-			Message_rect.w = LETTER_WIDTH;
-			Message_rect.h = LETTER_HEIGHT;
+			Message_rect.w = config->getLetterWidth();
+			Message_rect.h = config->getLetterHeight();
 			SDL_RenderCopy(renderer, counter_text, NULL, &Message_rect);
 		}
 

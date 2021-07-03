@@ -46,7 +46,7 @@ void Button::setDimentions(double width, double height) {
 	_height = height;
 }
 
-void Button::setTextures(const char * texture, const char * hover_texture) {
+void Button::setTextures(std::string texture, std::string hover_texture) {
 	tex_normal.open(texture, _r);
 	tex_hover.open(hover_texture, _r);
 }

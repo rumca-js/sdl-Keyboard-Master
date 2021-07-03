@@ -7,14 +7,11 @@
 
 #include <iostream>
 #include "MainConfiguration.h"
-#include "config.h"
 
 using namespace std;
 using namespace libconfig;
 
 MainConfiguration::MainConfiguration() {
-	_w = WIDTH;
-	_h = HEIGHT;
 
 	_high_score = 0;
 
@@ -31,6 +28,9 @@ MainConfiguration::MainConfiguration() {
 		std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
 				  << " - " << pex.getError() << std::endl;
 	  }
+
+	_w = getConfigInt("WINDOW_WIDTH");
+	_h = getConfigInt("WINDOW_HEIGHT");
 }
 
 MainConfiguration & MainConfiguration::getConfig()   {
@@ -48,13 +48,17 @@ unsigned int MainConfiguration::getWidth()   {
 unsigned int MainConfiguration::getHeight()   {
 	return _h;
 }
-unsigned int MainConfiguration::getXpercent(double x)
-{
+unsigned int MainConfiguration::getXpercent(double x) {
 	return x*(double)getWidth();
 }
-unsigned int MainConfiguration::getYpercent(double y)
-{
+unsigned int MainConfiguration::getYpercent(double y) {
 	return y*(double)getHeight();
+}
+unsigned int MainConfiguration::getLetterWidth() {
+	return getXpercent(0.1);
+}
+unsigned int MainConfiguration::getLetterHeight() {
+	return getYpercent(0.1);
 }
 void MainConfiguration::setWidth(unsigned int width)    {
 	_w = width;
@@ -82,10 +86,28 @@ SDL_Rect MainConfiguration::getFullScreenSize()
 
 std::string MainConfiguration::getConfigString(std::string name)
 {
-	return cfg.lookup(name);
+	try
+	{
+		return cfg.lookup(name);
+	}
+	catch(const SettingNotFoundException &nfex)
+	{
+		cerr << "Setting not found:" << name << endl;
+	}
+
+	return std::string();
 }
 
 int MainConfiguration::getConfigInt(std::string name)
 {
-	return cfg.lookup(name);
+	try
+	{
+		return cfg.lookup(name);
+	}
+	catch(const SettingNotFoundException &nfex)
+	{
+		cerr << "Setting not found:" << name << endl;
+	}
+
+	return 0;
 }

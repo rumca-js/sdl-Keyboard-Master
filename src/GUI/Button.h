@@ -81,7 +81,7 @@ public:
 	/*!
 	 * \brief Sets button textures.
 	 */
-	void setTextures(const char * texture, const char * hover_texture);
+	void setTextures(std::string texture, std::string hover_texture);
 	/*!
 	 * \brief Sets button text font.
 	 */

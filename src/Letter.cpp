@@ -5,7 +5,7 @@
  *      Author: hunter
  */
 
-#include "config.h"
+#include "MainConfiguration.h"
 #include "Letter.h"
 #include "./Images/DrawLetter.h"
 
@@ -13,8 +13,8 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
 	renderer = ren;
 
 	letter= _letter;
-	_w = LETTER_WIDTH;
-	_h = LETTER_HEIGHT;
+	_w = MainConfiguration::getConfig().getLetterWidth();
+	_h = MainConfiguration::getConfig().getLetterHeight();
 
     if (Sans != NULL) {
    	    SDL_Color White = {255, 0, 0, 255};

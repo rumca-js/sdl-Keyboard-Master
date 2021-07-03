@@ -11,7 +11,6 @@
 #include "MainController.h"
 #include "MainConfiguration.h"
 
-#include "config.h"
 #include "time.h"
 
 

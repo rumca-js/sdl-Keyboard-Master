@@ -88,6 +88,9 @@ public:
 
     std::string getConfigString(std::string name);
     int getConfigInt(std::string name);
+    
+    unsigned int getLetterWidth();
+    unsigned int getLetterHeight();
 };
 
 #endif /* MAINCONFIGURATION_H_ */

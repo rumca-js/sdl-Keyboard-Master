@@ -5,7 +5,6 @@
  *      Author: hunter
  */
 
-#include "../config.h"
 #include "DrawLetter.h"
 
 

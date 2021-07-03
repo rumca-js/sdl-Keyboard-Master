@@ -5,8 +5,6 @@
  *      Author: hunter
  */
 
-#include "../config.h"
-
 #include "GoodBye.h"
 
 
@@ -34,7 +32,6 @@ Uint32 my_callbackfunc2(Uint32 interval, void *param) {
     return(interval);
 }
 
-
 GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window) {
 	win      = window;
 	renderer = ren;
@@ -49,7 +46,7 @@ GoodBye::~GoodBye() {
 }
 
 void GoodBye::init() {
-	wall.open(IMAGE_EXIT, renderer);
+	wall.open(config->getConfigString("IMAGE_EXIT"), renderer);
 }
 
 void GoodBye::close() {

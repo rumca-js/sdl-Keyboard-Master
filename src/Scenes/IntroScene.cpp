@@ -7,9 +7,6 @@
 
 #include "IntroScene.h"
 
-#include "../config.h"
-
-
 
 Uint32 my_callbackfunc1(Uint32 interval, void *param) {
 	static int counter = 0;

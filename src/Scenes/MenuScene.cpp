@@ -7,8 +7,6 @@
 
 #include "MenuScene.h"
 
-#include "../config.h"
-
 
 MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
 	fullscreen = true;
@@ -31,9 +29,9 @@ void MenuScene::init() {
 
 	config = &MainConfiguration::getConfig();
 
-    Sans = TTF_OpenFont(FONT_NAME, FONT_SIZE);
+    Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
 
-    wall.open(IMAGE_MENU, renderer);
+    wall.open(config->getConfigString("IMAGE_MENU"), renderer);
 
     buttons.push_back( new Button(renderer, TEXT_ENTER));
     buttons.push_back( new Button(renderer, TEXT_FULL_SCREEN));
@@ -44,19 +42,19 @@ void MenuScene::init() {
     buttons[0]->setDimentions(0.32, 0.06);
     buttons[0]->setPosition(0.6, 0.1);
     buttons[0]->setFont(Sans, color);
-    buttons[0]->setTextures(TEXTURE_BUTTON1, TEXTURE_BUTTON1_HOVER);
+    buttons[0]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[0]->load();
 
     buttons[1]->setDimentions(0.32, 0.06);
 	buttons[1]->setPosition(0.6, 0.2);
 	buttons[1]->setFont(Sans, color);
-	buttons[1]->setTextures(TEXTURE_BUTTON1, TEXTURE_BUTTON1_HOVER);
+	buttons[1]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
 	buttons[1]->load();
 
 	buttons[2]->setDimentions(0.32, 0.06);
 	buttons[2]->setPosition(0.6, 0.3);
 	buttons[2]->setFont(Sans, color);
-	buttons[2]->setTextures(TEXTURE_BUTTON1, TEXTURE_BUTTON1_HOVER);
+	buttons[2]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
 	buttons[2]->load();
 
 	buttons[0]->setHover(true);
@@ -145,7 +143,7 @@ void MenuScene::setFullScreen() {
 	}
 	else {
 		// TODO do not use WIDTH or HEIGHT definitions directly
-		config->setWindowSize(WIDTH, HEIGHT);
+		config->setWindowSize(config->getConfigInt("WIDTH"), config->getConfigInt("HEIGHT") );
 
 		SDL_SetWindowFullscreen(win, 0);
 	}
