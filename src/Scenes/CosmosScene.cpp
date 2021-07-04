@@ -33,7 +33,7 @@ Uint32 my_callbackfunc3(Uint32 interval, void *param) {
 }
 
 
-CosmosScene::CosmosScene(SDL_Renderer *ren, SDL_Window * window) {
+CosmosScene::CosmosScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
 	renderer = ren;
 
 	// Initializers
@@ -155,7 +155,7 @@ bool CosmosScene::check_if_killed(char key) {
 }
 
 int CosmosScene::write() {
-	int status = SCENE_EXIT;
+	int status = 0;
 
 	reset();
 
@@ -172,14 +172,14 @@ int CosmosScene::write() {
 			else if (e.type == SDL_KEYDOWN) {
 				if (check_if_killed((char)e.key.keysym.sym) ) {
 					if (config->getHighScore() > 20) {
-						status = SceneInterface::SCENE_FINISHED;
+						status = 0;
 						break;
 					}
 				}
 			}
 			else if (e.type == SDL_USEREVENT) {
 				if (this->move_letters() ) {
-					status = SceneInterface::SCENE_EXIT;
+					status = 1;
 					break;
 				}
 			}
@@ -218,4 +218,6 @@ void CosmosScene::updateCounter() {
 	counter_text = SDL_CreateTextureFromSurface(renderer, counter_surface);
 }
 
-
+std::string CosmosScene::getName() {
+	return "COSMOS";
+}

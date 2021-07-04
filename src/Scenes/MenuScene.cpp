@@ -8,7 +8,7 @@
 #include "MenuScene.h"
 
 
-MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window) {
+MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
 	fullscreen = true;
 
 	win = window;
@@ -69,30 +69,30 @@ void MenuScene::close() {
 }
 
 int MenuScene::write() {
-	int status = SCENE_EXIT;
+	int status = 0;
 
 	while (1) {
 
 		SDL_Event e;
 		if ( SDL_PollEvent(&e) ) {
 			if (e.type == SDL_QUIT) {
-				status = SCENE_EXIT;
+				status = 1;
 				break;
 			}
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
-				status = SCENE_EXIT;
+				status = 1;
 				break;
 			}
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
 				if (selected == 0) {
-					status = SCENE_FINISHED;
+					status = 0;
 					break;
 				}
 				else if (selected == 1) {
 					setFullScreen();
 				}
 				if (selected == 2) {
-					status = SCENE_EXIT;
+					status = 1;
 					break;
 				}
 			}
@@ -149,8 +149,7 @@ void MenuScene::setFullScreen() {
 	}
 }
 
-void MenuScene::selected_increment()
-{
+void MenuScene::selected_increment() {
 	if (selected != 2) {
 		printf("selected");
 		buttons[selected]->setHover(false);
@@ -161,8 +160,7 @@ void MenuScene::selected_increment()
 	}
 }
 
-void MenuScene::selected_decrement()
-{
+void MenuScene::selected_decrement() {
 	if (selected != 0) {
 		printf("selected");
 		buttons[selected]->setHover(false);
@@ -171,4 +169,8 @@ void MenuScene::selected_decrement()
 		buttons[selected]->setHover(true);
 		printf("selected");
 	}
+}
+
+std::string MenuScene::getName() {
+	return "MENU";
 }

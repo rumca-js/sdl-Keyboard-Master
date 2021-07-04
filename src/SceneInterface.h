@@ -15,15 +15,6 @@
 class SceneInterface
 {
 public:
-
-	/*!
-	 * \brief Indicates exit.
-	 */
-	static const int SCENE_EXIT=0;
-	/*!
-	 * \brief Indicates that we should transition to the next scene.
-	 */
-	static const int SCENE_FINISHED=1;
     /*!
      \brief Initializes scene.
     */
@@ -41,6 +32,7 @@ public:
 	 * \brief Provied destructor. Otherwise compiler would complain.
 	 */
 	virtual ~SceneInterface() {}
+	virtual std::string getName() = 0;
 };
 
 

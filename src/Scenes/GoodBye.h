@@ -8,6 +8,8 @@
 #ifndef SCENES_GOODBYE_H_
 #define SCENES_GOODBYE_H_
 
+#include <map>
+
 #include "../Images/DrawTexture.h"
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
@@ -34,12 +36,13 @@ class GoodBye : public SceneInterface {
 	 */
 	DrawTexture wall;
 public:
-	GoodBye(SDL_Renderer *ren, SDL_Window * window);
+	GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	virtual ~GoodBye();
 
 	void init();
 	int write();
 	void close();
+	std::string getName();
 };
 
 #endif /* SCENES_GOODBYE_H_ */

@@ -32,7 +32,7 @@ Uint32 my_callbackfunc1(Uint32 interval, void *param) {
     return(interval);
 }
 
-IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window) {
+IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
 
 	win = window;
 	renderer = ren;
@@ -54,7 +54,7 @@ void IntroScene::close() {
 }
 
 int IntroScene::write() {
-	int status = SCENE_EXIT;
+	int status = 0;
 
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
     bool display = false;
@@ -64,7 +64,7 @@ int IntroScene::write() {
 		SDL_Event e;
 		if ( SDL_PollEvent(&e) ) {
 			if (e.type == SDL_QUIT) {
-				status = SCENE_EXIT;
+				status = 1;
 				break;
 			}
 			else if (e.type == SDL_USEREVENT) {
@@ -72,7 +72,7 @@ int IntroScene::write() {
 					display = true;
 				}
 				else if (e.user.code == 7) {
-					status = SceneInterface::SCENE_FINISHED;
+					status = 0;
 					break;
 				}
 			}
@@ -103,4 +103,6 @@ int IntroScene::write() {
 	return status;
 }
 
-
+std::string IntroScene::getName() {
+	return "INTRO";
+}

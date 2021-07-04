@@ -11,6 +11,8 @@
 
 #include <vector>
 #include <string>
+#include <map>
+
 #include <SDL2/SDL_mixer.h>
 
 #include "../Images/DrawTexture.h"
@@ -85,7 +87,7 @@ public:
 	/*!
 	 * \brief Constructor.
 	 */
-	GameScene(SDL_Renderer *ren, SDL_Window * window);
+	GameScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	/*!
 	 * \brief Destructor.
 	 */
@@ -118,6 +120,7 @@ public:
 	 * @brief Closes the scene, disposes elements.
 	 */
 	void close();
+	std::string getName();
 };
 
 #endif /* GAMESCENE_H_ */

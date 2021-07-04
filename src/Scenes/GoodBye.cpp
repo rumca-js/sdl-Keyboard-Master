@@ -32,7 +32,7 @@ Uint32 my_callbackfunc2(Uint32 interval, void *param) {
     return(interval);
 }
 
-GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window) {
+GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
 	win      = window;
 	renderer = ren;
 
@@ -54,7 +54,7 @@ void GoodBye::close() {
 }
 
 int GoodBye::write() {
-	int status = SCENE_EXIT;
+	int status = 0;
 
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
 
@@ -64,7 +64,7 @@ int GoodBye::write() {
 		if ( SDL_PollEvent(&e) ) {
 			if (e.type == SDL_QUIT)
 			{
-				status = SCENE_EXIT;
+				status = 1;
 				break;
 			}
 			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
@@ -73,7 +73,7 @@ int GoodBye::write() {
 			{
 				if (e.user.code == 4)
 				{
-					status = SceneInterface::SCENE_FINISHED;
+					status = 0;
 					break;
 				}
 			}
@@ -92,3 +92,6 @@ int GoodBye::write() {
 	return status;
 }
 
+std::string GoodBye::getName() {
+	return "GOODBYE";
+}

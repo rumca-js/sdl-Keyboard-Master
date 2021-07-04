@@ -1,9 +1,3 @@
-/*
- * SceneMachine.cpp
- *
- *  Created on: 21 mar 2018
- *      Author: hunter
- */
 
 #include <iostream>
 
@@ -16,60 +10,46 @@
 #include "Scenes/HeavenScene.h"
 #include "Scenes/CosmosScene.h"
 
+using namespace std;
+using namespace libconfig;
 
 SceneMachine::SceneMachine() {
-	current = SCENE_STM_START;
+	SCENE_STM_START = "INIT";
+	SCENE_STM_STOP = "QUIT";
+	
+	current = 0;
+	current_state_name = SCENE_STM_START;
 }
 
 SceneMachine::~SceneMachine() {
 }
 
 bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
-	current = SCENE_STM_START;
-
-	scenes.push_back(new IntroScene(renderer, window) );
-	scenes.push_back(new MenuScene(renderer, window) );
-	scenes.push_back(new GoodBye(renderer, window) );
-	scenes.push_back(new GameScene(renderer, window) );
-	scenes.push_back(new CosmosScene(renderer, window) );
-
-	const unsigned int SCENE_INTRO = 0;
-	const unsigned int SCENE_MENU = 1;
-	const unsigned int SCENE_GOODBYE = 2;
-	const unsigned int SCENE_HEAVEN = 3;
-	const unsigned int SCENE_COSMOS = 4;
-
-	/*
-	join(SCENE_STM_START, 1, SceneInterface::SCENE_FINISHED);
-
-	join(0, 1, SceneInterface::SCENE_FINISHED);
-	join(1, SCENE_STM_STOP, SceneInterface::SCENE_FINISHED);
-	join(1, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
-	*/
-
-
-	join(SCENE_STM_START, SCENE_INTRO, SceneInterface::SCENE_FINISHED);
-
-	join(SCENE_INTRO, SCENE_MENU, SceneInterface::SCENE_FINISHED);
-	join(SCENE_MENU, SCENE_HEAVEN, SceneInterface::SCENE_FINISHED);
-
-	join(SCENE_HEAVEN, SCENE_COSMOS, SceneInterface::SCENE_FINISHED);
-	join(SCENE_COSMOS, SCENE_MENU, SceneInterface::SCENE_FINISHED);
-
-	join(SCENE_HEAVEN, SCENE_MENU, SceneInterface::SCENE_EXIT);
-	join(SCENE_COSMOS, SCENE_MENU, SceneInterface::SCENE_EXIT);
-
-	join(SCENE_MENU, SCENE_GOODBYE, SceneInterface::SCENE_EXIT);
-
-	join(SCENE_GOODBYE, SCENE_STM_STOP, SceneInterface::SCENE_EXIT);
-	join(SCENE_GOODBYE, SCENE_STM_STOP, SceneInterface::SCENE_FINISHED);
-
-	if (current == SCENE_STM_START) {
-		current = transitions[0].to;
+	current = 0;
+	current_state_name = SCENE_STM_START;
+	
+	load_config();
+	
+	scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
+	scenes.push_back(new MenuScene(renderer, window, getSceneInformation("MENU") ) );
+	scenes.push_back(new GoodBye(renderer, window, getSceneInformation("GOODBYE")) );
+	scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
+	scenes.push_back(new CosmosScene(renderer, window, getSceneInformation("COSMOS")) );
+	
+	std::vector<TransitionInfo> trans_data = getTransitionData();
+	
+	for(unsigned int i=0; i<trans_data.size(); i++)
+	{
+		join(trans_data[i].from, trans_data[i].to, trans_data[i].when);
 	}
 
-	for(unsigned int i=0;i<scenes.size();i++) {
-		scenes[i]->init();
+	if (current_state_name == SCENE_STM_START) {
+		std::string new_state;
+		if (findTransition(current_state_name, 0, new_state))
+		{
+			performTransition(new_state);
+		}
+		scenes[current]->init();
 	}
 
 	return true;
@@ -83,7 +63,7 @@ void SceneMachine::close() {
 
 }
 
-void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when) {
+void SceneMachine::join(std::string from, std::string to, unsigned int when) {
 	TransitionInfo val;
 	val.from = from;
 	val.to = to;
@@ -94,22 +74,130 @@ void SceneMachine::join(unsigned int from, unsigned int to, unsigned int when) {
 void SceneMachine::write() {
 
     while(true) {
-
 		SceneInterface * scene = scenes[current];
 		int status = scene->write();
 
-		for(unsigned int i=0; i<transitions.size(); i++) {
-			if ( (int)transitions[i].from == current && transitions[i].when == status) {
-				if ( (int)transitions[i].to == SCENE_STM_STOP) {
-					return;
-				}
-				else {
-					current = transitions[i].to;
-					break;
-				}
+		std::string new_state;
+		if (findTransition(current_state_name, status, new_state))
+		{
+			performTransition(new_state);
+		}
+		else
+			break;
+    }
+}
+
+void SceneMachine::performTransition(std::string name) {
+	current_state_name = name;
+	current = getStateNameToId(current_state_name);
+	scenes[current]->init();
+}
+
+bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)
+{
+	for(unsigned int i=0; i<transitions.size(); i++) {
+		if ( transitions[i].from == state_name && transitions[i].when == status) {
+			if ( transitions[i].to == SCENE_STM_STOP) {
+				return false;
+			}
+			else {
+				result_state = transitions[i].to;
+				return true;
 			}
 		}
 	}
+	return false;
 }
 
+bool SceneMachine::load_config() {
+	try
+	  {
+		cfg.readFile("scenes.cfg");
+		return true;
+	  }
+	  catch(const FileIOException &fioex)
+	  {
+		std::cerr << "I/O error while reading file." << std::endl;
+	  }
+	  catch(const ParseException &pex)
+	  {
+		std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
+				  << " - " << pex.getError() << std::endl;
+	  }
+	  return false;
+}
+
+map<std::string, std::string> SceneMachine::getSceneInformation(std::string scene) {
+	map<std::string, std::string> info;
+	
+	try {
+		const Setting & state_data = cfg.lookup("state_data");
+		int count = state_data.getLength();
+		std::string name, background, music;
+		
+		for(int i=0; i<count; i++) {
+
+
+			state_data[i].lookupValue("name", name);
+			if (name != scene)
+				continue;
+			state_data[i].lookupValue("background", background);
+			state_data[i].lookupValue("music", music);
+
+			info["name"] = name;
+			info["backkground"] = background;
+			info["music"] = music;
+			
+			return info;
+		}
+	}
+	catch(const SettingNotFoundException &nfex)  	{
+		cerr << "Setting not found:" << endl;
+	}
+
+	return info;
+}
+
+int SceneMachine::getStateNameToId(std::string name) {
+	for(unsigned int i=0; i<scenes.size(); i++)
+	{
+		if (scenes[i]->getName() == name)
+			return i;
+	}
+	return -1;
+}
+
+std::vector<TransitionInfo> SceneMachine::getTransitionData() {
+
+	std::vector<TransitionInfo> result;
+
+	try
+	{
+		const Setting & trans_data = cfg.lookup("state_transistions");
+		int count = trans_data.getLength();
+		
+		for(int i=0; i<count; i++)
+		{
+			std::string from, to;
+			int when;
+			
+			trans_data[i].lookupValue("from", from);
+			trans_data[i].lookupValue("to", to);
+			trans_data[i].lookupValue("when", when);
+			
+			TransitionInfo info;
+			info.when = when;
+			info.from = from;
+			info.to = to;
+			
+			result.push_back(info);
+		}
+	}
+	catch(const SettingNotFoundException &nfex)
+	{
+		cerr << "Setting not found:" << endl;
+	}
+	
+	return result;
+}
 

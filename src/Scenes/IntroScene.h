@@ -8,6 +8,7 @@
 #ifndef INITSCENE_H_
 #define INITSCENE_H_
 
+#include <map>
 #include <SDL2/SDL_ttf.h>
 
 #include "../Images/DrawTexture.h"
@@ -41,7 +42,7 @@ public:
 	/*!
 	 * \brief Constructor.
 	 */
-	IntroScene(SDL_Renderer *ren, SDL_Window * window);
+	IntroScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	/*!
 	 * \brief Destructor.
 	 */
@@ -58,6 +59,7 @@ public:
 	 * \brief Scene close function.
 	 */
 	void close();
+	std::string getName();
 
 };
 

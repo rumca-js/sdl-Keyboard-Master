@@ -8,6 +8,7 @@
 #ifndef MENUSCENE_H_
 #define MENUSCENE_H_
 
+#include <map>
 #include <SDL2/SDL_ttf.h>
 #include <vector>
 
@@ -69,12 +70,13 @@ class MenuScene : public SceneInterface {
 	 */
 	void setFullScreen();
 public:
-	MenuScene(SDL_Renderer *ren, SDL_Window * window);
+	MenuScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	virtual ~MenuScene();
 
 	void init();
 	int write();
 	void close();
+	std::string getName();
 };
 
 #endif /* MENUSCENE_H_ */
