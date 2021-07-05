@@ -5,6 +5,7 @@
  *      Author: hunter
  */
 
+#include <iostream>
 #include "IntroScene.h"
 
 
@@ -37,7 +38,9 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
 	win = window;
 	renderer = ren;
 
-    this.sceneInfo = sceneInfo;
+    this->sceneInfo = sceneInfo;
+
+	std::cout << "Scene information" << sceneInfo["background"] << std::endl;
 
 	my_timer_id = -1;
 

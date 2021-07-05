@@ -14,7 +14,7 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 	win = window;
 	renderer = ren;
 
-    this.sceneInfo = sceneInfo;
+    this->sceneInfo = sceneInfo;
 
 	Sans 	= NULL;
 
@@ -33,7 +33,7 @@ void MenuScene::init() {
 
     Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
 
-    wall.open(sceneInfo["background"]), renderer);
+    wall.open(sceneInfo["background"], renderer);
 
     buttons.push_back( new SdlButton(renderer, TEXT_ENTER));
     buttons.push_back( new SdlButton(renderer, TEXT_FULL_SCREEN));
@@ -153,23 +153,17 @@ void MenuScene::setFullScreen() {
 
 void MenuScene::selected_increment() {
 	if (selected != 2) {
-		printf("selected");
 		buttons[selected]->setHover(false);
-		printf("selected");
 		selected++;
 		buttons[selected]->setHover(true);
-		printf("selected");
 	}
 }
 
 void MenuScene::selected_decrement() {
 	if (selected != 0) {
-		printf("selected");
 		buttons[selected]->setHover(false);
-		printf("selected");
 		selected--;
 		buttons[selected]->setHover(true);
-		printf("selected");
 	}
 }
 

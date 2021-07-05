@@ -12,7 +12,7 @@ SRCS := \
   Images/DrawItem.cpp \
   Images/SDL_gifwrap.cpp \
   Letter.cpp \
-  GUI/Button.cpp \
+  GUI/SdlButton.cpp \
   SceneMachine.cpp \
   Scenes/IntroScene.cpp \
   Scenes/GoodBye.cpp \

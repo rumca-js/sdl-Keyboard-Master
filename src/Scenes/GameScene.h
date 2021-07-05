@@ -23,13 +23,13 @@
 
 
 class GameScene : public SceneInterface {
-	/*!
-	 * \brief SDL Renderer pointer.
-	 */
+    /*!
+     * \brief SDL Renderer pointer.
+     */
     SDL_Renderer *renderer = NULL;
     /*!
-	 * \brief Configuration instance pointer.
-	 */
+     * \brief Configuration instance pointer.
+     */
     MainConfiguration * config;
     /*!
      * \brief Font for game.
@@ -70,62 +70,62 @@ class GameScene : public SceneInterface {
     /*!
      * \brief Piano notes A-G.
      */
-	SdlAudio notes[7];
-	/*!
-	 * \brief Sound for the end of the game.
-	 */
-	SdlAudio note_eog;
+    SdlAudio notes[7];
+    /*!
+     * \brief Sound for the end of the game.
+     */
+    SdlAudio note_eog;
     /*!
      * \brief Resets to a default state.
      */
-	void reset();
-	/*!
-	 * \brief Updates high score counter.
-	 */
-	void updateCounter();
+    void reset();
+    /*!
+     * \brief Updates high score counter.
+     */
+    void updateCounter();
     /*!
      * state name
      * */
-    std::vector<std::string> sceneInfo;
+    std::map<std::string, std::string> sceneInfo;
 
 public:
-	/*!
-	 * \brief Constructor.
-	 */
-	GameScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
-	/*!
-	 * \brief Destructor.
-	 */
-	virtual ~GameScene();
-	/**
-	 * @brief Performs initialization
-	 */
-	void init();
-	/**
-	 * @brief Writes scene on the window
-	 */
-	int write();
-	/**
-	 * @brief Updates letter positions. Every timer event.
-	 */
-	bool move_letters();
-	/**
-	 * @brief Displays the letters on the renderer
-	 */
-	void display_letters();
-	/**
-	 * @brief Checks if letter should be destroyed.
-	 */
-	bool check_if_killed(char key);
-	/*!
-	 * \brief Disposes previous letter and creates new letter.
-	 */
-	void new_letter();
-	/**
-	 * @brief Closes the scene, disposes elements.
-	 */
-	void close();
-	std::string getName();
+    /*!
+     * \brief Constructor.
+     */
+    GameScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
+    /*!
+     * \brief Destructor.
+     */
+    virtual ~GameScene();
+    /**
+     * @brief Performs initialization
+     */
+    void init();
+    /**
+     * @brief Writes scene on the window
+     */
+    int write();
+    /**
+     * @brief Updates letter positions. Every timer event.
+     */
+    bool move_letters();
+    /**
+     * @brief Displays the letters on the renderer
+     */
+    void display_letters();
+    /**
+     * @brief Checks if letter should be destroyed.
+     */
+    bool check_if_killed(char key);
+    /*!
+     * \brief Disposes previous letter and creates new letter.
+     */
+    void new_letter();
+    /**
+     * @brief Closes the scene, disposes elements.
+     */
+    void close();
+    std::string getName();
 };
 
 #endif /* GAMESCENE_H_ */

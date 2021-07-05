@@ -36,7 +36,7 @@ GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, 
 	win      = window;
 	renderer = ren;
 
-    this.sceneInfo = sceneInfo;
+    this->sceneInfo = sceneInfo;
 
 	my_timer_id = -1;
 

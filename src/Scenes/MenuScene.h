@@ -25,62 +25,62 @@
 
 
 class MenuScene : public SceneInterface {
-	/*!
-	 * \brief SDL Renderer pointer.
-	 */
-	SDL_Renderer* renderer;
-	/*!
-	 * \brief SDL window pointer.
-	 */
-	SDL_Window* win;
-	/*!
-	 * \brief Configuration instance pointer.
-	 */
-	MainConfiguration * config;
-	/*!
-	 * \brief Font that is used.
-	 */
-	TTF_Font* Sans;
-	/*!
-	 * \brief The background picture.
-	 */
-	DrawTexture wall;
-	/*!
-	 * \brief Full screen indication.
-	 */
-	bool fullscreen;
-	/*!
-	 * \brief Buttons list.
-	 */
-	std::vector<SdlButton *> buttons;
-	/*!
-	 * \brief
-	 */
-	unsigned int selected;
-	/*!
-	 * \brief increments selected button id;
-	 */
-	void selected_increment();
-	/*!
-	 * \brief decrements selected button id.
-	 */
-	void selected_decrement();
-	/*!
-	 * \brief Toggles full screen.
-	 */
-	void setFullScreen();
+    /*!
+     * \brief SDL Renderer pointer.
+     */
+    SDL_Renderer* renderer;
+    /*!
+     * \brief SDL window pointer.
+     */
+    SDL_Window* win;
+    /*!
+     * \brief Configuration instance pointer.
+     */
+    MainConfiguration * config;
+    /*!
+     * \brief Font that is used.
+     */
+    TTF_Font* Sans;
+    /*!
+     * \brief The background picture.
+     */
+    DrawTexture wall;
+    /*!
+     * \brief Full screen indication.
+     */
+    bool fullscreen;
+    /*!
+     * \brief Buttons list.
+     */
+    std::vector<SdlButton *> buttons;
+    /*!
+     * \brief
+     */
+    unsigned int selected;
+    /*!
+     * \brief increments selected button id;
+     */
+    void selected_increment();
+    /*!
+     * \brief decrements selected button id.
+     */
+    void selected_decrement();
+    /*!
+     * \brief Toggles full screen.
+     */
+    void setFullScreen();
     /*!
      * state name
      * */
-    std::vector<std::string> sceneInfo;
+    std::map<std::string, std::string> sceneInfo;
 public:
-	MenuScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
-	virtual ~MenuScene();
+    MenuScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
+    virtual ~MenuScene();
 
-	void init();
-	int write();
-	void close();
-	std::string getName();
+    void init();
+    int write();
+    void close();
+    std::string getName();
 };
 
 #endif /* MENUSCENE_H_ */

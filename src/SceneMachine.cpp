@@ -6,9 +6,7 @@
 #include "Scenes/MenuScene.h"
 #include "Scenes/IntroScene.h"
 #include "Scenes/GoodBye.h"
-
-#include "Scenes/HeavenScene.h"
-#include "Scenes/CosmosScene.h"
+#include "Scenes/GameScene.h"
 
 using namespace std;
 using namespace libconfig;
@@ -30,10 +28,15 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     
     load_config();
     
+	std::cout << "INTRO" << std::endl;
     scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
+	std::cout << "MENU" << std::endl;
     scenes.push_back(new MenuScene(renderer, window, getSceneInformation("MENU") ) );
+	std::cout << "GOODBYE" << std::endl;
     scenes.push_back(new GoodBye(renderer, window, getSceneInformation("GOODBYE")) );
+	std::cout << "HEAVE" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
+	std::cout << "COSMOS" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
     
     std::vector<TransitionInfo> trans_data = getTransitionData();
@@ -49,7 +52,7 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     	{
     		performTransition(new_state);
     	}
-    	scenes[current]->init();
+    	scenes[current_scene]->init();
     }
 
     return true;
@@ -74,7 +77,7 @@ void SceneMachine::join(std::string from, std::string to, unsigned int when) {
 void SceneMachine::write() {
 
     while(true) {
-    	SceneInterface * scene = scenes[current];
+    	SceneInterface * scene = scenes[current_scene];
     	int status = scene->write();
 
     	std::string new_state;
@@ -89,8 +92,8 @@ void SceneMachine::write() {
 
 void SceneMachine::performTransition(std::string name) {
     current_state_name = name;
-    current = getStateNameToId(current_state_name);
-    scenes[current]->init();
+    current_scene = getStateNameToId(current_state_name);
+    scenes[current_scene]->init();
 }
 
 bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)
@@ -144,8 +147,10 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
     		state_data[i].lookupValue("background", background);
     		state_data[i].lookupValue("music", music);
 
+			std::cout << "found name" << name << background << std::endl;
+
     		info["name"] = name;
-    		info["backkground"] = background;
+    		info["background"] = background;
     		info["music"] = music;
     		
     		return info;

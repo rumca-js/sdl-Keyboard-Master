@@ -15,38 +15,38 @@
 #include "../MainConfiguration.h"
 
 class GoodBye : public SceneInterface {
-	/*!
-	 * \brief SDL Renderer pointer.
-	 */
-	SDL_Renderer* renderer;
-	/*!
-	 * \brief SDL window pointer.
-	 */
-	SDL_Window* win;
-	/*!
-	 * \brief Configuration instance pointer.
-	 */
-	MainConfiguration * config;
-	/*!
-	 * Timer for leaving game.
-	 */
-	SDL_TimerID my_timer_id;
-	/*!
-	 * \brief The background picture.
-	 */
-	DrawTexture wall;
+    /*!
+     * \brief SDL Renderer pointer.
+     */
+    SDL_Renderer* renderer;
+    /*!
+     * \brief SDL window pointer.
+     */
+    SDL_Window* win;
+    /*!
+     * \brief Configuration instance pointer.
+     */
+    MainConfiguration * config;
+    /*!
+     * Timer for leaving game.
+     */
+    SDL_TimerID my_timer_id;
+    /*!
+     * \brief The background picture.
+     */
+    DrawTexture wall;
     /*!
      * state name
-     * */
-    std::vector<std::string> sceneInfo;
+     */
+    std::map<std::string, std::string> sceneInfo;
 public:
-	GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
-	virtual ~GoodBye();
+    GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
+    virtual ~GoodBye();
 
-	void init();
-	int write();
-	void close();
-	std::string getName();
+    void init();
+    int write();
+    void close();
+    std::string getName();
 };
 
 #endif /* SCENES_GOODBYE_H_ */

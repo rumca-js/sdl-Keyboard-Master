@@ -9,6 +9,7 @@
 #define INITSCENE_H_
 
 #include <map>
+#include <vector>
 #include <SDL2/SDL_ttf.h>
 
 #include "../Images/DrawTexture.h"
@@ -38,10 +39,10 @@ class IntroScene : public SceneInterface {
 	 * Timer for displaying logo.
 	 */
 	SDL_TimerID my_timer_id;
-    /*!
-     * state name
-     * */
-    std::vector<std::string> sceneInfo;
+        /*!
+         * state name
+         */
+        std::map<std::string,std::string> sceneInfo;
 public:
 	/*!
 	 * \brief Constructor.
