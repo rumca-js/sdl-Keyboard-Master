@@ -34,3 +34,12 @@ GPLv3
 Program uses graphics from 
 https://www.pexels.com
 www.freepik.com
+
+# Engine
+
+To add a new scene:
+ * add a class in Scenes directory (use previous classes to identify what has to be written)
+ * update scenes.cfg directory
+ ** add a new scene state
+ ** add a new state_transition
+ ** provide scene/state information
