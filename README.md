@@ -38,8 +38,8 @@ www.freepik.com
 # Engine
 
 To add a new scene:
- * add a class in Scenes directory (use previous classes to identify what has to be written)
+ * add a class in Scenes directory (use previous classes to identify what has to be written). SceneInterface.h describes the interface.
  * update scenes.cfg directory
- ** add a new scene state
- ** add a new state_transition
- ** provide scene/state information
+    * add a new scene state
+    * add a new state_transition
+    * provide scene/state information
