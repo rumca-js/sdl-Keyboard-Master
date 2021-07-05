@@ -12,7 +12,7 @@ DrawLetter::DrawLetter() {
 }
 
 DrawLetter::DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
-	open(_letter, ren, Sans, color);
+    open(_letter, ren, Sans, color);
 }
 
 bool DrawLetter::open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
@@ -31,15 +31,15 @@ bool DrawLetter::open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color
     }
     else {
         printf("Could not open font");
-		return false;
+        return false;
     }
 
-	return true;
+    return true;
 }
 
 DrawLetter::~DrawLetter()
 {
-	close();
+    close();
 }
 
 void DrawLetter::close() {
@@ -57,11 +57,11 @@ void DrawLetter::draw(SDL_Rect * srcR, SDL_Rect * dstR) {
 }
 
 Uint16 DrawLetter::getWidth() {
-	return 100;
+    return 100;
 }
 
 Uint16 DrawLetter::getHeight() {
-	return 100;
+    return 100;
 }
 
 void DrawLetter::update(Uint32 time) {

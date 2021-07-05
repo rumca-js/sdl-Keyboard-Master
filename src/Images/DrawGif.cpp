@@ -7,12 +7,12 @@ DrawGif::DrawGif() {
 }
 
 DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
-	open(path, aRenderer);
+    open(path, aRenderer);
 }
 
 bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
 
-	std::cout<< "Creating Gif"<<std::endl;
+    std::cout<< "Creating Gif"<<std::endl;
 
     gif = GIF_LoadImage(path.c_str() );
     current_frame = 0;
@@ -25,7 +25,7 @@ bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
         textures.push_back(SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface));
     }
 
-	return true;
+    return true;
 }
 
 DrawGif::~DrawGif() {

@@ -7,15 +7,15 @@
 
 class SdlAudio
 {
-	Mix_Chunk *chunk = NULL;
-	public:
-		SdlAudio();
-		SdlAudio(std::string path);
+    Mix_Chunk *chunk = NULL;
+    public:
+        SdlAudio();
+        SdlAudio(std::string path);
         bool open(std::string path);
-		~SdlAudio();
-		bool play();
+        ~SdlAudio();
+        bool play();
         void pause();
-		void close();
+        void close();
 };
 
 #endif // __H_AUDIO__

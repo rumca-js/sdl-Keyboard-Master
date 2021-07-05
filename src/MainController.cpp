@@ -40,13 +40,13 @@ MainController::MainController() {
     }
 
     if (TTF_Init() != 0)  {
-    	printf("Could not initialize TTF");
+        printf("Could not initialize TTF");
     }
 
     //Initialize SDL_mixer
     if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
-    	printf("Could not open audio");
-    	return;
+        printf("Could not open audio");
+        return;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -57,33 +57,33 @@ MainController::MainController() {
 }
 
 MainController::~MainController() {
-	machine.close();
-	Mix_CloseAudio();
+    machine.close();
+    Mix_CloseAudio();
 
-	SDL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(renderer);
 
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
 void MainController::setFullScreen() {
-	SDL_DisplayMode DM, windowMode;
-	SDL_GetCurrentDisplayMode(0, &DM);
+    SDL_DisplayMode DM, windowMode;
+    SDL_GetCurrentDisplayMode(0, &DM);
 
-	SDL_GetWindowDisplayMode(window, &windowMode);
+    SDL_GetWindowDisplayMode(window, &windowMode);
 
-	windowMode.h = DM.h;
-	windowMode.w = DM.w;
+    windowMode.h = DM.h;
+    windowMode.w = DM.w;
 
-	config->setWindowSize(DM.w, DM.h);
+    config->setWindowSize(DM.w, DM.h);
 
-	SDL_SetWindowDisplayMode(window, &windowMode);
+    SDL_SetWindowDisplayMode(window, &windowMode);
 
-	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 }
 
 void MainController::run() {
-	machine.write();
+    machine.write();
 }
 
 

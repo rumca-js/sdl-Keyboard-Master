@@ -13,11 +13,11 @@ class DrawGif : public DrawItem
     /*!
      * gif structure
      */
-	GIF_Image* gif;
+    GIF_Image* gif;
     /*!
      * current frame of gif
      */
-	Uint32 current_frame;
+    Uint32 current_frame;
     /*!
      * amount of cumulated mseconds
      */

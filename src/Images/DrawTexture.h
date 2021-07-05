@@ -9,7 +9,7 @@
  */
 class DrawTexture : public DrawItem
 {
-	SDL_Texture * texture;
+    SDL_Texture * texture;
 
     public:
         /*!

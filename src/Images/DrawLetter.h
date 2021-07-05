@@ -16,29 +16,29 @@
  */
 class DrawLetter : public DrawItem
 {
-	/*!
-	 * \brief SDL texture for letter.
-	 */
-	SDL_Texture* Message = NULL;
-	/*!
-	 * \brief SDL surfuce for letter.
-	 */
-	SDL_Surface* surfaceMessage;
-	/*!
-	 * \brief The actual letter that will be displayed.
-	 */
-	char letter;
+    /*!
+     * \brief SDL texture for letter.
+     */
+    SDL_Texture* Message = NULL;
+    /*!
+     * \brief SDL surfuce for letter.
+     */
+    SDL_Surface* surfaceMessage;
+    /*!
+     * \brief The actual letter that will be displayed.
+     */
+    char letter;
 
-	public:
-		DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
-		DrawLetter();
-		bool open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
-		virtual ~DrawLetter();
-		void close();
-		void draw(SDL_Rect * srcRect, SDL_Rect * destRect);
-		void update(Uint32 msec);
-		Uint16 getWidth();
-		Uint16 getHeight();
+    public:
+        DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
+        DrawLetter();
+        bool open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
+        virtual ~DrawLetter();
+        void close();
+        void draw(SDL_Rect * srcRect, SDL_Rect * destRect);
+        void update(Uint32 msec);
+        Uint16 getWidth();
+        Uint16 getHeight();
 };
 
 #endif /* DRAWLETTER_H_ */

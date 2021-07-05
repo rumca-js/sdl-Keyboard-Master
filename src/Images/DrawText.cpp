@@ -12,7 +12,7 @@ DrawText::DrawText() {
 }
 
 DrawText::DrawText(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
-	open(text, ren, Sans, color);
+    open(text, ren, Sans, color);
 }
 
 bool DrawText::open(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
@@ -30,7 +30,7 @@ bool DrawText::open(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Col
 
 DrawText::~DrawText()
 {
-	close();
+    close();
 }
 
 void DrawText::close() {
@@ -48,11 +48,11 @@ void DrawText::draw(SDL_Rect * srcR, SDL_Rect * dstR) {
 }
 
 Uint16 DrawText::getWidth() {
-	return 100;
+    return 100;
 }
 
 Uint16 DrawText::getHeight() {
-	return 100;
+    return 100;
 }
 
 void DrawText::update(Uint32 time) {

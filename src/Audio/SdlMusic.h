@@ -7,15 +7,15 @@
 
 class SdlMusic
 {
-	Mix_Music *music = NULL;
-	public:
-		SdlMusic();
-		SdlMusic(std::string path);
+    Mix_Music *music = NULL;
+    public:
+        SdlMusic();
+        SdlMusic(std::string path);
         bool open(std::string path);
-		~SdlMusic();
-		bool play();
+        ~SdlMusic();
+        bool play();
         void pause();
-		void close();
+        void close();
 };
 
 #endif // __H_AUDIO__

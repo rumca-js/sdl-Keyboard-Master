@@ -2,7 +2,7 @@
 #include "MainController.h"
 
 int main(int argc, char* argv[]) {
-	MainController main;
+    MainController main;
 
-	main.run();
+    main.run();
 }

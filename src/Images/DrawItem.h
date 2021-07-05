@@ -7,8 +7,8 @@
 // draw()
 // {
 //    for(int i=0;i<items.size();i++)
-//    	items[i]->update(time());
-//    	items[i]->draw();
+//        items[i]->update(time());
+//        items[i]->draw();
 // }
 //
 
@@ -27,15 +27,15 @@ protected:
     /*!
      * Indicates whether it has been initialized
      */
-	bool initialized;
+    bool initialized;
     /*!
      * SDL renderer
      */
-	SDL_Renderer * renderer;
+    SDL_Renderer * renderer;
     /*!
      * width of the object
      */
-	Uint16 width;
+    Uint16 width;
     /*!
      * height of the object
      */
@@ -52,23 +52,23 @@ public:
     /*!
      * Updates the drawable item according passage of time
      */
-	virtual void update(Uint32 time) = 0;
+    virtual void update(Uint32 time) = 0;
     /*!
      * Draws the item
      */
-	virtual void draw(SDL_Rect * SrcR=NULL, SDL_Rect * DestR=NULL) = 0;
+    virtual void draw(SDL_Rect * SrcR=NULL, SDL_Rect * DestR=NULL) = 0;
     /*!
      * Disposes data of the item
      */
-	virtual void close();
+    virtual void close();
     /*!
      * Returns width
      */
-	virtual Uint16 getWidth() = 0;
+    virtual Uint16 getWidth() = 0;
     /*!
      * Returns height
      */
-	virtual Uint16 getHeight() = 0;
+    virtual Uint16 getHeight() = 0;
 };
 
 #endif // DRAWITEM_H_
