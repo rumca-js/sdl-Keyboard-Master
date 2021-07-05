@@ -6,7 +6,7 @@ class SdlWidget
     /*!
      *      * \brief Position of the button.
      *           */
-    double _posx, _posy, _width, _height;
+    int _posx, _posy, _width, _height;
 
     public:
     /*!
