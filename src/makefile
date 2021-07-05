@@ -14,10 +14,9 @@ SRCS := \
   Letter.cpp \
   GUI/Button.cpp \
   SceneMachine.cpp \
-  Scenes/CosmosScene.cpp \
   Scenes/IntroScene.cpp \
   Scenes/GoodBye.cpp \
-  Scenes/HeavenScene.cpp \
+  Scenes/GameScene.cpp \
   Scenes/MenuScene.cpp \
   MainController.cpp \
   MainConfiguration.cpp \

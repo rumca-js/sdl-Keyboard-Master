@@ -69,6 +69,10 @@ class MenuScene : public SceneInterface {
 	 * \brief Toggles full screen.
 	 */
 	void setFullScreen();
+    /*!
+     * state name
+     * */
+    std::vector<std::string> sceneInfo;
 public:
 	MenuScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	virtual ~MenuScene();

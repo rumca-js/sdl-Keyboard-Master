@@ -38,6 +38,10 @@ class IntroScene : public SceneInterface {
 	 * Timer for displaying logo.
 	 */
 	SDL_TimerID my_timer_id;
+    /*!
+     * state name
+     * */
+    std::vector<std::string> sceneInfo;
 public:
 	/*!
 	 * \brief Constructor.

@@ -14,6 +14,8 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 	win = window;
 	renderer = ren;
 
+    this.sceneInfo = sceneInfo;
+
 	Sans 	= NULL;
 
 	config = NULL;
@@ -31,7 +33,7 @@ void MenuScene::init() {
 
     Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
 
-    wall.open(config->getConfigString("IMAGE_MENU"), renderer);
+    wall.open(sceneInfo["background"]), renderer);
 
     buttons.push_back( new Button(renderer, TEXT_ENTER));
     buttons.push_back( new Button(renderer, TEXT_FULL_SCREEN));
@@ -172,5 +174,5 @@ void MenuScene::selected_decrement() {
 }
 
 std::string MenuScene::getName() {
-	return "MENU";
+	return sceneInfo["name"];
 }

@@ -36,6 +36,8 @@ GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, 
 	win      = window;
 	renderer = ren;
 
+    this.sceneInfo = sceneInfo;
+
 	my_timer_id = -1;
 
 	config = &MainConfiguration::getConfig();
@@ -46,7 +48,7 @@ GoodBye::~GoodBye() {
 }
 
 void GoodBye::init() {
-	wall.open(config->getConfigString("IMAGE_EXIT"), renderer);
+	wall.open(sceneInfo["background"], renderer);
 }
 
 void GoodBye::close() {
@@ -93,5 +95,5 @@ int GoodBye::write() {
 }
 
 std::string GoodBye::getName() {
-	return "GOODBYE";
+	return sceneInfo["name"];
 }

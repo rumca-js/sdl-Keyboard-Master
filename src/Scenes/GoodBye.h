@@ -35,6 +35,10 @@ class GoodBye : public SceneInterface {
 	 * \brief The background picture.
 	 */
 	DrawTexture wall;
+    /*!
+     * state name
+     * */
+    std::vector<std::string> sceneInfo;
 public:
 	GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	virtual ~GoodBye();

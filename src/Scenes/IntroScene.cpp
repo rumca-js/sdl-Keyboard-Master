@@ -37,6 +37,8 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
 	win = window;
 	renderer = ren;
 
+    this.sceneInfo = sceneInfo;
+
 	my_timer_id = -1;
 
 	config = &MainConfiguration::getConfig();
@@ -47,7 +49,7 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
-    logo.open(config->getConfigString("IMAGE_INTRO"), renderer);
+    logo.open(sceneInfo["background"], renderer);
 }
 
 void IntroScene::close() {
@@ -104,5 +106,5 @@ int IntroScene::write() {
 }
 
 std::string IntroScene::getName() {
-	return "INTRO";
+	return sceneInfo["name"];
 }

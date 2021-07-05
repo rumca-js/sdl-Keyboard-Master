@@ -32,9 +32,9 @@ class SceneMachine {
     /*!
      * \brief The current scene number (index in scenes)
      */
-    unsigned int current;
+    unsigned int current_scene;
     /*!
-     * \brief current scene/state name
+     * \brief current state name
      */
     std::string current_state_name;
     /*!

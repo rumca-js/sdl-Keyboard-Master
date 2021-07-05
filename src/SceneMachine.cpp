@@ -17,7 +17,7 @@ SceneMachine::SceneMachine() {
     SCENE_STM_START = "INIT";
     SCENE_STM_STOP = "QUIT";
     
-    current = 0;
+    current_scene = 0;
     current_state_name = SCENE_STM_START;
 }
 
@@ -25,7 +25,7 @@ SceneMachine::~SceneMachine() {
 }
 
 bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
-    current = 0;
+    current_scene = 0;
     current_state_name = SCENE_STM_START;
     
     load_config();
@@ -34,7 +34,7 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     scenes.push_back(new MenuScene(renderer, window, getSceneInformation("MENU") ) );
     scenes.push_back(new GoodBye(renderer, window, getSceneInformation("GOODBYE")) );
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
-    scenes.push_back(new CosmosScene(renderer, window, getSceneInformation("COSMOS")) );
+    scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
     
     std::vector<TransitionInfo> trans_data = getTransitionData();
     
