@@ -4,33 +4,39 @@
 class SdlWidget
 {
     /*!
+     *      * \brief Position of the button.
+     *           */
+    double _posx, _posy, _width, _height;
+
+    public:
+    /*!
      * initialize widget
      */
-    void init();
+    virtual void init();
     /*!
      * draw widget
      */
-    void draw();
+    virtual void draw();
     /*!
      * close widget
      */
-    void close();
+    virtual void close();
     /*!
      * sets position
      */
-    void setPosition(int x, int y);
+    virtual void setPosition(int x, int y);
     /*!
      * sets dimensions
      */
-    void setDimensions(int w, int h);
+    virtual void setDimensions(int w, int h);
     /*!
      * relative toward screen position
      */
-    void setPositionR(double x, double y);
+    virtual void setPositionR(double x, double y);
     /*!
      * relative toward screen dimentions
      */
-    void setDimensionsR(double w, double h);
+    virtual void setDimensionsR(double w, double h);
 };
 
 #endif

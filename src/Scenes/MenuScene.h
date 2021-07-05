@@ -16,7 +16,7 @@
 #include "../SceneInterface.h"
 #include "../MainConfiguration.h"
 
-#include "../GUI/Button.h"
+#include "../GUI/SdlButton.h"
 
 // Text Defines
 #define TEXT_ENTER "Start"
@@ -52,7 +52,7 @@ class MenuScene : public SceneInterface {
 	/*!
 	 * \brief Buttons list.
 	 */
-	std::vector<Button *> buttons;
+	std::vector<SdlButton *> buttons;
 	/*!
 	 * \brief
 	 */

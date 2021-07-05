@@ -1,13 +1,13 @@
 /*
- * Button.cpp
+ * SdlButton.cpp
  *
  *  Created on: 24 mar 2018
  *      Author: hunter
  */
 
-#include "Button.h"
+#include "SdlButton.h"
 
-Button::Button(SDL_Renderer * renderer, std::string text) {
+SdlButton::SdlButton(SDL_Renderer * renderer, std::string text) {
     _r = renderer;
     _font = NULL;
 
@@ -24,39 +24,39 @@ Button::Button(SDL_Renderer * renderer, std::string text) {
     config = &MainConfiguration::getConfig();
 }
 
-Button::~Button() {
+SdlButton::~SdlButton() {
     tex_normal.close();
     tex_hover.close();
     text.close();
 }
 
-bool Button::load() {
+bool SdlButton::load() {
     text.open(_text, _r, _font, _color);
 
     return true;
 }
 
-void Button::setPosition(double posx, double posy) {
+void SdlButton::setPosition(double posx, double posy) {
     _posx = posx;
     _posy = posy;
 }
 
-void Button::setDimentions(double width, double height) {
+void SdlButton::setDimentions(double width, double height) {
     _width = width;
     _height = height;
 }
 
-void Button::setTextures(std::string texture, std::string hover_texture) {
+void SdlButton::setTextures(std::string texture, std::string hover_texture) {
     tex_normal.open(texture, _r);
     tex_hover.open(hover_texture, _r);
 }
 
-void Button::setFont(TTF_Font * Font, SDL_Color & color) {
+void SdlButton::setFont(TTF_Font * Font, SDL_Color & color) {
     _font = Font;
     _color = color;
 }
 
-void Button::draw() {
+void SdlButton::draw() {
 
     SDL_Rect texr;
     texr.x = config->getXpercent(_posx);
@@ -80,6 +80,6 @@ void Button::draw() {
     text.draw(NULL, &textr);
 }
 
-void Button::setHover(bool hover) {
+void SdlButton::setHover(bool hover) {
     _hover = hover;
 }

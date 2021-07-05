@@ -1,5 +1,5 @@
 /*
- * Button.h
+ * SdlButton.h
  *
  *  Created on: 24 mar 2018
  *      Author: hunter
@@ -18,7 +18,7 @@
 #include "../Images/DrawTexture.h"
 #include "../MainConfiguration.h"
 
-class Button {
+class SdlButton {
     SDL_Renderer * _r;
     /*!
      * \brief Global configuration (for window sizes).
@@ -61,11 +61,11 @@ public:
     /*!
      * \brief Constructor.
      */
-    Button(SDL_Renderer * renderer, std::string text);
+    SdlButton(SDL_Renderer * renderer, std::string text);
     /*!
      * \brief Destructor.
      */
-    virtual ~Button();
+    virtual ~SdlButton();
     /*!
      * \brief Loads resources.
      */

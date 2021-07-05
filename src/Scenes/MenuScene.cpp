@@ -35,9 +35,9 @@ void MenuScene::init() {
 
     wall.open(sceneInfo["background"]), renderer);
 
-    buttons.push_back( new Button(renderer, TEXT_ENTER));
-    buttons.push_back( new Button(renderer, TEXT_FULL_SCREEN));
-    buttons.push_back( new Button(renderer, TEXT_ESCAPE));
+    buttons.push_back( new SdlButton(renderer, TEXT_ENTER));
+    buttons.push_back( new SdlButton(renderer, TEXT_FULL_SCREEN));
+    buttons.push_back( new SdlButton(renderer, TEXT_ESCAPE));
 
     SDL_Color color = {0, 0, 255};
 
