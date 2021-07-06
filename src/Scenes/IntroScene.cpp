@@ -88,6 +88,7 @@ int IntroScene::write() {
 
 	while (1) {
 
+        status = handleEvents();
 
 		SDL_RenderClear(renderer);
 

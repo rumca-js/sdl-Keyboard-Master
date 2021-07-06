@@ -195,7 +195,7 @@ int GameScene::write() {
 
     while (1) {
 
-        handleEvents();
+        status = handleEvents();
 
         SDL_RenderClear(renderer);
 
