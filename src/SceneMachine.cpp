@@ -38,6 +38,8 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
 	std::cout << "COSMOS" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
+
+    this->renderer = renderer;
     
     std::vector<TransitionInfo> trans_data = getTransitionData();
     
@@ -74,6 +76,15 @@ void SceneMachine::join(std::string from, std::string to, unsigned int when) {
     transitions.push_back(val);
 }
 
+void updateElements() {
+    // update counters on gif animations
+
+    //for(int i=0; i<ImageAbsoluteArray.size(); i++)
+    //{
+    //    ImageAbsoluteArray[i]->update(33);
+    //}
+}
+
 void SceneMachine::write() {
 
     while(true) {
@@ -85,8 +96,7 @@ void SceneMachine::write() {
 
         if (status == -1)
         {
-            // update counters on gif animations
-            //
+            updateElements();
         }
         else
         {

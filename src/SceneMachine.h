@@ -50,6 +50,8 @@ class SceneMachine {
      */
     libconfig::Config cfg;
 
+    SDL_Renderer *renderer;
+
 public:
     SceneMachine();
 
