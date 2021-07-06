@@ -62,12 +62,11 @@ void IntroScene::close() {
 }
 
 int IntroScene::handleEvents() {
-    int status = 0;
+    int status = -1;
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
         if (e.type == SDL_QUIT) {
             status = 1;
-            break;
         }
         else if (e.type == SDL_USEREVENT) {
             if (e.user.code == 2) {
@@ -75,7 +74,6 @@ int IntroScene::handleEvents() {
             }
             else if (e.user.code == 7) {
                 status = 0;
-                break;
             }
         }
     }

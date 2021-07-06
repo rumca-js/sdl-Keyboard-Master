@@ -161,27 +161,25 @@ bool GameScene::check_if_killed(char key) {
 
 int GameScene::handleEvents()
 {
-    int status = 0;
+    int status = -1;
 
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
         if (e.type == SDL_QUIT)
-            break;
+			return 1;
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-            break;
+			return 1;
         else if (e.type == SDL_KEYDOWN) {
             if (check_if_killed((char)e.key.keysym.sym)) {
                 if (config->getHighScore() > 10) {
-                    status = 0;
-                    break;
+					return 0;
                 }
             }
 
         }
         else if (e.type == SDL_USEREVENT) {
             if (this->move_letters() ) {
-                status = 1;
-                break;
+                return 0;
             }
         }
     }

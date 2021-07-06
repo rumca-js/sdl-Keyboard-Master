@@ -58,23 +58,23 @@ void GoodBye::close() {
 }
 
 int GoodBye::handleEvents() {
-    int status = 0;
+    int status = -1;
 
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
         if (e.type == SDL_QUIT)
         {
             status = 1;
-            break;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-            break;
+		{
+            status = 1;
+		}
         else if (e.type == SDL_USEREVENT)
         {
             if (e.user.code == 4)
             {
                 status = 0;
-                break;
             }
         }
     }
