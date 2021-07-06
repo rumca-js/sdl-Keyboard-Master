@@ -43,6 +43,7 @@ class IntroScene : public SceneInterface {
      * state name
      */
     std::map<std::string,std::string> sceneInfo;
+    bool display;
 public:
 	/*!
 	 * \brief Constructor.

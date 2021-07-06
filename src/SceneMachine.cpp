@@ -78,20 +78,33 @@ void SceneMachine::write() {
 
     while(true) {
     	SceneInterface * scene = scenes[current_scene];
-    	int status = scene->write();
 
-    	std::string new_state;
-    	if (findTransition(current_state_name, status, new_state))
-    	{
-    		performTransition(new_state);
-    	}
-    	else
-    		break;
+        SDL_RenderClear(renderer);
+    	int status = scene->write();
+        SDL_RenderPresent(renderer);
+
+        if (status == -1)
+        {
+            // update counters on gif animations
+            //
+        }
+        else
+        {
+            std::string new_state;
+            if (findTransition(current_state_name, status, new_state))
+            {
+                performTransition(new_state);
+            }
+            else
+                break;
+        }
     }
 }
 
-void SceneMachine::performTransition(std::string name) {
-    current_state_name = name;
+void SceneMachine::performTransition(std::string new_state) {
+    scenes[current_scene]->close();
+
+    current_state_name = new_state;
     current_scene = getStateNameToId(current_state_name);
     scenes[current_scene]->init();
 }

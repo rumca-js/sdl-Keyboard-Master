@@ -66,13 +66,16 @@ void GameScene::init() {
     notes[6].open( config->getConfigString("SOUND_G") );
 
     note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
+
+    reset();
 }
 
 void GameScene::close() {
-    SDL_RemoveTimer(my_timer_id);
-
     TTF_CloseFont(Sans);
     SDL_RemoveTimer( my_timer_id );
+
+    for(int i=0; i<letters.size(); i++)
+       delete letters[i];
 }
 
 void GameScene::reset() {
@@ -187,32 +190,23 @@ int GameScene::handleEvents()
 }
 
 int GameScene::write() {
-    int status = 0;
-
-    reset();
+    int status = -1;
 
     SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
 
-    while (1) {
+    status = handleEvents();
 
-        status = handleEvents();
+    wall.draw(NULL, &texr);
 
-        SDL_RenderClear(renderer);
+    this->display_letters();
 
-        wall.draw(NULL, &texr);
-
-        this->display_letters();
-
-        if (counter_text) {
-            SDL_Rect Message_rect;
-            Message_rect.x = config->getXpercent(0.9);
-            Message_rect.y = config->getYpercent(0.05);
-            Message_rect.w = config->getLetterWidth();
-            Message_rect.h = config->getLetterHeight();
-            SDL_RenderCopy(renderer, counter_text, NULL, &Message_rect);
-        }
-
-        SDL_RenderPresent(renderer);
+    if (counter_text) {
+        SDL_Rect Message_rect;
+        Message_rect.x = config->getXpercent(0.9);
+        Message_rect.y = config->getYpercent(0.05);
+        Message_rect.w = config->getLetterWidth();
+        Message_rect.h = config->getLetterHeight();
+        SDL_RenderCopy(renderer, counter_text, NULL, &Message_rect);
     }
 
     return status;

@@ -49,10 +49,12 @@ GoodBye::~GoodBye() {
 
 void GoodBye::init() {
 	wall.open(sceneInfo["background"], renderer);
+
+    my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
 }
 
 void GoodBye::close() {
-
+	SDL_RemoveTimer(my_timer_id);
 }
 
 int GoodBye::handleEvents() {
@@ -82,20 +84,10 @@ int GoodBye::handleEvents() {
 int GoodBye::write() {
 	int status = 0;
 
-    my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
+    status = handleEvents();
 
-	while (1) {
-        status = handleEvents();
-
-		SDL_RenderClear(renderer);
-
-		SDL_Rect texr = config->getFullScreenSize();
-		wall.draw(NULL, &texr);
-
-		SDL_RenderPresent(renderer);
-	}
-
-	SDL_RemoveTimer(my_timer_id);
+    SDL_Rect texr = config->getFullScreenSize();
+    wall.draw(NULL, &texr);
 
 	return status;
 }

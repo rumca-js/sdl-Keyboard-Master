@@ -112,20 +112,14 @@ int MenuScene::handleEvents()
 int MenuScene::write() {
 	int status = 0;
 
-	while (1) {
-        status = handleEvents;
+    status = handleEvents;
 
-		SDL_RenderClear(renderer);
+    SDL_Rect texr = config->getFullScreenSize();
+    wall.draw(NULL, &texr);
 
-		SDL_Rect texr = config->getFullScreenSize();
-		wall.draw(NULL, &texr);
-
-		for(unsigned int i=0; i<buttons.size(); i++)  {
-			buttons[i]->draw();
-		}
-
-		SDL_RenderPresent(renderer);
-	}
+    for(unsigned int i=0; i<buttons.size(); i++)  {
+        buttons[i]->draw();
+    }
 
 	return status;
 }

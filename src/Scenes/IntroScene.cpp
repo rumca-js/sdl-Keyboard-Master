@@ -53,9 +53,12 @@ IntroScene::~IntroScene() {
 
 void IntroScene::init() {
     logo.open(sceneInfo["background"], renderer);
+    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
+    display = false;
 }
 
 void IntroScene::close() {
+	SDL_RemoveTimer(my_timer_id);
 }
 
 int IntroScene::handleEvents() {
@@ -83,34 +86,22 @@ int IntroScene::handleEvents() {
 int IntroScene::write() {
 	int status = 0;
 
-    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
-    bool display = false;
+    status = handleEvents();
 
-	while (1) {
+    /* We display after some considerable amount of time */
+    if (display) {
 
-        status = handleEvents();
+        float ratio = config->getHeight()/(float)logo.getHeight();
+        float margin = config->getWidth()/10;
 
-		SDL_RenderClear(renderer);
+        SDL_Rect texr;
+        texr.x = margin;
+        texr.y = margin; 
+        texr.w = (int)(logo.getWidth() *ratio-margin*2.0);
+        texr.h = (int)(logo.getHeight()*ratio-margin*2.0);
 
-		/* We display after some considerable amount of time */
-		if (display) {
-
-			float ratio = config->getHeight()/(float)logo.getHeight();
-			float margin = config->getWidth()/10;
-
-			SDL_Rect texr;
-			texr.x = margin;
-			texr.y = margin; 
-			texr.w = (int)(logo.getWidth() *ratio-margin*2.0);
-			texr.h = (int)(logo.getHeight()*ratio-margin*2.0);
-
-			logo.draw(NULL, &texr);
-		}
-
-		SDL_RenderPresent(renderer);
-	}
-
-	SDL_RemoveTimer(my_timer_id);
+        logo.draw(NULL, &texr);
+    }
 
 	return status;
 }
