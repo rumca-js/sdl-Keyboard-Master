@@ -58,6 +58,28 @@ void IntroScene::init() {
 void IntroScene::close() {
 }
 
+int IntroScene::handleEvents() {
+    int status = 0;
+    SDL_Event e;
+    if ( SDL_PollEvent(&e) ) {
+        if (e.type == SDL_QUIT) {
+            status = 1;
+            break;
+        }
+        else if (e.type == SDL_USEREVENT) {
+            if (e.user.code == 2) {
+                display = true;
+            }
+            else if (e.user.code == 7) {
+                status = 0;
+                break;
+            }
+        }
+    }
+
+    return status;
+}
+
 int IntroScene::write() {
 	int status = 0;
 
@@ -66,22 +88,6 @@ int IntroScene::write() {
 
 	while (1) {
 
-		SDL_Event e;
-		if ( SDL_PollEvent(&e) ) {
-			if (e.type == SDL_QUIT) {
-				status = 1;
-				break;
-			}
-			else if (e.type == SDL_USEREVENT) {
-				if (e.user.code == 2) {
-					display = true;
-				}
-				else if (e.user.code == 7) {
-					status = 0;
-					break;
-				}
-			}
-		}
 
 		SDL_RenderClear(renderer);
 

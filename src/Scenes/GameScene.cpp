@@ -156,6 +156,36 @@ bool GameScene::check_if_killed(char key) {
     return killed;
 }
 
+int GameScene::handleEvents()
+{
+    int status = 0;
+
+    SDL_Event e;
+    if ( SDL_PollEvent(&e) ) {
+        if (e.type == SDL_QUIT)
+            break;
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
+            break;
+        else if (e.type == SDL_KEYDOWN) {
+            if (check_if_killed((char)e.key.keysym.sym)) {
+                if (config->getHighScore() > 10) {
+                    status = 0;
+                    break;
+                }
+            }
+
+        }
+        else if (e.type == SDL_USEREVENT) {
+            if (this->move_letters() ) {
+                status = 1;
+                break;
+            }
+        }
+    }
+
+    return status;
+}
+
 int GameScene::write() {
     int status = 0;
 
@@ -165,28 +195,7 @@ int GameScene::write() {
 
     while (1) {
 
-        SDL_Event e;
-        if ( SDL_PollEvent(&e) ) {
-            if (e.type == SDL_QUIT)
-                break;
-            else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-                break;
-            else if (e.type == SDL_KEYDOWN) {
-                if (check_if_killed((char)e.key.keysym.sym)) {
-                    if (config->getHighScore() > 10) {
-                        status = 0;
-                        break;
-                    }
-                }
-
-            }
-            else if (e.type == SDL_USEREVENT) {
-                if (this->move_letters() ) {
-                    status = 1;
-                    break;
-                }
-            }
-        }
+        handleEvents();
 
         SDL_RenderClear(renderer);
 

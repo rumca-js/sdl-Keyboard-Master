@@ -55,31 +55,37 @@ void GoodBye::close() {
 
 }
 
+int GoodBye::handleEvents() {
+    int status = 0;
+
+    SDL_Event e;
+    if ( SDL_PollEvent(&e) ) {
+        if (e.type == SDL_QUIT)
+        {
+            status = 1;
+            break;
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
+            break;
+        else if (e.type == SDL_USEREVENT)
+        {
+            if (e.user.code == 4)
+            {
+                status = 0;
+                break;
+            }
+        }
+    }
+    return status;
+}
+
 int GoodBye::write() {
 	int status = 0;
 
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
 
 	while (1) {
-
-		SDL_Event e;
-		if ( SDL_PollEvent(&e) ) {
-			if (e.type == SDL_QUIT)
-			{
-				status = 1;
-				break;
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-				break;
-			else if (e.type == SDL_USEREVENT)
-			{
-				if (e.user.code == 4)
-				{
-					status = 0;
-					break;
-				}
-			}
-		}
+        status = handleEvents();
 
 		SDL_RenderClear(renderer);
 

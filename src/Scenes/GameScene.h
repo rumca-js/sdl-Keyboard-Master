@@ -126,6 +126,7 @@ public:
      */
     void close();
     std::string getName();
+    int handleEvents();
 };
 
 #endif /* GAMESCENE_H_ */

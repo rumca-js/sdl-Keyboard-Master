@@ -70,44 +70,50 @@ void MenuScene::close() {
 	}
 }
 
+int MenuScene::handleEvents()
+{
+    int status;
+    SDL_Event e;
+    if ( SDL_PollEvent(&e) ) {
+        if (e.type == SDL_QUIT) {
+            status = 1;
+            break;
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
+            status = 1;
+            break;
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
+            if (selected == 0) {
+                status = 0;
+                break;
+            }
+            else if (selected == 1) {
+                setFullScreen();
+            }
+            if (selected == 2) {
+                status = 1;
+                break;
+            }
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_UP) {
+            selected_decrement();
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_DOWN) {
+            selected_increment();
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f) {
+            setFullScreen();
+        }
+    }
+    return status;
+}
+
 int MenuScene::write() {
 	int status = 0;
 
 	while (1) {
-
-		SDL_Event e;
-		if ( SDL_PollEvent(&e) ) {
-			if (e.type == SDL_QUIT) {
-				status = 1;
-				break;
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
-				status = 1;
-				break;
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
-				if (selected == 0) {
-					status = 0;
-					break;
-				}
-				else if (selected == 1) {
-					setFullScreen();
-				}
-				if (selected == 2) {
-					status = 1;
-					break;
-				}
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_UP) {
-				selected_decrement();
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_DOWN) {
-				selected_increment();
-			}
-			else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f) {
-				setFullScreen();
-			}
-		}
+        status = handleEvents;
 
 		SDL_RenderClear(renderer);
 

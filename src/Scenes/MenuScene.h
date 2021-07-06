@@ -81,6 +81,7 @@ public:
     int write();
     void close();
     std::string getName();
+    int handleEvents();
 };
 
 #endif /* MENUSCENE_H_ */

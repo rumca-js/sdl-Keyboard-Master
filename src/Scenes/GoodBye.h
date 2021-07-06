@@ -47,6 +47,7 @@ public:
     int write();
     void close();
     std::string getName();
+    int handleEvents();
 };
 
 #endif /* SCENES_GOODBYE_H_ */
