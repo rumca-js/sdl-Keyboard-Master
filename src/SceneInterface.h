@@ -36,6 +36,10 @@ public:
      * \brief returns scene name. Used by scene configuration
      */
     virtual std::string getName() = 0;
+    /*!
+     * handles events
+     */
+    virtual int handleEvents() = 0;
 };
 
 
