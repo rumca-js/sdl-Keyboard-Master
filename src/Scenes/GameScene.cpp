@@ -199,6 +199,7 @@ int GameScene::write() {
     status = handleEvents();
 
     wall->draw(NULL, &texr);
+	wall->update(33);
 
     this->display_letters();
 

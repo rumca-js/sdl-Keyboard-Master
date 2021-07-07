@@ -99,6 +99,8 @@ void SceneMachine::write() {
     	int status = scene->write();
         SDL_RenderPresent(renderer);
 
+		SDL_Delay(33.3);
+
         if (status == -1)
         {
             updateElements();
