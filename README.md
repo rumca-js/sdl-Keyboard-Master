@@ -16,12 +16,14 @@ We transition from scene to scene until the end of the game. We start with intro
 Each particular section should be as closed entity as possible. There might be some exceptions (like music from the intro could encompass the menu also).
 
 # Implementation
-This program is written in SDL2, on Linux Mint. 
-Uses the following SDL2 libraries:
+This program is written in SDL2.
+Uses the following libraries:
  - SDL2
  - SDL2_image
  - SDL2_ttf
  - SDL2_mixer
+ - libgif
+ - libconfig++
 
 Developped using eclipse.
 
