@@ -26,6 +26,7 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     current_scene = 0;
     current_state_name = SCENE_STM_START;
     
+	std::cout << "Loading configuration" << std::endl;
     load_config();
     
 	std::cout << "INTRO" << std::endl;
@@ -38,6 +39,8 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
 	std::cout << "COSMOS" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
+	std::cout << "BLACKCLOUDS" << std::endl;
+    scenes.push_back(new GameScene(renderer, window, getSceneInformation("BLACKCLOUDS")) );
 
     this->renderer = renderer;
     
@@ -56,6 +59,8 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     	}
     	scenes[current_scene]->init();
     }
+
+	std::cout << "Loading configuration done" << std::endl;
 
     return true;
 }

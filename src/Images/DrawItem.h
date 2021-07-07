@@ -49,6 +49,7 @@ public:
      * Deconstructs drawable item
      */
     virtual ~DrawItem();
+    virtual bool open(std::string, SDL_Renderer * renderer) = 0;
     /*!
      * Updates the drawable item according passage of time
      */

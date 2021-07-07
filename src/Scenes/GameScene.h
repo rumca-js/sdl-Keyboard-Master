@@ -15,7 +15,7 @@
 
 #include <SDL2/SDL_mixer.h>
 
-#include "../Images/DrawTexture.h"
+#include "../Images/DrawBuilder.h"
 #include "../Letter.h"
 #include "../Audio/SdlAudio.h"
 #include "../SceneInterface.h"
@@ -38,7 +38,7 @@ class GameScene : public SceneInterface {
     /*!
      * \brief The background texture.
      */
-    DrawTexture wall;
+    DrawItem * wall;
     /*!
      * \brief The high score counter texture.
      */

@@ -28,6 +28,7 @@ bool DrawLetter::open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color
     if (Sans != NULL) {
           surfaceMessage = TTF_RenderText_Solid(Sans, &text[0], color);
           Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		  return true;
     }
     else {
         printf("Could not open font");
@@ -35,6 +36,10 @@ bool DrawLetter::open(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color
     }
 
     return true;
+}
+
+bool DrawLetter::open(std::string text, SDL_Renderer *ren) {
+	return false;
 }
 
 DrawLetter::~DrawLetter()

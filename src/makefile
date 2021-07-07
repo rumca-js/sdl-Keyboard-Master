@@ -10,6 +10,7 @@ SRCS := \
   Images/DrawText.cpp \
   Images/DrawTexture.cpp \
   Images/DrawItem.cpp \
+  Images/DrawBuilder.cpp \
   Images/SDL_gifwrap.cpp \
   Letter.cpp \
   GUI/SdlButton.cpp \

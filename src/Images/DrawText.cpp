@@ -22,10 +22,21 @@ bool DrawText::open(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Col
     if (Sans != NULL) {
           surfaceMessage = TTF_RenderText_Solid(Sans, text.c_str(), color);
           Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		  return true;
     }
     else {
         printf("Could not open font");
+		return false;
     }
+
+	return false;
+}
+
+bool DrawText::open(std::string text, SDL_Renderer *ren) {
+
+    renderer = ren;
+
+	return false;
 }
 
 DrawText::~DrawText()

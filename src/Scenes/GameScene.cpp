@@ -53,7 +53,8 @@ GameScene::~GameScene() {
 void GameScene::init() {
     config = &MainConfiguration::getConfig();
 
-    wall.open( sceneInfo["background"], renderer);
+	wall = DrawBuilder::Build(sceneInfo["background"], renderer);
+    wall->open( sceneInfo["background"], renderer);
 
     Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE") );
 
@@ -76,6 +77,9 @@ void GameScene::close() {
 
     for(int i=0; i<letters.size(); i++)
        delete letters[i];
+
+	delete wall;
+	wall = NULL;
 }
 
 void GameScene::reset() {
@@ -194,7 +198,7 @@ int GameScene::write() {
 
     status = handleEvents();
 
-    wall.draw(NULL, &texr);
+    wall->draw(NULL, &texr);
 
     this->display_letters();
 

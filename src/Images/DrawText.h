@@ -29,6 +29,7 @@ class DrawText : public DrawItem
         DrawText();
         DrawText(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
         bool open(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color);
+        bool open(std::string text, SDL_Renderer *ren);
         virtual ~DrawText();
         void close();
         void draw(SDL_Rect * srcRect, SDL_Rect * destRect);
