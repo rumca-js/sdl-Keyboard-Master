@@ -14,7 +14,6 @@ DrawItem::~DrawItem()
 
 void DrawItem::close()
 {
-    std::cout << "DrawItem close" << std::endl;
 }
 
 Uint16 DrawItem::getWidth()

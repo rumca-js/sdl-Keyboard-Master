@@ -5,8 +5,9 @@
  *      Author: hunter
  */
 
-#include "../Utilities.h"
+#include <iostream>
 
+#include "../Utilities.h"
 #include "GameScene.h"
 
 
@@ -125,6 +126,15 @@ void GameScene::display_letters() {
     }
 }
 
+char get_rand_letter() {
+    return rand_min_max(97, 122);
+}
+
+char get_rand_string_letter(std::string text) {
+    int which = rand_min_max(0, text.length()-1 );
+	return text[which];
+}
+
 void GameScene::new_letter()
 {
     if (!notes[rand_min_max(0, 6)].play() ) {
@@ -134,7 +144,7 @@ void GameScene::new_letter()
     delete letters[letters.size()-1];
     letters.pop_back();
 
-    char letter = rand_min_max(97, 122);
+	char letter = get_rand_string_letter(sceneInfo["letters"]);
 
     letters.push_back(new Letter(renderer, Sans, letter));
     letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));

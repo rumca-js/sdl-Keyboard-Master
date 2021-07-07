@@ -12,8 +12,6 @@ DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
 
 bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
 
-    std::cout<< "Creating Gif"<<std::endl;
-
     gif = GIF_LoadImage(path.c_str() );
     current_frame = 0;
     msec_store = 0;

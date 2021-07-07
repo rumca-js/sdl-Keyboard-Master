@@ -182,6 +182,10 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
     		info["name"] = name;
     		info["background"] = background;
     		info["music"] = music;
+
+			std::string letters;
+    		state_data[i].lookupValue("letters", letters);
+    		info["letters"] = letters;
     		
     		return info;
     	}

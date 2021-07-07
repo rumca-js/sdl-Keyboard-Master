@@ -13,8 +13,6 @@ SdlAudio::SdlAudio(std::string path)
 
 bool SdlAudio::open(std::string path)
 {
-    std::cout << "Load wav" << std::endl;
-
     chunk = Mix_LoadWAV( path.c_str() );
     if (!chunk)
     {
