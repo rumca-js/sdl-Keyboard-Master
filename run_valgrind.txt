@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#SDL will always show memory leaks, fix only problems in your code.
+#https://stackoverflow.com/questions/1997171/why-does-valgrind-say-basic-sdl-program-is-leaking-memory
+
+valgrind --leak-check=full ./game
