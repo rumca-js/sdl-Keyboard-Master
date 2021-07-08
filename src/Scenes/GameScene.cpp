@@ -203,7 +203,9 @@ int GameScene::handleEvents()
 			return 1;
         else if (e.type == SDL_KEYDOWN) {
             if (check_if_killed((char)e.key.keysym.sym)) {
-                if (config->getHighScore() > 10) {
+				unsigned int limit = std::stoi(sceneInfo["limit"]);
+
+                if (config->getHighScore() > limit) {
 					return 0;
                 }
             }
