@@ -85,6 +85,8 @@ int GoodBye::write() {
 	int status = 0;
 
     status = handleEvents();
+	if (status != -1)
+		return status;
 
     SDL_Rect texr = config->getFullScreenSize();
     wall.draw(NULL, &texr);

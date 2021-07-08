@@ -207,6 +207,8 @@ int GameScene::write() {
     SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
 
     status = handleEvents();
+	if (status != -1)
+		return status;
 
     wall->draw(NULL, &texr);
 

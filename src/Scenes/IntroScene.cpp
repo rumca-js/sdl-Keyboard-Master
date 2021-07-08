@@ -85,6 +85,10 @@ int IntroScene::write() {
 	int status = 0;
 
     status = handleEvents();
+	if (status != -1)
+	{
+		return status;
+	}
 
     /* We display after some considerable amount of time */
     if (display) {
