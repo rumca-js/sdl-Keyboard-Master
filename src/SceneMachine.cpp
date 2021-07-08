@@ -82,6 +82,12 @@ void SceneMachine::join(std::string from, std::string to, unsigned int when) {
 }
 
 void updateElements() {
+	std::vector<DrawItem*> items = DrawBuilder::GetUpdateItems();
+	for(unsigned int i=0; i<items.size(); i++)
+	{
+		items[i]->update(33);
+	}
+
     // update counters on gif animations
 
     //for(int i=0; i<ImageAbsoluteArray.size(); i++)
