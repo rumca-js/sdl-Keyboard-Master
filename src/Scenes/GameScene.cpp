@@ -86,7 +86,10 @@ void GameScene::close() {
 	if (letters.size() != 0)
 	{
 		for(unsigned int i=0; i<letters.size(); i++)
+		{
 		   delete letters[i];
+		   letters.clear();
+		}
 
 	}
 

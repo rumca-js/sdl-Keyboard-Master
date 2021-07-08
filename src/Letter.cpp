@@ -17,7 +17,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     _h = MainConfiguration::getConfig().getLetterHeight();
 
     if (Sans != NULL) {
-           SDL_Color White = {255, 0, 0, 255};
+          SDL_Color White = {255, 0, 0, 255};
           dletter.open(letter, ren, Sans, White);
     }
     else {

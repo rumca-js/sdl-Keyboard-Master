@@ -9,6 +9,8 @@
 
 
 DrawText::DrawText() {
+    surfaceMessage = NULL;
+    Message = NULL;
 }
 
 DrawText::DrawText(std::string text, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {

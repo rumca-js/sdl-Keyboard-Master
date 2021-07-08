@@ -5,9 +5,12 @@
 
 DrawTexture::DrawTexture()
 {
+	texture = NULL;
 }
 
 DrawTexture::DrawTexture(std::string path, SDL_Renderer * aRenderer) {
+	texture = NULL;
+
     open(path, aRenderer);
 }
 
@@ -22,7 +25,7 @@ bool DrawTexture::open(std::string path, SDL_Renderer * aRenderer) {
         return false;
     }
 
-      texture = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
+    texture = SDL_CreateTextureFromSurface(renderer, Loading_Surf);
     if (!texture)
     {
         std::cout << "Cannot load texture" << std::endl;

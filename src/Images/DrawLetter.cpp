@@ -9,9 +9,14 @@
 
 
 DrawLetter::DrawLetter() {
+	surfaceMessage = NULL;
+	Message = NULL;
 }
 
 DrawLetter::DrawLetter(char _letter, SDL_Renderer *ren, TTF_Font* Sans, SDL_Color color) {
+	surfaceMessage = NULL;
+	Message = NULL;
+
     open(_letter, ren, Sans, color);
 }
 

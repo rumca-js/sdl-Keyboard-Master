@@ -4,9 +4,12 @@
 
 
 DrawGif::DrawGif() {
+	gif = NULL;
 }
 
 DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
+	gif = NULL;
+
     open(path, aRenderer);
 }
 
