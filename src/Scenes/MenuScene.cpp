@@ -39,7 +39,7 @@ void MenuScene::init() {
     buttons.push_back( new SdlButton(renderer, TEXT_FULL_SCREEN));
     buttons.push_back( new SdlButton(renderer, TEXT_ESCAPE));
 
-    SDL_Color color = {0, 0, 255};
+    SDL_Color color = {0, 0, 255, 255};
 
     buttons[0]->setDimentions(0.32, 0.06);
     buttons[0]->setPosition(0.6, 0.1);
@@ -70,7 +70,11 @@ void MenuScene::close() {
 		}
 		buttons.clear();
 
+	}
+	if (Sans)
+	{
 		TTF_CloseFont(Sans);
+		Sans = NULL;
 	}
 }
 

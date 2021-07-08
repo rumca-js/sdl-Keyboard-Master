@@ -40,6 +40,8 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
     counter_text  = NULL;
     config   = NULL;
 
+	wall = NULL;
+
     //configuration
     my_timer_id  = -1;
     timer_delay  = 50;
@@ -72,15 +74,28 @@ void GameScene::init() {
 }
 
 void GameScene::close() {
-    SDL_RemoveTimer( my_timer_id );
 
-    for(int i=0; i<letters.size(); i++)
-       delete letters[i];
+	SDL_RemoveTimer( my_timer_id );
 
-    TTF_CloseFont(Sans);
+	if (wall != NULL)
+	{
+		delete wall;
+		wall = NULL;
+	}
 
-	delete wall;
-	wall = NULL;
+	if (letters.size() != 0)
+	{
+		for(unsigned int i=0; i<letters.size(); i++)
+		   delete letters[i];
+
+	}
+
+	if (Sans != NULL)
+	{
+		TTF_CloseFont(Sans);
+		Sans = NULL;
+
+	}
 }
 
 void GameScene::reset() {
