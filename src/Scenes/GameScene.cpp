@@ -38,7 +38,6 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 
     // Initializers
     counter_text  = NULL;
-    counter_surface = NULL;
     config   = NULL;
 
     //configuration
@@ -73,11 +72,12 @@ void GameScene::init() {
 }
 
 void GameScene::close() {
-    TTF_CloseFont(Sans);
     SDL_RemoveTimer( my_timer_id );
 
     for(int i=0; i<letters.size(); i++)
        delete letters[i];
+
+    TTF_CloseFont(Sans);
 
 	delete wall;
 	wall = NULL;
@@ -220,22 +220,21 @@ int GameScene::write() {
         Message_rect.y = config->getYpercent(0.05);
         Message_rect.w = config->getLetterWidth();
         Message_rect.h = config->getLetterHeight();
-        SDL_RenderCopy(renderer, counter_text, NULL, &Message_rect);
+        counter_text->draw(NULL, &Message_rect);
     }
 
     return status;
 }
 
 void GameScene::updateCounter() {
-    SDL_Color White = {0, 255, 0};
+    SDL_Color White = {0, 255, 0, 255};
     counter_string = std::to_string(config->getHighScore() );
 
     if (counter_text != NULL) {
-        SDL_DestroyTexture(counter_text);
+		delete counter_text;
     }
 
-    counter_surface = TTF_RenderText_Solid(Sans, counter_string.c_str(), White);
-    counter_text = SDL_CreateTextureFromSurface(renderer, counter_surface);
+    counter_text = new DrawText(counter_string, renderer, Sans, White);
 }
 
 std::string GameScene::getName() {

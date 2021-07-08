@@ -63,11 +63,10 @@ void MenuScene::init() {
 }
 
 void MenuScene::close() {
-	TTF_CloseFont(Sans);
-
 	for(unsigned int i=0; i<buttons.size(); i++) {
 		delete buttons[i];
 	}
+	TTF_CloseFont(Sans);
 }
 
 int MenuScene::handleEvents()

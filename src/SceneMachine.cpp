@@ -176,7 +176,6 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
     	
     	for(int i=0; i<count; i++) {
 
-
     		state_data[i].lookupValue("name", name);
     		if (name != scene)
     			continue;

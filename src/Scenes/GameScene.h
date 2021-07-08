@@ -42,11 +42,7 @@ class GameScene : public SceneInterface {
     /*!
      * \brief The high score counter texture.
      */
-    SDL_Texture * counter_text = NULL;
-    /*!
-     * \brief Counter surface.
-     */
-    SDL_Surface* counter_surface;
+    DrawItem * counter_text = NULL;
     /*!
      * \brief Counter text (digits).
      */
