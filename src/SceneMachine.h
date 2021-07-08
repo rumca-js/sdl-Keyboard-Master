@@ -104,6 +104,8 @@ public:
      * returns transition info table
      */
     std::vector<TransitionInfo> getTransitionData();
+    bool copyData(libconfig::Setting & setting, std::map<std::string, std::string> & aMap, std::string var);
+
 };
 
 #endif /* SCENEMACHINE_H_ */

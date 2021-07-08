@@ -26,20 +26,20 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     current_scene = 0;
     current_state_name = SCENE_STM_START;
     
-	std::cout << "Loading configuration" << std::endl;
+    std::cout << "Loading configuration" << std::endl;
     load_config();
     
-	std::cout << "INTRO" << std::endl;
+    std::cout << "INTRO" << std::endl;
     scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
-	std::cout << "MENU" << std::endl;
+    std::cout << "MENU" << std::endl;
     scenes.push_back(new MenuScene(renderer, window, getSceneInformation("MENU") ) );
-	std::cout << "GOODBYE" << std::endl;
+    std::cout << "GOODBYE" << std::endl;
     scenes.push_back(new GoodBye(renderer, window, getSceneInformation("GOODBYE")) );
-	std::cout << "HEAVE" << std::endl;
+    std::cout << "HEAVE" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
-	std::cout << "COSMOS" << std::endl;
+    std::cout << "COSMOS" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
-	std::cout << "BLACKCLOUDS" << std::endl;
+    std::cout << "BLACKCLOUDS" << std::endl;
     scenes.push_back(new GameScene(renderer, window, getSceneInformation("BLACKCLOUDS")) );
 
     this->renderer = renderer;
@@ -48,27 +48,27 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     
     for(unsigned int i=0; i<trans_data.size(); i++)
     {
-    	join(trans_data[i].from, trans_data[i].to, trans_data[i].when);
+        join(trans_data[i].from, trans_data[i].to, trans_data[i].when);
     }
 
     if (current_state_name == SCENE_STM_START) {
-    	std::string new_state;
-    	if (findTransition(current_state_name, 0, new_state))
-    	{
-    		performTransition(new_state);
-    	}
-    	scenes[current_scene]->init();
+        std::string new_state;
+        if (findTransition(current_state_name, 0, new_state))
+        {
+            performTransition(new_state);
+        }
+        scenes[current_scene]->init();
     }
 
-	std::cout << "Loading configuration done" << std::endl;
+    std::cout << "Loading configuration done" << std::endl;
 
     return true;
 }
 
 void SceneMachine::close() {
     for(unsigned int i=0;i<scenes.size();i++) {
-    	scenes[i]->close();
-    	delete scenes[i];
+        scenes[i]->close();
+        delete scenes[i];
     }
 
 }
@@ -82,30 +82,26 @@ void SceneMachine::join(std::string from, std::string to, unsigned int when) {
 }
 
 void updateElements() {
-	std::vector<DrawItem*> items = DrawBuilder::GetUpdateItems();
-	for(unsigned int i=0; i<items.size(); i++)
-	{
-		items[i]->update(33);
-	}
+    // some elements need to be updated as time flows by
+    // for example gifs need to be animated
 
-    // update counters on gif animations
-
-    //for(int i=0; i<ImageAbsoluteArray.size(); i++)
-    //{
-    //    ImageAbsoluteArray[i]->update(33);
-    //}
+    std::vector<DrawItem*> items = DrawBuilder::GetUpdateItems();
+    for(unsigned int i=0; i<items.size(); i++)
+    {
+        items[i]->update(33);
+    }
 }
 
 void SceneMachine::write() {
 
     while(true) {
-    	SceneInterface * scene = scenes[current_scene];
+        SceneInterface * scene = scenes[current_scene];
 
         SDL_RenderClear(renderer);
-    	int status = scene->write();
+        int status = scene->write();
         SDL_RenderPresent(renderer);
 
-		SDL_Delay(33.3);
+        SDL_Delay(33.3);
 
         if (status == -1)
         {
@@ -135,15 +131,15 @@ void SceneMachine::performTransition(std::string new_state) {
 bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)
 {
     for(unsigned int i=0; i<transitions.size(); i++) {
-    	if ( transitions[i].from == state_name && transitions[i].when == status) {
-    		if ( transitions[i].to == SCENE_STM_STOP) {
-    			return false;
-    		}
-    		else {
-    			result_state = transitions[i].to;
-    			return true;
-    		}
-    	}
+        if ( transitions[i].from == state_name && transitions[i].when == status) {
+            if ( transitions[i].to == SCENE_STM_STOP) {
+                return false;
+            }
+            else {
+                result_state = transitions[i].to;
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -151,52 +147,83 @@ bool SceneMachine::findTransition(std::string state_name, int status, std::strin
 bool SceneMachine::load_config() {
     try
       {
-    	cfg.readFile("scenes.cfg");
-    	return true;
+        cfg.readFile("scenes.cfg");
+        return true;
       }
       catch(const FileIOException &fioex)
       {
-    	std::cerr << "I/O error while reading file." << std::endl;
+        std::cerr << "I/O error while reading file." << std::endl;
       }
       catch(const ParseException &pex)
       {
-    	std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
-    			  << " - " << pex.getError() << std::endl;
+        std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
+                  << " - " << pex.getError() << std::endl;
       }
       return false;
+}
+
+bool SceneMachine::copyData(Setting & setting, std::map<std::string, std::string> & aMap, std::string var)
+{
+    std::string val;
+    setting.lookupValue(var, val);
+    aMap[var] = val;
+
+    return true;
 }
 
 map<std::string, std::string> SceneMachine::getSceneInformation(std::string scene) {
     map<std::string, std::string> info;
     
     try {
-    	const Setting & state_data = cfg.lookup("state_data");
-    	int count = state_data.getLength();
-    	std::string name, background, music;
-    	
-    	for(int i=0; i<count; i++) {
+        const Setting & state_data = cfg.lookup("state_data");
+        int count = state_data.getLength();
+        std::string name, background, music;
+        
+        for(int i=0; i<count; i++) {
 
-    		state_data[i].lookupValue("name", name);
-    		if (name != scene)
-    			continue;
-    		state_data[i].lookupValue("background", background);
-    		state_data[i].lookupValue("music", music);
+            copyData(state_data[i], info, "name");
 
-			std::cout << "found name" << name << background << std::endl;
+            if (info["name"] != scene)
+            {
+                continue;
+            }
 
-    		info["name"] = name;
-    		info["background"] = background;
-    		info["music"] = music;
+            std::cout << "Found: "<<info["name"] <<std::endl;
 
-			std::string letters;
-    		state_data[i].lookupValue("letters", letters);
-    		info["letters"] = letters;
-    		
-    		return info;
-    	}
+            copyData(state_data[i], info, "background");
+            copyData(state_data[i], info, "music");
+            copyData(state_data[i], info, "letters");
+            copyData(state_data[i], info, "limit");
+            copyData(state_data[i], info, "letter-r");
+            copyData(state_data[i], info, "letter-g");
+            copyData(state_data[i], info, "letter-b");
+
+            std::cout << "Found: "<<info["background"] <<std::endl;
+            std::cout << "Found: "<<info["music"] <<std::endl;
+
+            /*
+            state_data[i].lookupValue("name", name);
+            if (name != scene)
+                continue;
+            state_data[i].lookupValue("background", background);
+            state_data[i].lookupValue("music", music);
+
+            std::cout << "found name" << name << background << std::endl;
+
+            info["name"] = name;
+            info["background"] = background;
+            info["music"] = music;
+
+            std::string letters;
+            state_data[i].lookupValue("letters", letters);
+            info["letters"] = letters;
+            */
+            
+            return info;
+        }
     }
-    catch(const SettingNotFoundException &nfex)  	{
-    	cerr << "Setting not found:" << endl;
+    catch(const SettingNotFoundException &nfex)      {
+        cerr << "Setting not found:" << endl;
     }
 
     return info;
@@ -205,8 +232,8 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
 int SceneMachine::getStateNameToId(std::string name) {
     for(unsigned int i=0; i<scenes.size(); i++)
     {
-    	if (scenes[i]->getName() == name)
-    		return i;
+        if (scenes[i]->getName() == name)
+            return i;
     }
     return -1;
 }
@@ -217,29 +244,29 @@ std::vector<TransitionInfo> SceneMachine::getTransitionData() {
 
     try
     {
-    	const Setting & trans_data = cfg.lookup("state_transistions");
-    	int count = trans_data.getLength();
-    	
-    	for(int i=0; i<count; i++)
-    	{
-    		std::string from, to;
-    		int when;
-    		
-    		trans_data[i].lookupValue("from", from);
-    		trans_data[i].lookupValue("to", to);
-    		trans_data[i].lookupValue("when", when);
-    		
-    		TransitionInfo info;
-    		info.when = when;
-    		info.from = from;
-    		info.to = to;
-    		
-    		result.push_back(info);
-    	}
+        const Setting & trans_data = cfg.lookup("state_transistions");
+        int count = trans_data.getLength();
+        
+        for(int i=0; i<count; i++)
+        {
+            std::string from, to;
+            int when;
+            
+            trans_data[i].lookupValue("from", from);
+            trans_data[i].lookupValue("to", to);
+            trans_data[i].lookupValue("when", when);
+            
+            TransitionInfo info;
+            info.when = when;
+            info.from = from;
+            info.to = to;
+            
+            result.push_back(info);
+        }
     }
     catch(const SettingNotFoundException &nfex)
     {
-    	cerr << "Setting not found:" << endl;
+        cerr << "Setting not found:" << endl;
     }
     
     return result;
