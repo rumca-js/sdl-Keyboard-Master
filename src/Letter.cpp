@@ -9,7 +9,7 @@
 #include "Letter.h"
 #include "./Images/DrawLetter.h"
 
-Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
+Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor) {
     renderer = ren;
 
     letter= _letter;
@@ -17,8 +17,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter) {
     _h = MainConfiguration::getConfig().getLetterHeight();
 
     if (Sans != NULL) {
-          SDL_Color White = {255, 0, 0, 255};
-          dletter.open(letter, ren, Sans, White);
+          dletter.open(letter, ren, Sans, aColor);
     }
     else {
         printf("Could not open font");

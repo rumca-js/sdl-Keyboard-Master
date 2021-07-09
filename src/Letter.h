@@ -37,7 +37,7 @@ public:
     /*!
      * \brief The constructor just copy the pointers.
      */
-    Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter);
+    Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter, SDL_Color aColor);
     /*!
      * \brief Displays the letter using renderer.
      */

@@ -201,24 +201,6 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
             std::cout << "Found: "<<info["background"] <<std::endl;
             std::cout << "Found: "<<info["music"] <<std::endl;
 
-            /*
-            state_data[i].lookupValue("name", name);
-            if (name != scene)
-                continue;
-            state_data[i].lookupValue("background", background);
-            state_data[i].lookupValue("music", music);
-
-            std::cout << "found name" << name << background << std::endl;
-
-            info["name"] = name;
-            info["background"] = background;
-            info["music"] = music;
-
-            std::string letters;
-            state_data[i].lookupValue("letters", letters);
-            info["letters"] = letters;
-            */
-            
             return info;
         }
     }

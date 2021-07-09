@@ -106,7 +106,13 @@ void GameScene::reset() {
 
     letters.clear();
 
-    letters.push_back(new Letter(renderer, Sans, 'a'));
+	Uint8 r = std::stoi(sceneInfo["letter-r"]);
+	Uint8 g = std::stoi(sceneInfo["letter-g"]);
+	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+
+    SDL_Color color = {r, g, b, 255};
+
+    letters.push_back(new Letter(renderer, Sans, 'a', color));
     letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
@@ -164,7 +170,13 @@ void GameScene::new_letter()
 
 	char letter = get_rand_string_letter(sceneInfo["letters"]);
 
-    letters.push_back(new Letter(renderer, Sans, letter));
+	Uint8 r = std::stoi(sceneInfo["letter-r"]);
+	Uint8 g = std::stoi(sceneInfo["letter-g"]);
+	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+
+    SDL_Color color = {r, g, b, 255};
+
+    letters.push_back(new Letter(renderer, Sans, letter, color));
     letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
@@ -247,14 +259,18 @@ int GameScene::write() {
 }
 
 void GameScene::updateCounter() {
-    SDL_Color White = {0, 255, 0, 255};
+	Uint8 r = std::stoi(sceneInfo["letter-r"]);
+	Uint8 g = std::stoi(sceneInfo["letter-g"]);
+	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+
+    SDL_Color color = {r, g, b, 255};
     counter_string = std::to_string(config->getHighScore() );
 
     if (counter_text != NULL) {
 		delete counter_text;
     }
 
-    counter_text = new DrawText(counter_string, renderer, Sans, White);
+    counter_text = new DrawText(counter_string, renderer, Sans, color);
 }
 
 std::string GameScene::getName() {
