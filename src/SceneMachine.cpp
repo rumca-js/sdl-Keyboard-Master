@@ -29,18 +29,18 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     std::cout << "Loading configuration" << std::endl;
     load_config();
     
-    std::cout << "INTRO" << std::endl;
     scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
-    std::cout << "MENU" << std::endl;
-    scenes.push_back(new MenuScene(renderer, window, getSceneInformation("MENU") ) );
-    std::cout << "GOODBYE" << std::endl;
-    scenes.push_back(new GoodBye(renderer, window, getSceneInformation("GOODBYE")) );
-    std::cout << "HEAVE" << std::endl;
-    scenes.push_back(new GameScene(renderer, window, getSceneInformation("HEAVEN")) );
-    std::cout << "COSMOS" << std::endl;
-    scenes.push_back(new GameScene(renderer, window, getSceneInformation("COSMOS")) );
-    std::cout << "BLACKCLOUDS" << std::endl;
-    scenes.push_back(new GameScene(renderer, window, getSceneInformation("BLACKCLOUDS")) );
+    scenes.push_back(new MenuScene (renderer, window, getSceneInformation("MENU") ) );
+    scenes.push_back(new GoodBye   (renderer, window, getSceneInformation("GOODBYE")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("HEAVEN")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("COSMOS")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("BLACKCLOUDS")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSFOG")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("ROOM")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("FIELD")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSSNOW")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("LAKE")) );
+    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSHIGH")) );
 
     this->renderer = renderer;
     
@@ -57,6 +57,10 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
         {
             performTransition(new_state);
         }
+		else
+		{
+			return false;
+		}
         scenes[current_scene]->init();
     }
 
@@ -109,23 +113,32 @@ void SceneMachine::write() {
         }
         else
         {
+			std::cout << "Leaving state: "<<current_state_name<<std::endl;
+
             std::string new_state;
             if (findTransition(current_state_name, status, new_state))
             {
+				std::cout << "New state: "<<new_state<<std::endl;
                 performTransition(new_state);
             }
             else
+			{
                 break;
+			}
         }
     }
 }
 
 void SceneMachine::performTransition(std::string new_state) {
+	std::cout << "Close state: "<<scenes[current_scene]->getName() << std::endl;
     scenes[current_scene]->close();
+	std::cout << "Close state: done" << std::endl;
 
     current_state_name = new_state;
     current_scene = getStateNameToId(current_state_name);
+	std::cout << "Init state: "<<scenes[current_scene]->getName() << std::endl;
     scenes[current_scene]->init();
+	std::cout << "Init state: done" << std::endl;
 }
 
 bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)

@@ -65,7 +65,6 @@ void DrawGif::draw(SDL_Rect * SrcR, SDL_Rect * DestR) {
 void DrawGif::close() {
     if (gif != NULL)
     {
-        std::cout<< "Closing Gif"<<std::endl;
         for(int frame=0;frame<gif->num_frames;frame++)
         {
             SDL_DestroyTexture(textures[frame]);

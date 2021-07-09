@@ -1,5 +1,6 @@
 
 #include <string>
+#include <algorithm>
 #include "DrawBuilder.h"
 
 bool hasEnding (std::string const &fullString, std::string const &ending) {
@@ -30,6 +31,11 @@ DrawItem * DrawBuilder::Build(std::string item, SDL_Renderer* renderer)
 		return new DrawTexture(item, renderer);
 
 	return NULL;
+}
+
+void DrawBuilder::Dispose(DrawItem * item)
+{
+	updateItems.erase(std::remove(updateItems.begin(), updateItems.end(), item), updateItems.end());
 }
 
 std::vector<DrawItem*> DrawBuilder::updateItems;
