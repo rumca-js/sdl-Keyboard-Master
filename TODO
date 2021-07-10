@@ -1,0 +1,14 @@
+
+ - background music (ambient)
+ - DrawGif destructor should remove it from udpate elements
+ - new scenes should be added by config only, no code changes required
+ - explosion gif
+ - when letters are hit they explode
+ - explosion sound
+ - letters can come in different directons
+ - maybe they could come 'at you'
+ - bruce lee below to hit the letters
+ - come up with a story, it should be selectable through menu
+ - menu should recognize mouse input
+ - letter movement depends on window size
+ - raster letters? gif letters?
