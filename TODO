@@ -12,3 +12,4 @@
  - menu should recognize mouse input
  - letter movement depends on window size
  - raster letters? gif letters?
+ - x and y position, relative or fixed not depending on resolution?
