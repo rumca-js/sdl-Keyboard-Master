@@ -1,7 +1,7 @@
 
  - background music (ambient)
- - DrawGif destructor should remove it from udpate elements
  - new scenes should be added by config only, no code changes required
+ - Letter inherit scene object
  - explosion gif
  - when letters are hit they explode
  - explosion sound
@@ -13,3 +13,4 @@
  - letter movement depends on window size
  - raster letters? gif letters?
  - x and y position, relative or fixed not depending on resolution?
+ - multiple letters in one scene (configurable)

@@ -20,11 +20,7 @@ std::vector<DrawItem*> & DrawBuilder::GetUpdateItems()
 DrawItem * DrawBuilder::Build(std::string item, SDL_Renderer* renderer)
 {
 	if (hasEnding(item, ".gif"))
-	{
-		DrawItem * result = new DrawGif(item, renderer);
-		DrawBuilder::updateItems.push_back(result);
-		return result;
-	}
+		return new DrawGif(item, renderer);
 	if (hasEnding(item, ".jpg"))
 		return new DrawTexture(item, renderer);
 	if (hasEnding(item, ".png"))
@@ -33,7 +29,12 @@ DrawItem * DrawBuilder::Build(std::string item, SDL_Renderer* renderer)
 	return NULL;
 }
 
-void DrawBuilder::Dispose(DrawItem * item)
+void DrawBuilder::AddUpdateable(DrawItem * item)
+{
+    updateItems.push_back(item);
+}
+
+void DrawBuilder::RemoveUpdateable(DrawItem * item)
 {
 	updateItems.erase(std::remove(updateItems.begin(), updateItems.end(), item), updateItems.end());
 }

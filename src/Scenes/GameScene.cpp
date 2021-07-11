@@ -79,7 +79,6 @@ void GameScene::close() {
 
 	if (wall != NULL)
 	{
-		DrawBuilder::Dispose(wall);
 		delete wall;
 		wall = NULL;
 	}

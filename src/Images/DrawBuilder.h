@@ -15,7 +15,8 @@ class DrawBuilder
 	public:
 	static DrawItem * Build(std::string item, SDL_Renderer * renderer);
 	static std::vector<DrawItem*> & GetUpdateItems();
-	static void Dispose(DrawItem *item);
+	static void AddUpdateable(DrawItem * item);
+	static void RemoveUpdateable(DrawItem *item);
 };
 
 #endif //_H_DRAW_BUILDER_H_

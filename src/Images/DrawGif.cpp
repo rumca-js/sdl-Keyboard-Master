@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "DrawGif.h"
+#include "DrawBuilder.h"
 
 
 DrawGif::DrawGif() {
@@ -25,6 +26,8 @@ bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
     {
         textures.push_back(SDL_CreateTextureFromSurface(renderer, gif->frames[frame]->surface));
     }
+
+	DrawBuilder::AddUpdateable(this);
 
     return true;
 }
@@ -65,6 +68,7 @@ void DrawGif::draw(SDL_Rect * SrcR, SDL_Rect * DestR) {
 void DrawGif::close() {
     if (gif != NULL)
     {
+		DrawBuilder::RemoveUpdateable(this);
         for(int frame=0;frame<gif->num_frames;frame++)
         {
             SDL_DestroyTexture(textures[frame]);
