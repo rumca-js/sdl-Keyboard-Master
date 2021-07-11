@@ -14,8 +14,9 @@ SRCS := \
   Images/SDL_gifwrap.cpp \
   Letter.cpp \
   GUI/SdlButton.cpp \
-  GUI/SdlWidget.cpp \
+  GUI/ScreenElement.cpp \
   GUI/SdlGui.cpp \
+  GUI/ScreenElement.cpp \
   SceneMachine.cpp \
   Scenes/IntroScene.cpp \
   Scenes/GoodBye.cpp \

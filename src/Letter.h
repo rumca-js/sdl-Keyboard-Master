@@ -10,8 +10,9 @@
 
 #include <SDL2/SDL_ttf.h>
 #include "./Images/DrawLetter.h"
+#include "./GUI/ScreenElement.h"
 
-class Letter {
+class Letter : public ScreenElement {
     /*!
      * \brief SDL renderer
      */
@@ -20,17 +21,6 @@ class Letter {
      * \brief SDL texture for letter.
      */
     DrawLetter dletter;
-    /*!
-     * \brief Position of the letter.
-     */
-    unsigned x,y;
-    /*!
-     * \brief width and height.
-     */
-    unsigned _w, _h;
-    /*!
-     * \brief The actual letter that will be displayed.
-     */
     char letter;
 
 public:
@@ -38,40 +28,12 @@ public:
      * \brief The constructor just copy the pointers.
      */
     Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter, SDL_Color aColor);
+    virtual ~Letter();
     /*!
      * \brief Displays the letter using renderer.
      */
     void display();
-    /*!
-     * \brief Returns X position.
-     */
-    unsigned getX();
-    /*!
-     * \brief Returns Y position.
-     */
-    unsigned getY();
-    /*!
-     * \brief Sets width.
-     */
-    void setWidth(unsigned int);
-    /*!
-     * \brief Sets height.
-     */
-    void setHeight(unsigned int);
-    /*!
-     * \brief Sets X position.
-     */
-    void setX(unsigned);
-    /*!
-     * \brief Sets Y position.
-     */
-    void setY(unsigned);
-    /*!
-     * \brief Returns true if this char is equal to <key>.
-     */
     bool is(char key);
-    virtual ~Letter();
-
 };
 
 #endif /* LETTER_H_ */

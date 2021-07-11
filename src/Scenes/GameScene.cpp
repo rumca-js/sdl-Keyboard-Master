@@ -113,7 +113,7 @@ void GameScene::reset() {
     SDL_Color color = {r, g, b, 255};
 
     letters.push_back(new Letter(renderer, Sans, 'a', color));
-    letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
+    letters[0]->setPosition( rand_min_max(0, config->getWidth()-config->getLetterWidth()), 0);
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
@@ -126,12 +126,12 @@ void GameScene::reset() {
 bool GameScene::move_letters() {
     for(unsigned int i=0; i<letters.size();i++)
     {
-        letters[i]->setY(letters[i]->getY() + speed_factor);
+        letters[i]->setPositionY(letters[i]->getPositionY() + speed_factor);
 
         /*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
             return true;
             */
-        if (letters[i]->getY() > config->getHeight())  {
+        if (letters[i]->getPositionY() > config->getHeight())  {
 
             if( !note_eog.play()) {
                 printf("Could not play a note");
@@ -177,7 +177,7 @@ void GameScene::new_letter()
     SDL_Color color = {r, g, b, 255};
 
     letters.push_back(new Letter(renderer, Sans, letter, color));
-    letters[0]->setX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
+    letters[0]->setPositionX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 

@@ -1,10 +1,9 @@
 
  - background music (ambient)
  - new scenes should be added by config only, no code changes required
- - Letter inherit scene object
  - explosion gif
  - when letters are hit they explode
- - explosion sound
+ - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
  - bruce lee below to hit the letters
@@ -14,3 +13,4 @@
  - raster letters? gif letters?
  - x and y position, relative or fixed not depending on resolution?
  - multiple letters in one scene (configurable)
+ - statistic logger (total time, accuracy etc)

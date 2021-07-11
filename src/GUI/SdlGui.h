@@ -1,6 +1,7 @@
 #ifndef _H_GUI_H_
 #define _H_GUI_H_
 
+#include "ScreenElement.h"
 #include "SdlWidget.h"
 
 class SdlGui

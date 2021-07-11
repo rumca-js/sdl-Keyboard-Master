@@ -1,13 +1,10 @@
 #ifndef __H_SDL_WIDGET_H_
 #define __H_SDL_WIDGET_H_
 
-class SdlWidget
-{
-    /*!
-     *      * \brief Position of the button.
-     *           */
-    int _posx, _posy, _width, _height;
+#include "ScreenElement.h"
 
+class SdlWidget : public ScreenElement
+{
     public:
     /*!
      * initialize widget
@@ -21,22 +18,6 @@ class SdlWidget
      * close widget
      */
     virtual void close();
-    /*!
-     * sets position
-     */
-    virtual void setPosition(int x, int y);
-    /*!
-     * sets dimensions
-     */
-    virtual void setDimensions(int w, int h);
-    /*!
-     * relative toward screen position
-     */
-    virtual void setPositionR(double x, double y);
-    /*!
-     * relative toward screen dimentions
-     */
-    virtual void setDimensionsR(double w, double h);
 };
 
 #endif
