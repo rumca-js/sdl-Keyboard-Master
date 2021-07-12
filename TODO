@@ -1,6 +1,6 @@
 
  - background music (ambient)
- - new scenes should be added by config only, no code changes required
+ - statescreenentity
  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons

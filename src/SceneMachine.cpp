@@ -28,19 +28,20 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     
     std::cout << "Loading configuration" << std::endl;
     load_config();
+
+	std::vector<std::string> states = getStateInformation();
+
+	scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
+	scenes.push_back(new MenuScene (renderer, window, getSceneInformation("MENU") ) );
+	scenes.push_back(new GoodBye   (renderer, window, getSceneInformation("GOODBYE")) );
     
-    scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
-    scenes.push_back(new MenuScene (renderer, window, getSceneInformation("MENU") ) );
-    scenes.push_back(new GoodBye   (renderer, window, getSceneInformation("GOODBYE")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("HEAVEN")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("COSMOS")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("BLACKCLOUDS")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSFOG")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("ROOM")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("FIELD")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSSNOW")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("LAKE")) );
-    scenes.push_back(new GameScene (renderer, window, getSceneInformation("MOUNTAINSHIGH")) );
+	for(unsigned int i=0; i<states.size(); i++)
+	{
+		map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
+
+		if (sceneInfo["engine"] == "GAME")
+			scenes.push_back(new GameScene (renderer, window, sceneInfo) );
+	}
 
     this->renderer = renderer;
     
@@ -67,6 +68,26 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     std::cout << "Loading configuration done" << std::endl;
 
     return true;
+}
+
+std::vector<std::string> SceneMachine::getStateInformation()
+{
+	std::vector<std::string> result;
+
+	try {
+        const Setting & states = cfg.lookup("states");
+        int count = states.getLength();
+        
+        for(int i=0; i<count; i++) {
+			std::string val = states[i];
+			result.push_back(val);
+		}
+
+    }
+    catch(const SettingNotFoundException &nfex)      {
+        cerr << "Setting not found:" << endl;
+    }
+	return result;
 }
 
 void SceneMachine::close() {
@@ -204,6 +225,7 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
             std::cout << "Found: "<<info["name"] <<std::endl;
 
             copyData(state_data[i], info, "background");
+            copyData(state_data[i], info, "engine");
             copyData(state_data[i], info, "music");
             copyData(state_data[i], info, "letters");
             copyData(state_data[i], info, "limit");
