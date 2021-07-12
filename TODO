@@ -15,3 +15,4 @@
  - statistic logger (total time, accuracy etc)
  - create debian package
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
+ - add presentation scene (allows to display many images one after another)
