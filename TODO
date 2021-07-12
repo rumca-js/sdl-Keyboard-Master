@@ -1,8 +1,7 @@
 
  - background music (ambient)
  - new scenes should be added by config only, no code changes required
- - explosion gif
- - when letters are hit they explode
+  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
