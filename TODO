@@ -1,7 +1,7 @@
 
  - background music (ambient)
  - new scenes should be added by config only, no code changes required
-  - when letters are hit they explode
+ - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
@@ -16,3 +16,6 @@
  - create debian package
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - add presentation scene (allows to display many images one after another)
+ 
+ make debian package scripts
+ distribute https://www.debian.org/doc/manuals/distribute-deb/distribute-deb.html
