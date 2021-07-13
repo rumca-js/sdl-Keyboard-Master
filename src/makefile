@@ -5,6 +5,7 @@ BIN := ../game
 SRCS := \
   Audio/SdlAudio.cpp \
   Audio/SdlMusic.cpp \
+  Audio/MusicManager.cpp \
   Images/DrawGif.cpp \
   Images/DrawLetter.cpp \
   Images/DrawText.cpp \

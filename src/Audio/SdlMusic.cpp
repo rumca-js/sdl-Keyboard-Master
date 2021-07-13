@@ -4,6 +4,7 @@
 
 SdlMusic::SdlMusic()
 {
+    music = NULL;
 }
 
 SdlMusic::SdlMusic(std::string path)
@@ -28,9 +29,11 @@ SdlMusic::~SdlMusic()
     close();
 }
 
-bool SdlMusic::play()
+bool SdlMusic::play(int loops)
 {
-    if (Mix_PlayMusic(music, 1) == -1)
+	std::cout << "Playing music!" << std::endl;
+
+    if (Mix_PlayMusic(music, loops) == -1)
     {
         printf("Mix_PlayMusic: %s\n", Mix_GetError());
         return false;
@@ -41,7 +44,7 @@ bool SdlMusic::play()
 
 void SdlMusic::pause()
 {
-    //Mix_FadeInMusic(musicq);
+    Mix_PauseMusic();
 }
 
 void SdlMusic::close()
@@ -51,4 +54,24 @@ void SdlMusic::close()
         Mix_FreeMusic(music);
         music = NULL;
     }
+}
+
+bool SdlMusic::isPlaying()
+{
+    return (bool)Mix_PlayingMusic();
+}
+
+bool SdlMusic::isPaused()
+{
+    return (bool)Mix_PausedMusic();
+}
+
+void SdlMusic::rewind()
+{
+    Mix_RewindMusic();
+}
+
+void SdlMusic::resume()
+{
+    Mix_ResumeMusic();
 }

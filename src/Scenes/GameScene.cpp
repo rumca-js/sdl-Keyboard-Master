@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "../Utilities.h"
+#include "../Audio/MusicManager.h"
 #include "GameScene.h"
 
 
@@ -71,6 +72,10 @@ void GameScene::init() {
     note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
 
     reset();
+
+	MusicManager & man = MusicManager::getObject();
+	man.addMusic( sceneInfo["music"] );
+	man.play();
 }
 
 void GameScene::close() {
@@ -99,6 +104,10 @@ void GameScene::close() {
 		Sans = NULL;
 
 	}
+
+	MusicManager & man = MusicManager::getObject();
+	man.resetQueue();
+	man.stop();
 }
 
 void GameScene::reset() {
