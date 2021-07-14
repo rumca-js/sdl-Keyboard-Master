@@ -7,9 +7,7 @@
  - maybe they could come 'at you'
  - come up with a story, it should be selectable through menu
  - menu should recognize mouse input
- - letter movement depends on window size
  - raster letters? gif letters?
- - x and y position, relative or fixed not depending on resolution?
  - multiple letters in one scene (configurable)
  - create debian package
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
