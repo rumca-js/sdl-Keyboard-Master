@@ -129,8 +129,6 @@ void GameScene::reset() {
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
-
-    config->setHighScore(0);
 }
 
 bool GameScene::move_letters() {
@@ -191,7 +189,8 @@ void GameScene::new_letter()
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
-    config->setHighScore(config->getHighScore()+1);
+	GameEventLogger & logger = GameEventLogger::getObject();
+	logger.addSuccessfulKeyStroke();
 
     updateCounter();
 }
@@ -229,14 +228,12 @@ int GameScene::handleEvents()
             if (check_if_killed((char)e.key.keysym.sym)) {
 				unsigned int limit = std::stoi(sceneInfo["limit"]);
 
-				logger.addSuccessfulKeyStroke();
-
-                if (config->getHighScore() > limit) {
+                if (logger.getSuccessfulKeyStrokes() > limit) {
 					return 0;
                 }
             }
 			else {
-				logger.addSuccessfulKeyStroke();
+				logger.addUnSuccessfulKeyStroke();
 			}
         }
         else if (e.type == SDL_USEREVENT) {
@@ -279,8 +276,10 @@ void GameScene::updateCounter() {
 	Uint8 g = std::stoi(sceneInfo["letter-g"]);
 	Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
+    GameEventLogger & logger = GameEventLogger::getObject();
+
     SDL_Color color = {r, g, b, 255};
-    counter_string = std::to_string(config->getHighScore() );
+    counter_string = std::to_string(logger.getSuccessfulKeyStrokes() );
 
     if (counter_text != NULL) {
 		delete counter_text;

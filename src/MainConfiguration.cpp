@@ -13,8 +13,6 @@ using namespace libconfig;
 
 MainConfiguration::MainConfiguration() {
 
-    _high_score = 0;
-
     try
       {
         cfg.readFile("config.cfg");
@@ -69,14 +67,6 @@ void MainConfiguration::setHeight(unsigned int height)    {
 void MainConfiguration::setWindowSize(unsigned int width, unsigned int height)  {
     _w = width;
     _h = height;
-}
-void MainConfiguration::setHighScore(unsigned int high_score)
-{
-    _high_score = high_score;
-}
-unsigned int MainConfiguration::getHighScore()
-{
-    return _high_score;
 }
 SDL_Rect MainConfiguration::getFullScreenSize()
 {

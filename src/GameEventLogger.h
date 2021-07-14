@@ -26,6 +26,8 @@ class GameEventLogger
       void sceneStop(unsigned int scene);
       void addSuccessfulKeyStroke();
       void addUnSuccessfulKeyStroke();
+      unsigned int getSuccessfulKeyStrokes();
+      unsigned int getUnSuccessfulKeyStrokes();
 };
 
 #endif //_H_GAMEEVENTLOGGER_H

@@ -23,10 +23,6 @@ class MainConfiguration {
      */
     unsigned int _h;
     /*!
-     * \brief The high score.
-     */
-    unsigned int _high_score;
-    /*!
      * Configuration file
      */
     libconfig::Config cfg;
@@ -69,14 +65,6 @@ public:
      \brief Sets the desired window dimentions.
     */
     void setWindowSize(unsigned int, unsigned int);
-    /*!
-     * \brief Sets high score - dynamic current value in RAM.
-     */
-    void setHighScore(unsigned int);
-    /*!
-     * \brief Returns high score value.
-     */
-    unsigned int getHighScore();
     /*!
      \brief Returns configuration singleton.
     */
