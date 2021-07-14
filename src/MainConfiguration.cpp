@@ -39,18 +39,27 @@ MainConfiguration & MainConfiguration::getConfig()   {
 MainConfiguration::~MainConfiguration() {
     // TODO Auto-generated destructor stub
 }
-
-unsigned int MainConfiguration::getWidth()   {
+void MainConfiguration::setWinWidth(unsigned int width)    {
+    _w = width;
+}
+void MainConfiguration::setWinHeight(unsigned int height)    {
+    _h = height;
+}
+unsigned int MainConfiguration::getWinWidth()   {
     return _w;
 }
-unsigned int MainConfiguration::getHeight()   {
+unsigned int MainConfiguration::getWinHeight()   {
     return _h;
 }
-unsigned int MainConfiguration::getXpercent(double x) {
-    return x*(double)getWidth();
+void MainConfiguration::setWindowSize(unsigned int width, unsigned int height)  {
+	setWinHeight(height);
+	setWinWidth(width);
 }
-unsigned int MainConfiguration::getYpercent(double y) {
-    return y*(double)getHeight();
+double MainConfiguration::getXpercent(double x) {
+    return x*(double)getWinWidth();
+}
+double MainConfiguration::getYpercent(double y) {
+    return y*(double)getWinHeight();
 }
 unsigned int MainConfiguration::getLetterWidth() {
     return getXpercent(0.1);
@@ -58,19 +67,9 @@ unsigned int MainConfiguration::getLetterWidth() {
 unsigned int MainConfiguration::getLetterHeight() {
     return getYpercent(0.1);
 }
-void MainConfiguration::setWidth(unsigned int width)    {
-    _w = width;
-}
-void MainConfiguration::setHeight(unsigned int height)    {
-    _h = height;
-}
-void MainConfiguration::setWindowSize(unsigned int width, unsigned int height)  {
-    _w = width;
-    _h = height;
-}
 SDL_Rect MainConfiguration::getFullScreenSize()
 {
-    SDL_Rect rect; rect.x = 0; rect.y = 0; rect.w = this->getWidth(); rect.h = this->getHeight();
+    SDL_Rect rect; rect.x = 0; rect.y = 0; rect.w = this->getWinWidth(); rect.h = this->getWinHeight();
     return rect;
 }
 

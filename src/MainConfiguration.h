@@ -38,29 +38,29 @@ public:
      */
     virtual ~MainConfiguration();
     /*!
-     \brief Returns desired Width.
+     \brief Returns desired Width in pixels
     */
-    unsigned int getWidth();
+    unsigned int getWinWidth();
     /*!
-     \brief Returns desired Width.
+     \brief Returns desired Width in pixels
     */
-    unsigned int getHeight();
+    unsigned int getWinHeight();
     /*!
      * \brief For the specified x width specified in percent 0-1 return window width.
      */
-    unsigned int getXpercent(double x);
+    double getXpercent(double x);
     /*!
      * \brief For the specified y width specified in percent 0-1 return window height.
      */
-    unsigned int getYpercent(double y);
+    double getYpercent(double y);
     /*!
-     \brief Sets the desired window width.
+     \brief Sets the desired window width in pixels
     */
-    void setWidth(unsigned int);
+    void setWinWidth(unsigned int);
     /*!
-     \brief Sets the desired window height.
+     \brief Sets the desired window height in pixels
     */
-    void setHeight(unsigned int);
+    void setWinHeight(unsigned int);
     /*!
      \brief Sets the desired window dimentions.
     */

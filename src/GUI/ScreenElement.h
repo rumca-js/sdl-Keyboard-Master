@@ -1,12 +1,13 @@
 #ifndef __H_SCREENELEMENT_H_
 #define __H_SCREENELEMENT_H_
 
+template<class T>
 class ScreenElement
 {
     /*!
      *      * \brief Position of the button.
      *           */
-    int _posx, _posy, _width, _height;
+    T _posx, _posy, _width, _height;
 
     public:
     /*!
@@ -24,20 +25,20 @@ class ScreenElement
     /*!
      * sets position
      */
-    virtual void setPosition(int x, int y);
+    virtual void setPosition(T x, T y);
     /*!
      * sets dimensions
      */
-    virtual void setDimensions(int w, int h);
+    virtual void setDimensions(T w, T h);
 
-    void setWidth(int w);
-    void setHeight(int h);
-    int getPositionX();
-    int getPositionY();
-    void setPositionX(int x);
-    void setPositionY(int y);
-    int getWidth();
-    int getHeight();
+    void setWidth(T w);
+    void setHeight(T h);
+    T getPositionX();
+    T getPositionY();
+    void setPositionX(T x);
+    void setPositionY(T y);
+    T getWidth();
+    T getHeight();
     /*!
      * relative toward screen position
      */

@@ -2,8 +2,9 @@
 #define __H_SDL_WIDGET_H_
 
 #include "ScreenElement.h"
+#include "ScreenElement.cpp"
 
-class SdlWidget : public ScreenElement
+class SdlWidget : public ScreenElement<int>
 {
     public:
     /*!

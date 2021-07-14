@@ -29,8 +29,8 @@ MainController::MainController() {
         "Keyboard master",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        config->getWidth(),
-        config->getHeight(),
+        config->getWinWidth(),
+        config->getWinHeight(),
         SDL_WINDOW_OPENGL
     );
 

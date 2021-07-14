@@ -1,5 +1,6 @@
 
  statescreenentity:
+ - display text scene
  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons

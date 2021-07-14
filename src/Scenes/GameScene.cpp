@@ -47,7 +47,7 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
     //configuration
     my_timer_id  = -1;
     timer_delay  = 50;
-    speed_factor = 1;
+    speed_factor = 1.0;
 }
 
 GameScene::~GameScene() {
@@ -112,7 +112,7 @@ void GameScene::close() {
 }
 
 void GameScene::reset() {
-    speed_factor = 1;
+    speed_factor = config->getYpercent(0.005);
 
     letters.clear();
 
@@ -123,7 +123,7 @@ void GameScene::reset() {
     SDL_Color color = {r, g, b, 255};
 
     letters.push_back(new Letter(renderer, Sans, 'a', color));
-    letters[0]->setPosition( rand_min_max(0, config->getWidth()-config->getLetterWidth()), 0);
+    letters[0]->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
@@ -139,7 +139,7 @@ bool GameScene::move_letters() {
         /*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
             return true;
             */
-        if (letters[i]->getPositionY() > config->getHeight())  {
+        if (letters[i]->getPositionY() > config->getWinHeight())  {
 
             if( !note_eog.play()) {
                 printf("Could not play a note");
@@ -185,7 +185,7 @@ void GameScene::new_letter()
     SDL_Color color = {r, g, b, 255};
 
     letters.push_back(new Letter(renderer, Sans, letter, color));
-    letters[0]->setPositionX( rand_min_max(0, config->getWidth()-config->getLetterWidth()));
+    letters[0]->setPositionX( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()));
     letters[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
@@ -249,7 +249,10 @@ int GameScene::handleEvents()
 int GameScene::write() {
     int status = -1;
 
-    SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = config->getWidth(); texr.h = config->getHeight();
+    SDL_Rect texr;
+	texr.x = 0; texr.y = 0;
+	texr.w = config->getWinWidth();
+	texr.h = config->getWinHeight();
 
     status = handleEvents();
 	if (status != -1)

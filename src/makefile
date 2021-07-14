@@ -1,5 +1,5 @@
 # output binary
-BIN := ../game
+BIN := ../sdl-Keyboard-Master
 
 # source files
 SRCS := \

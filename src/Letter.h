@@ -11,8 +11,9 @@
 #include <SDL2/SDL_ttf.h>
 #include "./Images/DrawLetter.h"
 #include "./GUI/ScreenElement.h"
+#include "./GUI/ScreenElement.cpp"
 
-class Letter : public ScreenElement {
+class Letter : public ScreenElement<double> {
     /*!
      * \brief SDL renderer
      */

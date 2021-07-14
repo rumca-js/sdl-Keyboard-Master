@@ -93,8 +93,8 @@ int IntroScene::write() {
     /* We display after some considerable amount of time */
     if (display) {
 
-        float ratio = config->getHeight()/(float)logo.getHeight();
-        float margin = config->getWidth()/10;
+        float ratio = config->getWinHeight()/(float)logo.getHeight();
+        float margin = config->getWinWidth()/10;
 
         SDL_Rect texr;
         texr.x = margin;

@@ -62,7 +62,7 @@ class GameScene : public SceneInterface {
     /*!
      * \brief defines how the consecutive letter speed up.
      */
-    unsigned int speed_factor;
+    double speed_factor;
     /*!
      * \brief Piano notes A-G.
      */
