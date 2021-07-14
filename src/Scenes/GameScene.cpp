@@ -9,6 +9,7 @@
 
 #include "../Utilities.h"
 #include "../Audio/MusicManager.h"
+#include "../GameEventLogger.h"
 #include "GameScene.h"
 
 
@@ -223,14 +224,20 @@ int GameScene::handleEvents()
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
 			return 1;
         else if (e.type == SDL_KEYDOWN) {
+			GameEventLogger & logger = GameEventLogger::getObject();
+
             if (check_if_killed((char)e.key.keysym.sym)) {
 				unsigned int limit = std::stoi(sceneInfo["limit"]);
+
+				logger.addSuccessfulKeyStroke();
 
                 if (config->getHighScore() > limit) {
 					return 0;
                 }
             }
-
+			else {
+				logger.addSuccessfulKeyStroke();
+			}
         }
         else if (e.type == SDL_USEREVENT) {
             if (this->move_letters() ) {

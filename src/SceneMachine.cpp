@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "SceneMachine.h"
+#include "GameEventLogger.h"
 
 #include "Scenes/MenuScene.h"
 #include "Scenes/IntroScene.h"
@@ -42,6 +43,9 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 		if (sceneInfo["engine"] == "GAME")
 			scenes.push_back(new GameScene (renderer, window, sceneInfo) );
 	}
+
+	GameEventLogger & logger = GameEventLogger::getObject();
+	logger.setScenes(scenes.size());
 
     this->renderer = renderer;
     
@@ -155,11 +159,16 @@ void SceneMachine::performTransition(std::string new_state) {
     scenes[current_scene]->close();
 	std::cout << "Close state: done" << std::endl;
 
+	GameEventLogger & logger = GameEventLogger::getObject();
+	logger.sceneStop(current_scene);
+
     current_state_name = new_state;
     current_scene = getStateNameToId(current_state_name);
 	std::cout << "Init state: "<<scenes[current_scene]->getName() << std::endl;
     scenes[current_scene]->init();
 	std::cout << "Init state: done" << std::endl;
+
+	logger.sceneStart(current_scene);
 }
 
 bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)

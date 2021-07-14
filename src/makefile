@@ -18,6 +18,7 @@ SRCS := \
   GUI/ScreenElement.cpp \
   GUI/SdlGui.cpp \
   GUI/ScreenElement.cpp \
+  GameEventLogger.cpp \
   SceneMachine.cpp \
   Scenes/IntroScene.cpp \
   Scenes/GoodBye.cpp \
