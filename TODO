@@ -1,6 +1,5 @@
 
  statescreenentity:
- - statistic logger (total time, accuracy etc)
  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons
@@ -14,6 +13,8 @@
  - create debian package
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - add presentation scene (allows to display many images one after another)
+
+ - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
  
  make debian package scripts
  distribute https://www.debian.org/doc/manuals/distribute-deb/distribute-deb.html
