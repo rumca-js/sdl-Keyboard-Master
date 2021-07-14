@@ -1,18 +1,16 @@
 
- - background music (ambient)
- - statescreenentity
+ statescreenentity:
+ - statistic logger (total time, accuracy etc)
  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
- - bruce lee below to hit the letters
  - come up with a story, it should be selectable through menu
  - menu should recognize mouse input
  - letter movement depends on window size
  - raster letters? gif letters?
  - x and y position, relative or fixed not depending on resolution?
  - multiple letters in one scene (configurable)
- - statistic logger (total time, accuracy etc)
  - create debian package
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - add presentation scene (allows to display many images one after another)
