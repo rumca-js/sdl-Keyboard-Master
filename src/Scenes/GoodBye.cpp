@@ -8,7 +8,7 @@
 #include "GoodBye.h"
 
 
-Uint32 my_callbackfunc2(Uint32 interval, void *param) {
+static Uint32 my_callbackfunc2(Uint32 interval, void *param) {
 	static int counter = 0;
 
 	counter ++;

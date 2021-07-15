@@ -55,13 +55,13 @@ void MenuScene::init() {
     buttons[1]->load();
 
     buttons[2]->setDimentions(0.32, 0.06);
-    buttons[2]->setPosition(0.6, 0.2);
+    buttons[2]->setPosition(0.6, 0.3);
     buttons[2]->setFont(Sans, color);
     buttons[2]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[2]->load();
 
     buttons[3]->setDimentions(0.32, 0.06);
-    buttons[3]->setPosition(0.6, 0.3);
+    buttons[3]->setPosition(0.6, 0.4);
     buttons[3]->setFont(Sans, color);
     buttons[3]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[3]->load();
@@ -97,16 +97,16 @@ int MenuScene::handleEvents()
             status = 1;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
-            if (buttons[selected].getText() == TEXT_ENTER) {
+            if (buttons[selected]->getText() == TEXT_ENTER) {
                 status = 0;
             }
-            else if (buttons[selected].getText() == TEXT_STORY) {
+            else if (buttons[selected]->getText() == TEXT_STORY) {
                 status = 2;
             }
-            else if (buttons[selected].getText() == TEXT_FULL_SCREEN) {
+            else if (buttons[selected]->getText() == TEXT_FULL_SCREEN) {
                 setFullScreen();
             }
-            else if (buttons[selected].getText() == TEXT_ESCAPE) {
+            else if (buttons[selected]->getText() == TEXT_ESCAPE) {
                 status = 1;
             }
         }

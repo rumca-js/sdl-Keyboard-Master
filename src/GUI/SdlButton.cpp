@@ -83,3 +83,7 @@ void SdlButton::draw() {
 void SdlButton::setHover(bool hover) {
     _hover = hover;
 }
+
+std::string SdlButton::getText() {
+	return _text;
+}

@@ -12,7 +12,7 @@
 #include "GameScene.h"
 
 
-Uint32 my_callbackfunc(Uint32 interval, void *param) {
+static Uint32 my_callbackfunc(Uint32 interval, void *param) {
     SDL_Event event;
     SDL_UserEvent userevent;
 
@@ -57,7 +57,7 @@ void GameScene::MakeSureMyMusicIsPlaying() {
 	MusicManager & man = MusicManager::getObject();
     std::string myMusic = sceneInfo["music"];
 
-    if (!man.isPlaying())
+    if (!MusicManager::isPlaying())
     {
         man.addMusic(myMusic);
         man.play();

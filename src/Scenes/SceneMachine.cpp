@@ -37,15 +37,15 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 	{
 		map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
 
-		if (sceneInfo["engine"] == GameScene::GetEngineName())
+		if (sceneInfo["engine"] == GameScene::getEngineName())
 			scenes.push_back(new GameScene(renderer, window, sceneInfo) );
-        else if (sceneInfo["engine"] == IntroScene::GetEngineName())
+        else if (sceneInfo["engine"] == IntroScene::getEngineName())
 			scenes.push_back(new IntroScene(renderer, window, sceneInfo) );
-        else if (sceneInfo["engine"] == MenuScene::GetEngineName())
+        else if (sceneInfo["engine"] == MenuScene::getEngineName())
 			scenes.push_back(new MenuScene(renderer, window, sceneInfo) );
-        else if (sceneInfo["engine"] == GoodBye::GetEngineName())
+        else if (sceneInfo["engine"] == GoodBye::getEngineName())
 			scenes.push_back(new GoodBye(renderer, window, sceneInfo) );
-        else if (sceneInfo["engine"] == SlideScene::GetEngineName())
+        else if (sceneInfo["engine"] == SlideScene::getEngineName())
 			scenes.push_back(new SlideScene(renderer, window, sceneInfo) );
 	}
 

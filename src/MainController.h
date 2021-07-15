@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 #include "MainConfiguration.h"
-#include "SceneMachine.h"
+#include "Scenes/SceneMachine.h"
 
 class MainController {
     /*!

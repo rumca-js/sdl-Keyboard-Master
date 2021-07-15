@@ -39,6 +39,10 @@ class MusicManager
          */
         static void stop();
         /*!
+         * indicates wheter anythin is playing
+         */
+        static bool isPlaying();
+        /*!
          * clears/resets queue
          */
         void resetQueue();

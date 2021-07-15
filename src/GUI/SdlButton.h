@@ -94,6 +94,10 @@ public:
      * \brief Sets hover indication.
      */
     void setHover(bool);
+    /*!
+     * returns button text
+     */
+    std::string getText();
 };
 
 #endif /* GUI_BUTTON_H_ */

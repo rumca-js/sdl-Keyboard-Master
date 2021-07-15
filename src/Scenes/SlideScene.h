@@ -5,8 +5,8 @@
  *      Author: hunter
  */
 
-#ifndef INITSCENE_H_
-#define INITSCENE_H_
+#ifndef _H_SLIDESCENE_H_
+#define _H_SLIDESCENE_H_
 
 #include <map>
 #include <vector>
@@ -91,4 +91,4 @@ public:
     int handleEvents();
 };
 
-#endif /* INITSCENE_H_ */
+#endif /* _H_SLIDESCENE_H_ */

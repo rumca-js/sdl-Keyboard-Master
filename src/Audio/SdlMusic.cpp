@@ -78,7 +78,7 @@ void SdlMusic::resume()
     Mix_ResumeMusic();
 }
 
-void SdlMusic::getName()
+std::string SdlMusic::getName()
 {
     return path;
 }

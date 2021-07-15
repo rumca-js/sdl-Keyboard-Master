@@ -49,8 +49,8 @@ void MusicManager::pause()
 void MusicManager::stop()
 {
   std::cout << "MusicManager::stop"<<std::endl;
-   SdlMusic::pause();
-   SdlMusic::rewind();
+  SdlMusic::pause();
+  SdlMusic::rewind();
 }
 
 void MusicManager::resetQueue()
@@ -76,4 +76,9 @@ bool MusicManager::isMyMusicPlaying(std::string apath, bool onlyMy)
         }
         return false;
     }
+}
+
+bool MusicManager::isPlaying()
+{
+	return SdlMusic::isPlaying();
 }

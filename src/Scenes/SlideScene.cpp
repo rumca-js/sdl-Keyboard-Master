@@ -5,11 +5,14 @@
  *      Author: hunter
  */
 
-#include <iostream>
 #include "SlideScene.h"
 
+#include <iostream>
 
-Uint32 my_callbackfunc1(Uint32 interval, void *param) {
+#include "../Audio/MusicManager.h"
+
+
+static Uint32 my_callbackfunc1(Uint32 interval, void *param) {
     static int counter = 0;
 
     counter ++;
@@ -63,7 +66,6 @@ void SlideScene::MakeSureMyMusicIsPlaying() {
     {
         man.addMusic(myMusic);
         man.play();
-
     }
     else
     {
@@ -97,6 +99,9 @@ int SlideScene::handleEvents() {
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
         if (e.type == SDL_QUIT) {
+            status = 1;
+        }
+        else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE) {
             status = 1;
         }
         else if (e.type == SDL_USEREVENT) {

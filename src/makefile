@@ -24,6 +24,7 @@ SRCS := \
   Scenes/GoodBye.cpp \
   Scenes/GameScene.cpp \
   Scenes/MenuScene.cpp \
+  Scenes/SlideScene.cpp \
   MainController.cpp \
   MainConfiguration.cpp \
   Utilities.cpp \
