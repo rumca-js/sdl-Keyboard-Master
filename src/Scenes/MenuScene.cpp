@@ -2,11 +2,10 @@
  * InitScene.cpp
  *
  *  Created on: 11 mar 2018
- *      Author: hunter
  */
 
+#include <iostream>
 #include "MenuScene.h"
-
 
 MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
     fullscreen = true;
@@ -20,7 +19,7 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 
     config = NULL;
 
-    selected = 0;
+    selected_button = -1;
 }
 
 MenuScene::~MenuScene() {
@@ -28,6 +27,8 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
+
+    selected_button = -1;
 
     config = &MainConfiguration::getConfig();
 
@@ -66,7 +67,7 @@ void MenuScene::init() {
     buttons[3]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[3]->load();
 
-    buttons[0]->setHover(true);
+    //buttons[0]->setHover(true);
 }
 
 void MenuScene::close() {
@@ -97,23 +98,28 @@ int MenuScene::handleEvents()
             status = 1;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
-            if (buttons[selected]->getText() == TEXT_ENTER) {
-                status = 0;
-            }
-            else if (buttons[selected]->getText() == TEXT_STORY) {
-                status = 2;
-            }
-            else if (buttons[selected]->getText() == TEXT_FULL_SCREEN) {
-                setFullScreen();
-            }
-            else if (buttons[selected]->getText() == TEXT_ESCAPE) {
-                status = 1;
-            }
+			if (selected_button == -1)
+				return status;
+
+			if (buttons[selected_button]->getText() == TEXT_ENTER) {
+				status = 0;
+			}
+			else if (buttons[selected_button]->getText() == TEXT_STORY) {
+				status = 2;
+			}
+			else if (buttons[selected_button]->getText() == TEXT_FULL_SCREEN) {
+				setFullScreen();
+			}
+			else if (buttons[selected_button]->getText() == TEXT_ESCAPE) {
+				status = 1;
+			}
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_UP) {
+			std::cout << "Keyup" << std::endl;
             selected_decrement();
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_DOWN) {
+			std::cout << "Keydown" << std::endl;
             selected_increment();
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f) {
@@ -168,18 +174,29 @@ void MenuScene::setFullScreen() {
 }
 
 void MenuScene::selected_increment() {
-    if (selected != 2) {
-        buttons[selected]->setHover(false);
-        selected++;
-        buttons[selected]->setHover(true);
+
+    if (selected_button <= (int)buttons.size()-2) {
+
+		if (selected_button >= 0) {
+			buttons[selected_button]->setHover(false);
+		}
+        selected_button++;
+
+		std::cout << "Selected button: "<<selected_button << std::endl;
+
+        buttons[selected_button]->setHover(true);
     }
+	else
+	{
+		std::cout << "Could not increment" << std::endl;
+	}
 }
 
 void MenuScene::selected_decrement() {
-    if (selected != 0) {
-        buttons[selected]->setHover(false);
-        selected--;
-        buttons[selected]->setHover(true);
+    if (selected_button >= (int)1) {
+        buttons[selected_button]->setHover(false);
+        selected_button--;
+        buttons[selected_button]->setHover(true);
     }
 }
 

@@ -55,9 +55,9 @@ class MenuScene : public SceneInterface {
      */
     std::vector<SdlButton *> buttons;
     /*!
-     * \brief
+     * \brief selected button, -1 if no button is selected
      */
-    unsigned int selected;
+    int selected_button;
     /*!
      * \brief increments selected button id;
      */
