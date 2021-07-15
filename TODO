@@ -14,6 +14,8 @@
  - add presentation scene (allows to display many images one after another)
 
  - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
- 
+
+make flatpack. How to distribute? 
+
  make debian package scripts
  distribute https://www.debian.org/doc/manuals/distribute-deb/distribute-deb.html
