@@ -2,7 +2,6 @@
  * GameScene.cpp
  *
  *  Created on: 4 mar 2018
- *      Author: hunter
  */
 
 #include <iostream>
@@ -54,6 +53,28 @@ GameScene::~GameScene() {
     // TODO Auto-generated destructor stub
 }
 
+void GameScene::MakeSureMyMusicIsPlaying() {
+	MusicManager & man = MusicManager::getObject();
+    std::string myMusic = sceneInfo["music"];
+
+    if (!man.isPlaying())
+    {
+        man.addMusic(myMusic);
+        man.play();
+
+    }
+    else
+    {
+        if (!man.isMyMusicPlaying(myMusic, true)) {
+            man.resetQueue();
+            man.stop();
+
+            man.addMusic( myMusic );
+            man.play();
+        }
+    }
+}
+
 void GameScene::init() {
     config = &MainConfiguration::getConfig();
 
@@ -74,9 +95,7 @@ void GameScene::init() {
 
     reset();
 
-	MusicManager & man = MusicManager::getObject();
-	man.addMusic( sceneInfo["music"] );
-	man.play();
+    MakeSureMyMusicIsPlaying();
 }
 
 void GameScene::close() {
@@ -105,10 +124,6 @@ void GameScene::close() {
 		Sans = NULL;
 
 	}
-
-	MusicManager & man = MusicManager::getObject();
-	man.resetQueue();
-	man.stop();
 }
 
 void GameScene::reset() {
@@ -136,9 +151,9 @@ bool GameScene::move_letters() {
     {
         letters[i]->setPositionY(letters[i]->getPositionY() + speed_factor);
 
-        /*if (letters[i].getY() > config->getHeight()-LETTER_HEIGHT)
-            return true;
-            */
+        // It does not depend on windows size, because Y position is incremented
+        // by window relative value
+
         if (letters[i]->getPositionY() > config->getWinHeight())  {
 
             if( !note_eog.play()) {
@@ -293,4 +308,8 @@ void GameScene::updateCounter() {
 
 std::string GameScene::getName() {
     return sceneInfo["name"];
+}
+
+std::string GameScene::getEngineName() {
+    return "GAME";
 }

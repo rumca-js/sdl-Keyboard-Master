@@ -25,16 +25,16 @@ void MusicManager::addMusic(std::string aMusic)
    queue[queue.size()-1].open(aMusic);
 }
 
-bool MusicManager::play()
+bool MusicManager::play(int loops)
 {
   if (SdlMusic::isPaused())
   {
       SdlMusic::resume();
-      queue[current_pos].play(1);
+      queue[current_pos].play(loops);
   }
   else if (!SdlMusic::isPlaying())
   {
-      queue[current_pos].play(1);
+      queue[current_pos].play(loops);
       return true;
   }
   return false;
@@ -56,4 +56,24 @@ void MusicManager::stop()
 void MusicManager::resetQueue()
 {
    queue.clear();
+}
+
+bool MusicManager::isMyMusicPlaying(std::string apath, bool onlyMy)
+{
+    if (onlyMy) {
+        if (queue.size() == 1 && queue[1].getName() == apath) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        for(unsigned int i=0; i<queue.size(); i++) {
+            if (queue[i].getName() == apath) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

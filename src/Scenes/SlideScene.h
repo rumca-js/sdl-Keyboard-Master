@@ -18,7 +18,7 @@
 
 #define TEXT_LOGO "SLAVE STUDIO 1"
 
-class IntroScene : public SceneInterface {
+class SlideScene : public SceneInterface {
 	/*!
 	 * \brief SDL Renderer pointer.
 	 */
@@ -43,16 +43,31 @@ class IntroScene : public SceneInterface {
      * state name
      */
     std::map<std::string,std::string> sceneInfo;
+    /*!
+     * in seconds
+     */
+    unsigned int time_fade_in;
+    /*!
+     * in seconds
+     */
+    unsigned int time_fade_out;
+    /*!
+     * in seconds
+     */
+    unsigned int time_display;
+
     bool display;
+    void MakeSureMyMusicIsPlaying();
+
 public:
 	/*!
 	 * \brief Constructor.
 	 */
-	IntroScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
+	SlideScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
 	/*!
 	 * \brief Destructor.
 	 */
-	virtual ~IntroScene();
+	virtual ~SlideScene();
 	/*!
 	 * \brief Scene init function.
 	 */
@@ -65,8 +80,14 @@ public:
 	 * \brief Scene close function.
 	 */
 	void close();
+    /*!
+     * Returns Name of Scene Engine
+     */
 	std::string getName();
 	static std::string getEngineName();
+    /*!
+     * handles SDL events
+     */
     int handleEvents();
 };
 

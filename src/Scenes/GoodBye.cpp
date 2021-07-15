@@ -97,3 +97,7 @@ int GoodBye::write() {
 std::string GoodBye::getName() {
 	return sceneInfo["name"];
 }
+
+std::string GoodBye::getEngineName() {
+	return "GOODBYE";
+}

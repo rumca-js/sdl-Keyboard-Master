@@ -33,7 +33,7 @@ public:
      */
     virtual ~SceneInterface() {}
     /*!
-     * \brief returns scene name. Used by scene configuration
+     * \brief returns scene unique name. Used by scene configuration
      */
     virtual std::string getName() = 0;
     /*!

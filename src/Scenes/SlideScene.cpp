@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include "IntroScene.h"
+#include "SlideScene.h"
 
 
 Uint32 my_callbackfunc1(Uint32 interval, void *param) {
@@ -33,7 +33,7 @@ Uint32 my_callbackfunc1(Uint32 interval, void *param) {
     return(interval);
 }
 
-IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
+SlideScene::SlideScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
 
     win = window;
     renderer = ren;
@@ -45,23 +45,54 @@ IntroScene::IntroScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
     my_timer_id = -1;
 
     config = &MainConfiguration::getConfig();
+
+    time_fade_in = std::stoi(sceneInfo["fade-in"]);
+    time_fade_out = std::stoi(sceneInfo["fade-out"]);
+    time_display = std::stoi(sceneInfo["time"]);
 }
 
-IntroScene::~IntroScene() {
+SlideScene::~SlideScene() {
     // TODO Auto-generated destructor stub
 }
 
-void IntroScene::init() {
-    logo.open(sceneInfo["background"], renderer);
-    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
-    display = false;
+void SlideScene::MakeSureMyMusicIsPlaying() {
+	MusicManager & man = MusicManager::getObject();
+    std::string myMusic = sceneInfo["music"];
+
+    if (!man.isPlaying())
+    {
+        man.addMusic(myMusic);
+        man.play();
+
+    }
+    else
+    {
+        if (!man.isMyMusicPlaying(myMusic, true)) {
+            man.resetQueue();
+            man.stop();
+
+            man.addMusic( myMusic );
+            man.play();
+        }
+    }
 }
 
-void IntroScene::close() {
+void SlideScene::init() {
+
+    logo.open(sceneInfo["background"], renderer);
+
+    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
+
+    display = false;
+
+    MakeSureMyMusicIsPlaying();
+}
+
+void SlideScene::close() {
     SDL_RemoveTimer(my_timer_id);
 }
 
-int IntroScene::handleEvents() {
+int SlideScene::handleEvents() {
     int status = -1;
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
@@ -69,10 +100,17 @@ int IntroScene::handleEvents() {
             status = 1;
         }
         else if (e.type == SDL_USEREVENT) {
-            if (e.user.code == 2) {
+
+            // code represents time in seconds
+            unsigned int seconds = e.user.code;
+            
+            if (seconds == time_fade_in) {
                 display = true;
             }
-            else if (e.user.code == 7) {
+            else if (seconds == time_fade_in + time_display) {
+                display = false;
+            }
+            else if (seconds == time_fade_in + time_display + time_fade_out) {
                 status = 0;
             }
         }
@@ -81,7 +119,7 @@ int IntroScene::handleEvents() {
     return status;
 }
 
-int IntroScene::write() {
+int SlideScene::write() {
     int status = 0;
 
     status = handleEvents();
@@ -108,10 +146,10 @@ int IntroScene::write() {
     return status;
 }
 
-std::string IntroScene::getName() {
+std::string SlideScene::getName() {
     return sceneInfo["name"];
 }
 
-std::string IntroScene::getEngineName() {
-    return "INTRO";
+std::string SlideScene::getEngineName() {
+    return "SLIDE";
 }

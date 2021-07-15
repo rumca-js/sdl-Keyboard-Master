@@ -18,7 +18,7 @@
 #include "../Images/DrawBuilder.h"
 #include "../Letter.h"
 #include "../Audio/SdlAudio.h"
-#include "../SceneInterface.h"
+#include "SceneInterface.h"
 #include "../MainConfiguration.h"
 
 
@@ -83,6 +83,10 @@ class GameScene : public SceneInterface {
      * state name
      * */
     std::map<std::string, std::string> sceneInfo;
+    /*!
+     * Sets up music for scene
+     */
+    void MakeSureMyMusicIsPlaying();
 
 public:
     /*!
@@ -122,6 +126,7 @@ public:
      */
     void close();
     std::string getName();
+    static std::string getEngineName();
     int handleEvents();
 };
 

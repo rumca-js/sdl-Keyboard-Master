@@ -2,12 +2,13 @@
 #include <iostream>
 
 #include "SceneMachine.h"
-#include "GameEventLogger.h"
+#include "../GameEventLogger.h"
 
-#include "Scenes/MenuScene.h"
-#include "Scenes/IntroScene.h"
-#include "Scenes/GoodBye.h"
-#include "Scenes/GameScene.h"
+#include "MenuScene.h"
+#include "IntroScene.h"
+#include "GoodBye.h"
+#include "GameScene.h"
+#include "SlideScene.h"
 
 using namespace std;
 using namespace libconfig;
@@ -32,16 +33,20 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 
 	std::vector<std::string> states = getStateInformation();
 
-	scenes.push_back(new IntroScene(renderer, window, getSceneInformation("INTRO") ) );
-	scenes.push_back(new MenuScene (renderer, window, getSceneInformation("MENU") ) );
-	scenes.push_back(new GoodBye   (renderer, window, getSceneInformation("GOODBYE")) );
-    
 	for(unsigned int i=0; i<states.size(); i++)
 	{
 		map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
 
-		if (sceneInfo["engine"] == "GAME")
-			scenes.push_back(new GameScene (renderer, window, sceneInfo) );
+		if (sceneInfo["engine"] == GameScene::GetEngineName())
+			scenes.push_back(new GameScene(renderer, window, sceneInfo) );
+        else if (sceneInfo["engine"] == IntroScene::GetEngineName())
+			scenes.push_back(new IntroScene(renderer, window, sceneInfo) );
+        else if (sceneInfo["engine"] == MenuScene::GetEngineName())
+			scenes.push_back(new MenuScene(renderer, window, sceneInfo) );
+        else if (sceneInfo["engine"] == GoodBye::GetEngineName())
+			scenes.push_back(new GoodBye(renderer, window, sceneInfo) );
+        else if (sceneInfo["engine"] == SlideScene::GetEngineName())
+			scenes.push_back(new SlideScene(renderer, window, sceneInfo) );
 	}
 
 	GameEventLogger & logger = GameEventLogger::getObject();
@@ -208,8 +213,9 @@ bool SceneMachine::load_config() {
 bool SceneMachine::copyData(Setting & setting, std::map<std::string, std::string> & aMap, std::string var)
 {
     std::string val;
-    setting.lookupValue(var, val);
-    aMap[var] = val;
+
+    if (setting.lookupValue(var, val))
+        aMap[var] = val;
 
     return true;
 }
@@ -241,6 +247,12 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
             copyData(state_data[i], info, "letter-r");
             copyData(state_data[i], info, "letter-g");
             copyData(state_data[i], info, "letter-b");
+            copyData(state_data[i], info, "fade-in");
+            copyData(state_data[i], info, "fade-out");
+            copyData(state_data[i], info, "time");
+            copyData(state_data[i], info, "slide-text1");
+            copyData(state_data[i], info, "slide-text2");
+            copyData(state_data[i], info, "slide-text3");
 
             std::cout << "Found: "<<info["background"] <<std::endl;
             std::cout << "Found: "<<info["music"] <<std::endl;

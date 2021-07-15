@@ -8,10 +8,12 @@
 class SdlMusic
 {
     Mix_Music *music = NULL;
+    std::string path;
+
     public:
         SdlMusic();
-        SdlMusic(std::string path);
-        bool open(std::string path);
+        SdlMusic(std::string apath);
+        bool open(std::string apath);
         ~SdlMusic();
         bool play(int loops);
         static void pause();
@@ -20,6 +22,7 @@ class SdlMusic
         static bool isPaused();
         static void rewind();
         static void resume();
+        std::string getName();
 };
 
 #endif // __H_AUDIO__

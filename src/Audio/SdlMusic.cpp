@@ -7,13 +7,15 @@ SdlMusic::SdlMusic()
     music = NULL;
 }
 
-SdlMusic::SdlMusic(std::string path)
+SdlMusic::SdlMusic(std::string apath)
 {
-    open(path);
+    open(apath);
 }
 
-bool SdlMusic::open(std::string path)
+bool SdlMusic::open(std::string apath)
 {
+    path = apath;
+
     music = Mix_LoadMUS(path.c_str() );
     if (!music)
     {
@@ -74,4 +76,9 @@ void SdlMusic::rewind()
 void SdlMusic::resume()
 {
     Mix_ResumeMusic();
+}
+
+void SdlMusic::getName()
+{
+    return path;
 }

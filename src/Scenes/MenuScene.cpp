@@ -9,27 +9,27 @@
 
 
 MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
-	fullscreen = true;
+    fullscreen = true;
 
-	win = window;
-	renderer = ren;
+    win = window;
+    renderer = ren;
 
     this->sceneInfo = sceneInfo;
 
-	Sans 	= NULL;
+    Sans     = NULL;
 
-	config = NULL;
+    config = NULL;
 
-	selected = 0;
+    selected = 0;
 }
 
 MenuScene::~MenuScene() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }
 
 void MenuScene::init() {
 
-	config = &MainConfiguration::getConfig();
+    config = &MainConfiguration::getConfig();
 
     Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
 
@@ -37,6 +37,7 @@ void MenuScene::init() {
 
     buttons.push_back( new SdlButton(renderer, TEXT_ENTER));
     buttons.push_back( new SdlButton(renderer, TEXT_FULL_SCREEN));
+    buttons.push_back( new SdlButton(renderer, TEXT_STORY));
     buttons.push_back( new SdlButton(renderer, TEXT_ESCAPE));
 
     SDL_Color color = {0, 0, 255, 255};
@@ -48,34 +49,40 @@ void MenuScene::init() {
     buttons[0]->load();
 
     buttons[1]->setDimentions(0.32, 0.06);
-	buttons[1]->setPosition(0.6, 0.2);
-	buttons[1]->setFont(Sans, color);
-	buttons[1]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
-	buttons[1]->load();
+    buttons[1]->setPosition(0.6, 0.2);
+    buttons[1]->setFont(Sans, color);
+    buttons[1]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
+    buttons[1]->load();
 
-	buttons[2]->setDimentions(0.32, 0.06);
-	buttons[2]->setPosition(0.6, 0.3);
-	buttons[2]->setFont(Sans, color);
-	buttons[2]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
-	buttons[2]->load();
+    buttons[2]->setDimentions(0.32, 0.06);
+    buttons[2]->setPosition(0.6, 0.2);
+    buttons[2]->setFont(Sans, color);
+    buttons[2]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
+    buttons[2]->load();
 
-	buttons[0]->setHover(true);
+    buttons[3]->setDimentions(0.32, 0.06);
+    buttons[3]->setPosition(0.6, 0.3);
+    buttons[3]->setFont(Sans, color);
+    buttons[3]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
+    buttons[3]->load();
+
+    buttons[0]->setHover(true);
 }
 
 void MenuScene::close() {
-	if (buttons.size() != 0)
-	{
-		for(unsigned int i=0; i<buttons.size(); i++) {
-			delete buttons[i];
-		}
-		buttons.clear();
+    if (buttons.size() != 0)
+    {
+        for(unsigned int i=0; i<buttons.size(); i++) {
+            delete buttons[i];
+        }
+        buttons.clear();
 
-	}
-	if (Sans)
-	{
-		TTF_CloseFont(Sans);
-		Sans = NULL;
-	}
+    }
+    if (Sans)
+    {
+        TTF_CloseFont(Sans);
+        Sans = NULL;
+    }
 }
 
 int MenuScene::handleEvents()
@@ -90,13 +97,16 @@ int MenuScene::handleEvents()
             status = 1;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
-            if (selected == 0) {
+            if (buttons[selected].getText() == TEXT_ENTER) {
                 status = 0;
             }
-            else if (selected == 1) {
+            else if (buttons[selected].getText() == TEXT_STORY) {
+                status = 2;
+            }
+            else if (buttons[selected].getText() == TEXT_FULL_SCREEN) {
                 setFullScreen();
             }
-            if (selected == 2) {
+            else if (buttons[selected].getText() == TEXT_ESCAPE) {
                 status = 1;
             }
         }
@@ -114,11 +124,11 @@ int MenuScene::handleEvents()
 }
 
 int MenuScene::write() {
-	int status = 0;
+    int status = 0;
 
     status = handleEvents();
-	if (status != -1)
-		return status;
+    if (status != -1)
+        return status;
 
     SDL_Rect texr = config->getFullScreenSize();
     wall.draw(NULL, &texr);
@@ -127,52 +137,56 @@ int MenuScene::write() {
         buttons[i]->draw();
     }
 
-	return status;
+    return status;
 }
 
 void MenuScene::setFullScreen() {
 
-	fullscreen = !fullscreen;
+    fullscreen = !fullscreen;
 
-	if (fullscreen) {
-		SDL_DisplayMode DM, windowMode;
-		SDL_GetCurrentDisplayMode(0, &DM);
+    if (fullscreen) {
+        SDL_DisplayMode DM, windowMode;
+        SDL_GetCurrentDisplayMode(0, &DM);
 
-		SDL_GetWindowDisplayMode(win, &windowMode);
+        SDL_GetWindowDisplayMode(win, &windowMode);
 
-		windowMode.h = DM.h;
-		windowMode.w = DM.w;
+        windowMode.h = DM.h;
+        windowMode.w = DM.w;
 
-		config->setWindowSize(DM.w, DM.h);
+        config->setWindowSize(DM.w, DM.h);
 
-		SDL_SetWindowDisplayMode(win, &windowMode);
+        SDL_SetWindowDisplayMode(win, &windowMode);
 
-		SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
-	}
-	else {
-		// TODO do not use WIDTH or HEIGHT definitions directly
-		config->setWindowSize(config->getConfigInt("WIDTH"), config->getConfigInt("HEIGHT") );
+        SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN);
+    }
+    else {
+        // TODO do not use WIDTH or HEIGHT definitions directly
+        config->setWindowSize(config->getConfigInt("WIDTH"), config->getConfigInt("HEIGHT") );
 
-		SDL_SetWindowFullscreen(win, 0);
-	}
+        SDL_SetWindowFullscreen(win, 0);
+    }
 }
 
 void MenuScene::selected_increment() {
-	if (selected != 2) {
-		buttons[selected]->setHover(false);
-		selected++;
-		buttons[selected]->setHover(true);
-	}
+    if (selected != 2) {
+        buttons[selected]->setHover(false);
+        selected++;
+        buttons[selected]->setHover(true);
+    }
 }
 
 void MenuScene::selected_decrement() {
-	if (selected != 0) {
-		buttons[selected]->setHover(false);
-		selected--;
-		buttons[selected]->setHover(true);
-	}
+    if (selected != 0) {
+        buttons[selected]->setHover(false);
+        selected--;
+        buttons[selected]->setHover(true);
+    }
 }
 
 std::string MenuScene::getName() {
-	return sceneInfo["name"];
+    return sceneInfo["name"];
+}
+
+std::string MenuScene::getEngineName() {
+    return "MENU";
 }

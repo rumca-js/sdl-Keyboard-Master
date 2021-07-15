@@ -11,7 +11,7 @@
 #include <map>
 
 #include "../Images/DrawTexture.h"
-#include "../SceneInterface.h"
+#include "SceneInterface.h"
 #include "../MainConfiguration.h"
 
 class GoodBye : public SceneInterface {
@@ -47,6 +47,7 @@ public:
     int write();
     void close();
     std::string getName();
+    static std::string getEngineName();
     int handleEvents();
 };
 

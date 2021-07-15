@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "../Images/DrawTexture.h"
-#include "../SceneInterface.h"
+#include "SceneInterface.h"
 #include "../MainConfiguration.h"
 
 #include "../GUI/SdlButton.h"
@@ -21,6 +21,7 @@
 // Text Defines
 #define TEXT_ENTER "Start"
 #define TEXT_FULL_SCREEN "Full Screen"
+#define TEXT_STORY "Story"
 #define TEXT_ESCAPE "EXIT"
 
 
@@ -81,6 +82,7 @@ public:
     int write();
     void close();
     std::string getName();
+    static std::string getEngineName();
     int handleEvents();
 };
 
