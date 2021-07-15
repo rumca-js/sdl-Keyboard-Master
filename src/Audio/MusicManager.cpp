@@ -61,7 +61,7 @@ void MusicManager::resetQueue()
 bool MusicManager::isMyMusicPlaying(std::string apath, bool onlyMy)
 {
     if (onlyMy) {
-        if (queue.size() == 1 && queue[1].getName() == apath) {
+        if (queue.size() == 1 && queue[0].getName() == apath) {
             return true;
         }
         else {

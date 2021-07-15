@@ -9,10 +9,11 @@
 #include "IntroScene.h"
 
 
-static Uint32 my_callbackfunc1(Uint32 interval, void *param) {
-    static int counter = 0;
+static int seconds_counter = 0;
 
-    counter ++;
+static Uint32 my_callbackfunc1(Uint32 interval, void *param) {
+
+    seconds_counter ++;
 
     SDL_Event event;
     SDL_UserEvent userevent;
@@ -22,7 +23,7 @@ static Uint32 my_callbackfunc1(Uint32 interval, void *param) {
     same interval: */
 
     userevent.type = SDL_USEREVENT;
-    userevent.code = counter;
+    userevent.code = seconds_counter;
     userevent.data1 = NULL;
     userevent.data2 = NULL;
 
@@ -52,6 +53,7 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
+	seconds_counter = 0;
     logo.open(sceneInfo["background"], renderer);
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
     display = false;
