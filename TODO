@@ -1,11 +1,11 @@
 
  statescreenentity:
- - display text scene
+ - display text from slide engine
+ - select pictures for story
  - when letters are hit they explode
  - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
- - come up with a story, it should be selectable through menu
  - menu should recognize mouse input
  - raster letters? gif letters?
  - multiple letters in one scene (configurable)
