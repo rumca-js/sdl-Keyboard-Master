@@ -41,6 +41,8 @@ SlideScene::SlideScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
     win = window;
     renderer = ren;
 
+	Sans = NULL;
+
     this->sceneInfo = sceneInfo;
 
     std::cout << "Scene information" << sceneInfo["background"] << std::endl;
@@ -84,6 +86,18 @@ void SlideScene::init() {
 
     logo.open(sceneInfo["background"], renderer);
 
+	Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
+
+	Uint8 r = std::stoi(sceneInfo["letter-r"]);
+	Uint8 g = std::stoi(sceneInfo["letter-g"]);
+	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+
+    SDL_Color color = {r, g, b, 255};
+
+	text1.open(sceneInfo["slide-text1"], renderer, Sans, color);
+	text2.open(sceneInfo["slide-text2"], renderer, Sans, color);
+	text3.open(sceneInfo["slide-text3"], renderer, Sans, color);
+
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
 
     display = false;
@@ -93,6 +107,16 @@ void SlideScene::init() {
 
 void SlideScene::close() {
     SDL_RemoveTimer(my_timer_id);
+
+    if (Sans)
+    {
+        TTF_CloseFont(Sans);
+        Sans = NULL;
+    }
+
+	text1.close();
+	text2.close();
+	text3.close();
 }
 
 int SlideScene::handleEvents() {
@@ -110,13 +134,14 @@ int SlideScene::handleEvents() {
             // code represents time in seconds
             unsigned int seconds = e.user.code;
             
+			// do not use else if, since fade in and fade out can be 0s
             if (seconds == time_fade_in) {
                 display = true;
             }
-            else if (seconds == time_fade_in + time_display) {
+            if (seconds == time_fade_in + time_display) {
                 display = false;
             }
-            else if (seconds == time_fade_in + time_display + time_fade_out) {
+            if (seconds == time_fade_in + time_display + time_fade_out) {
                 status = 0;
             }
         }
@@ -142,11 +167,23 @@ int SlideScene::write() {
 
         SDL_Rect texr;
         texr.x = margin;
-        texr.y = margin; 
+        texr.y = margin/3.0;
         texr.w = (int)(logo.getWidth() *ratio-margin*2.0);
         texr.h = (int)(logo.getHeight()*ratio-margin*2.0);
 
         logo.draw(NULL, &texr);
+
+        texr.y = config->getWinHeight()-margin;
+        texr.h = margin/4;
+		text1.draw(NULL, &texr);
+
+        texr.y = config->getWinHeight()-margin+(margin/4);
+        texr.h = margin/4;
+		text2.draw(NULL, &texr);
+
+        texr.y = config->getWinHeight()-margin+(2*margin/4);
+        texr.h = margin/4;
+		text3.draw(NULL, &texr);
     }
 
     return status;

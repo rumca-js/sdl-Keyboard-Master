@@ -13,6 +13,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "../Images/DrawTexture.h"
+#include "../Images/DrawText.h"
 #include "SceneInterface.h"
 #include "../MainConfiguration.h"
 
@@ -35,6 +36,9 @@ class SlideScene : public SceneInterface {
 	 * \brief logo texture.
 	 */
 	DrawTexture logo;
+    DrawText text1;
+    DrawText text2;
+    DrawText text3;
 	/*!
 	 * Timer for displaying logo.
 	 */
@@ -58,6 +62,10 @@ class SlideScene : public SceneInterface {
 
     bool display;
     void MakeSureMyMusicIsPlaying();
+    /*!
+     * \brief Font that is used.
+     */
+    TTF_Font* Sans;
 
 public:
 	/*!
