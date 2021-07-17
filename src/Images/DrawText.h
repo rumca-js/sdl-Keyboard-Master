@@ -24,6 +24,7 @@ class DrawText : public DrawItem
      * \brief SDL surfuce for letter.
      */
     SDL_Surface* surfaceMessage;
+    std::string text;
 
     public:
         DrawText();
@@ -36,6 +37,7 @@ class DrawText : public DrawItem
         void update(Uint32 msec);
         Uint16 getWidth();
         Uint16 getHeight();
+        std::string getText();
 };
 
 #endif /* DrawText_H_ */

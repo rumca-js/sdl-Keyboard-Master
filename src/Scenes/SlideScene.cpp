@@ -175,14 +175,17 @@ int SlideScene::write() {
 
         texr.y = config->getWinHeight()-margin;
         texr.h = margin/4;
+		texr.w = text1.getText().size() * margin/7.0;
 		text1.draw(NULL, &texr);
 
         texr.y = config->getWinHeight()-margin+(margin/4);
         texr.h = margin/4;
+		texr.w = text2.getText().size() * margin/7.0;
 		text2.draw(NULL, &texr);
 
         texr.y = config->getWinHeight()-margin+(2*margin/4);
         texr.h = margin/4;
+		texr.w = text3.getText().size() * margin/7.0;
 		text3.draw(NULL, &texr);
     }
 
