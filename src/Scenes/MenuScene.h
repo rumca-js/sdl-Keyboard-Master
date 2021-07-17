@@ -84,6 +84,7 @@ public:
     std::string getName();
     static std::string getEngineName();
     int handleEvents();
+    void select_new_button(unsigned int oldButtonId, unsigned int newButtonId);
 };
 
 #endif /* MENUSCENE_H_ */

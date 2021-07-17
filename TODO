@@ -1,8 +1,9 @@
 
  statescreenentity:
- - display text from slide engine
  - select pictures for story
+ - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
  - when letters are hit they explode
+ - store high scores in a file
  - explosion sound?
  - letters can come in different directons
  - maybe they could come 'at you'
@@ -13,7 +14,6 @@
  - write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - add presentation scene (allows to display many images one after another)
 
- - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
 
 make flatpack. How to distribute? 
 

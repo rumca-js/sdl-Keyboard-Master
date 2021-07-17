@@ -19,7 +19,7 @@ MenuScene::MenuScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 
     config = NULL;
 
-    selected_button = -1;
+    selected_button = 0;
 }
 
 MenuScene::~MenuScene() {
@@ -28,7 +28,7 @@ MenuScene::~MenuScene() {
 
 void MenuScene::init() {
 
-    selected_button = -1;
+    selected_button = 0;
 
     config = &MainConfiguration::getConfig();
 
@@ -66,6 +66,8 @@ void MenuScene::init() {
     buttons[3]->setFont(Sans, color);
     buttons[3]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[3]->load();
+
+	select_new_button(0, 0);
 
     //buttons[0]->setHover(true);
 }
@@ -173,31 +175,46 @@ void MenuScene::setFullScreen() {
     }
 }
 
+void MenuScene::select_new_button(unsigned int oldButtonId, unsigned int newButtonId) {
+	buttons[oldButtonId]->setHover(false);
+	std::cout << "Selected button: "<<selected_button << std::endl;
+	buttons[newButtonId]->setHover(true);
+
+	selected_button = newButtonId;
+}
+
 void MenuScene::selected_increment() {
 
+	unsigned int old_button = selected_button;
+	unsigned int new_button = selected_button;
+
     if (selected_button <= (int)buttons.size()-2) {
-
-		if (selected_button >= 0) {
-			buttons[selected_button]->setHover(false);
-		}
-        selected_button++;
-
-		std::cout << "Selected button: "<<selected_button << std::endl;
-
-        buttons[selected_button]->setHover(true);
+        new_button = selected_button+1;
     }
 	else
 	{
 		std::cout << "Could not increment" << std::endl;
 	}
+
+	if (old_button != new_button)
+		select_new_button(old_button, new_button);
+
 }
 
 void MenuScene::selected_decrement() {
+	unsigned int old_button = selected_button;
+	unsigned int new_button = selected_button;
+
     if (selected_button >= (int)1) {
-        buttons[selected_button]->setHover(false);
-        selected_button--;
-        buttons[selected_button]->setHover(true);
+        new_button = selected_button-1;
     }
+	else
+	{
+		std::cout << "Could not decrement" << std::endl;
+	}
+
+	if (old_button != new_button)
+		select_new_button(old_button, new_button);
 }
 
 std::string MenuScene::getName() {
