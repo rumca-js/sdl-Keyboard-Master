@@ -27,6 +27,7 @@ SRCS := \
   Scenes/SlideScene.cpp \
   MainController.cpp \
   MainConfiguration.cpp \
+  ScreenStateElement.cpp \
   Utilities.cpp \
   main.cpp
 

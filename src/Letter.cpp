@@ -6,7 +6,9 @@
 #include "Letter.h"
 #include "./Images/DrawLetter.h"
 
-Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor) {
+Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor) 
+	: ScreenStateElement(ren)
+{
     renderer = ren;
 
     letter= _letter;
@@ -16,7 +18,7 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
 	setDimensions(_w, _h);
 
     if (Sans != NULL) {
-          dletter.open(letter, ren, Sans, aColor);
+		items[state] = new DrawLetter(letter, ren, Sans, aColor);
     }
     else {
         printf("Could not open font");
@@ -26,20 +28,10 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
 }
 
 Letter::~Letter() {
-    dletter.close();
 }
 
 bool Letter::is(char key) {
     if (key == letter)
         return true;
     return false;
-}
-
-void Letter::display() {
-    SDL_Rect Message_rect;
-    Message_rect.x = getPositionX();
-    Message_rect.y = getPositionY();
-    Message_rect.w = getWidth();
-    Message_rect.h = getHeight();
-    dletter.draw(NULL, &Message_rect);
 }
