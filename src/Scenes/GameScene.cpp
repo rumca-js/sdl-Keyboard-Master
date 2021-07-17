@@ -131,19 +131,35 @@ void GameScene::reset() {
 
     letters_active.clear();
 
+	create_new_letter();
+
+    uint32_t param;
+    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+}
+
+static char get_rand_letter() {
+    return rand_min_max(97, 122);
+}
+
+static char get_rand_string_letter(std::string text) {
+    int which = rand_min_max(0, text.length()-1 );
+	return text[which];
+}
+
+void GameScene::create_new_letter()
+{
+	char letter = get_rand_string_letter(sceneInfo["letters"]);
+
 	Uint8 r = std::stoi(sceneInfo["letter-r"]);
 	Uint8 g = std::stoi(sceneInfo["letter-g"]);
 	Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
     SDL_Color color = {r, g, b, 255};
 
-    letters_active.push_back(new Letter(renderer, Sans, 'a', color));
+    letters_active.push_back(new Letter(renderer, Sans, letter, color));
     letters_active[0]->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
     letters_active[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters_active[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
-
-    uint32_t param;
-    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
 }
 
 bool GameScene::move_letters() {
@@ -173,36 +189,13 @@ void GameScene::display_letters() {
     }
 }
 
-char get_rand_letter() {
-    return rand_min_max(97, 122);
-}
-
-char get_rand_string_letter(std::string text) {
-    int which = rand_min_max(0, text.length()-1 );
-	return text[which];
-}
-
-void GameScene::new_letter()
+void GameScene::kill_letter(Letter * letter)
 {
     if (!notes[rand_min_max(0, 6)].play() ) {
         printf("Could not play a note");
     }
 
-    delete letters_active[letters_active.size()-1];
-    letters_active.pop_back();
-
-	char letter = get_rand_string_letter(sceneInfo["letters"]);
-
-	Uint8 r = std::stoi(sceneInfo["letter-r"]);
-	Uint8 g = std::stoi(sceneInfo["letter-g"]);
-	Uint8 b = std::stoi(sceneInfo["letter-b"]);
-
-    SDL_Color color = {r, g, b, 255};
-
-    letters_active.push_back(new Letter(renderer, Sans, letter, color));
-    letters_active[0]->setPositionX( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()));
-    letters_active[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    letters_active[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+	letter->setDestroyed();
 
 	GameEventLogger & logger = GameEventLogger::getObject();
 	logger.addSuccessfulKeyStroke();
@@ -213,12 +206,29 @@ void GameScene::new_letter()
 bool GameScene::check_if_killed(char key) {
     bool killed = false;
 
+	std::vector<Letter*> alive;
+	std::vector<Letter*> to_kill;
+
+	// Do not operate on active letters. Cannot remove elements
+	// while iterating over it.
     for(unsigned int i=0; i<letters_active.size(); i++) {
         if (letters_active[i]->is(key)) {
             killed = true;
-            new_letter();
+			to_kill.push_back(letters_active[i]);
         }
+		else
+		{
+			alive.push_back(letters_active[i]);
+		}
     }
+
+	letters_active = alive;
+	letters_inactive = to_kill;
+
+    for(unsigned int i=0; i<letters_inactive.size(); i++) {
+		kill_letter(letters_inactive[i]);
+		create_new_letter();
+	}
 
     if (killed) {
         //speed_factor++;
@@ -261,6 +271,26 @@ int GameScene::handleEvents()
     return status;
 }
 
+void GameScene::check_if_remove_letters() {
+	std::vector<Letter*> to_leave;
+	std::vector<Letter*> to_remove;
+
+	for(unsigned int i=0; i<letters_inactive.size(); i++)
+	{
+		if (letters_inactive[i]->isRemovable())
+			to_remove.push_back(letters_inactive[i]);
+		else
+			to_leave.push_back(letters_inactive[i]);
+	}
+
+	letters_inactive = to_leave;
+
+	for(unsigned int i=0; i<to_remove.size(); i++)
+	{
+		delete to_remove[i];
+	}
+}
+
 int GameScene::write() {
     int status = -1;
 
@@ -285,6 +315,8 @@ int GameScene::write() {
         Message_rect.h = config->getLetterHeight();
         counter_text->draw(NULL, &Message_rect);
     }
+
+	check_if_remove_letters();
 
     return status;
 }

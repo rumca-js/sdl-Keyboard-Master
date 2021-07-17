@@ -5,6 +5,7 @@
 #include "MainConfiguration.h"
 #include "Letter.h"
 #include "./Images/DrawLetter.h"
+#include "./Images/DrawGif.h"
 
 Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor) 
 	: ScreenStateElement(ren)
@@ -17,8 +18,12 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
     unsigned int _h = MainConfiguration::getConfig().getLetterHeight();
 	setDimensions(_w, _h);
 
+	state = 0;
+
     if (Sans != NULL) {
-		items[state] = new DrawLetter(letter, ren, Sans, aColor);
+		items[STATE_NORMAL] = new DrawLetter(letter, ren, Sans, aColor);
+		items[STATE_DESTROYED] = new DrawGif("data/textures/explosion.gif", ren);
+		items[STATE_TO_REMOVE] = new DrawGif("data/textures/explosion.gif", ren);
     }
     else {
         printf("Could not open font");
@@ -34,4 +39,16 @@ bool Letter::is(char key) {
     if (key == letter)
         return true;
     return false;
+}
+
+bool Letter::setDestroyed() {
+	return setState(STATE_DESTROYED);
+}
+
+bool Letter::setToRemove() {
+	return setState(STATE_TO_REMOVE);
+}
+
+bool Letter::isRemovable() {
+	return getState() == STATE_DESTROYED;
 }

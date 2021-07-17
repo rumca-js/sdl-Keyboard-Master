@@ -121,7 +121,8 @@ public:
     /*!
      * \brief Disposes previous letter and creates new letter.
      */
-    void new_letter();
+    void kill_letter(Letter * letter);
+    void create_new_letter();
     /**
      * @brief Closes the scene, disposes elements.
      */
@@ -129,6 +130,7 @@ public:
     std::string getName();
     static std::string getEngineName();
     int handleEvents();
+    void check_if_remove_letters();
 };
 
 #endif /* GAMESCENE_H_ */

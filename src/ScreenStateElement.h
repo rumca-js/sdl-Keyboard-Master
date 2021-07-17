@@ -27,6 +27,8 @@ class ScreenStateElement : public ScreenElement<unsigned int> {
     ScreenStateElement(SDL_Renderer *ren);
     virtual ~ScreenStateElement();
     virtual void display();
+    bool setState(unsigned int newstate);
+    unsigned int getState();
 };
 
 #endif /* LETTER_H_ */

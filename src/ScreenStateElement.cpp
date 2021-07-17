@@ -31,3 +31,16 @@ void ScreenStateElement::display() {
 	DrawItem * item = items[state];
 	item->draw(NULL, &Message_rect);
 }
+
+bool ScreenStateElement::setState(unsigned int newState) {
+	if (items.find(newState) != items.end()) {
+		state = newState;
+		return true;
+	}
+
+	return false;
+}
+
+unsigned int ScreenStateElement::getState() {
+	return state;
+}

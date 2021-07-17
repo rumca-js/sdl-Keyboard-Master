@@ -61,8 +61,10 @@ LD := g++
 TAR := tar
 
 # C flags
+#CFLAGS := -std=c11
 CFLAGS := -std=c11
 # C++ flags
+#CXXFLAGS := -std=c++11
 CXXFLAGS := -std=c++11
 # C/C++ flags
 CPPFLAGS := -g -Wall -Wextra -pedantic

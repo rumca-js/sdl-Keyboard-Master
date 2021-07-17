@@ -18,6 +18,9 @@ class Letter : public ScreenStateElement {
      */
     SDL_Renderer *renderer = NULL;
     char letter;
+    const unsigned int STATE_NORMAL = 0;
+    const unsigned int STATE_DESTROYED = 1;
+    const unsigned int STATE_TO_REMOVE = 2;
 
 public:
     /*!
@@ -26,6 +29,9 @@ public:
     Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter, SDL_Color aColor);
     virtual ~Letter();
     bool is(char key);
+    bool setDestroyed();
+    bool setToRemove();
+    bool isRemovable();
 };
 
 #endif /* LETTER_H_ */
