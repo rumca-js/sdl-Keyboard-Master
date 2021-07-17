@@ -115,6 +115,10 @@ public:
      */
     void display_letters();
     /**
+     * @brief Displays the letters on the renderer
+     */
+    void display_exploded();
+    /**
      * @brief Checks if letter should be destroyed.
      */
     bool check_if_killed(char key);

@@ -23,7 +23,6 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
     if (Sans != NULL) {
 		items[STATE_NORMAL] = new DrawLetter(letter, ren, Sans, aColor);
 		items[STATE_DESTROYED] = new DrawGif("data/textures/explosion.gif", ren);
-		items[STATE_TO_REMOVE] = new DrawGif("data/textures/explosion.gif", ren);
     }
     else {
         printf("Could not open font");
@@ -42,13 +41,14 @@ bool Letter::is(char key) {
 }
 
 bool Letter::setDestroyed() {
+	DrawGif * gif = (DrawGif *)items[STATE_DESTROYED];
+	gif->resetAnimation();
 	return setState(STATE_DESTROYED);
 }
 
-bool Letter::setToRemove() {
-	return setState(STATE_TO_REMOVE);
-}
-
 bool Letter::isRemovable() {
-	return getState() == STATE_DESTROYED;
+	DrawGif * gif = (DrawGif *)items[STATE_DESTROYED];
+
+	return getState() == STATE_DESTROYED &&
+		gif->getCycles() > 0;
 }

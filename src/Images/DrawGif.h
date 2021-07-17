@@ -26,6 +26,7 @@ class DrawGif : public DrawItem
      * frame textures
      */
     std::vector<SDL_Texture*> textures;
+    Uint32 cycle;
 
     public:
         DrawGif();
@@ -54,6 +55,8 @@ class DrawGif : public DrawItem
          */
         void update(Uint32 msec_time);
         void incrementFrame();
+        Uint32 getCycles();
+        void resetAnimation();
 };
 
 #endif //DRAWGIF_H_

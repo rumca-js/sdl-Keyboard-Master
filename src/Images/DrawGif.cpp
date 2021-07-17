@@ -9,18 +9,15 @@ DrawGif::DrawGif() {
 }
 
 DrawGif::DrawGif(std::string path, SDL_Renderer * aRenderer) {
-	gif = NULL;
-
     open(path, aRenderer);
 }
 
 bool DrawGif::open(std::string path, SDL_Renderer * aRenderer) {
+    renderer = aRenderer;
 
     gif = GIF_LoadImage(path.c_str() );
-    current_frame = 0;
-    msec_store = 0;
 
-    renderer = aRenderer;
+	resetAnimation();
 
     for(int frame=0;frame<gif->num_frames;frame++)
     {
@@ -40,7 +37,10 @@ void DrawGif::incrementFrame() {
     current_frame++;
 
     if (current_frame >= gif->num_frames)
+	{
         current_frame = 0;
+		cycle++;
+	}
 }
 
 void DrawGif::update(Uint32 msec) {
@@ -85,4 +85,15 @@ Uint16 DrawGif::getWidth() {
 
 Uint16 DrawGif::getHeight() {
     return gif->height;
+}
+
+Uint32 DrawGif::getCycles() {
+	return cycle;
+}
+
+void DrawGif::resetAnimation()
+{
+	current_frame = 0;
+	cycle = 0;
+	msec_store = 0;
 }

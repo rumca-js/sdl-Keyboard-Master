@@ -189,6 +189,12 @@ void GameScene::display_letters() {
     }
 }
 
+void GameScene::display_exploded() {
+    for(unsigned int i=0; i<letters_inactive.size();i++) {
+        letters_inactive[i]->display();
+    }
+}
+
 void GameScene::kill_letter(Letter * letter)
 {
     if (!notes[rand_min_max(0, 6)].play() ) {
@@ -262,6 +268,8 @@ int GameScene::handleEvents()
 			}
         }
         else if (e.type == SDL_USEREVENT) {
+			check_if_remove_letters();
+
             if (this->move_letters() ) {
                 return 0;
             }
@@ -306,6 +314,7 @@ int GameScene::write() {
     wall->draw(NULL, &texr);
 
     this->display_letters();
+	this->display_exploded();
 
     if (counter_text) {
         SDL_Rect Message_rect;
@@ -315,8 +324,6 @@ int GameScene::write() {
         Message_rect.h = config->getLetterHeight();
         counter_text->draw(NULL, &Message_rect);
     }
-
-	check_if_remove_letters();
 
     return status;
 }
