@@ -59,7 +59,7 @@ class GameScene : public SceneInterface {
     /*!
      * \brief defines how fast the letter counter is updated.
      */
-    unsigned int timer_delay;
+    unsigned int letter_ms_move_time;
     /*!
      * \brief defines how the consecutive letter speed up.
      */

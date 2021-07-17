@@ -45,7 +45,7 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
 
     //configuration
     my_timer_id  = -1;
-    timer_delay  = 50;
+    letter_ms_move_time  = 50;
     speed_factor = 1.0;
 }
 
@@ -134,7 +134,7 @@ void GameScene::reset() {
 	create_new_letter();
 
     uint32_t param;
-    my_timer_id = SDL_AddTimer(timer_delay, my_callbackfunc, &param);
+    my_timer_id = SDL_AddTimer(letter_ms_move_time, my_callbackfunc, &param);
 }
 
 static char get_rand_letter() {
