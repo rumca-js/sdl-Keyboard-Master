@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <sstream>
 
 #include "../Utilities.h"
 #include "../Audio/MusicManager.h"
@@ -32,6 +33,23 @@ static Uint32 my_callbackfunc(Uint32 interval, void *param) {
     return(interval);
 }
 
+void GameScene::parseCannonInfo() {
+	std::stringstream stream(sceneInfo["cannon-info1"]);
+	std::string segment;
+	int i = 0;
+	while(std::getline(stream, segment, ';'))
+	{
+		CannonInformation cannon;
+		if (i == 0)
+			cannon.direction = segment;
+		if (i == 1)
+			cannon.reload_ms = std::stoi(segment);
+		if (i == 2)
+			cannon.force = std::stoi(segment);
+		i++;
+	}
+}
+
 GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
     renderer = ren;
 
@@ -47,6 +65,8 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
     my_timer_id  = -1;
     letter_ms_move_time  = 50;
     speed_factor = 1.0;
+
+	parseCannonInfo();
 }
 
 GameScene::~GameScene() {

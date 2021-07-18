@@ -21,6 +21,11 @@
 #include "SceneInterface.h"
 #include "../MainConfiguration.h"
 
+struct CannonInformation {
+   std::string direction;
+   unsigned int reload_ms=0;
+   int force;
+};
 
 class GameScene : public SceneInterface {
     /*!
@@ -88,6 +93,8 @@ class GameScene : public SceneInterface {
      * Sets up music for scene
      */
     void MakeSureMyMusicIsPlaying();
+    std::vector<CannonInformation> cannons;
+    void parseCannonInfo();
 
 public:
     /*!

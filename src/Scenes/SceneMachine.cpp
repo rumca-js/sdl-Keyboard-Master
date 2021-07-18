@@ -94,7 +94,7 @@ std::vector<std::string> SceneMachine::getStateInformation()
 
     }
     catch(const SettingNotFoundException &nfex)      {
-        cerr << "Setting not found:" << endl;
+        cerr << "State setting not found" << endl;
     }
 	return result;
 }
@@ -253,6 +253,16 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
             copyData(state_data[i], info, "slide-text1");
             copyData(state_data[i], info, "slide-text2");
             copyData(state_data[i], info, "slide-text3");
+            copyData(state_data[i], info, "canon-info1");
+            copyData(state_data[i], info, "canon-info2");
+            copyData(state_data[i], info, "canon-info3");
+            copyData(state_data[i], info, "canon-info4");
+            copyData(state_data[i], info, "canon-info5");
+            copyData(state_data[i], info, "canon-info6");
+            copyData(state_data[i], info, "canon-info7");
+            copyData(state_data[i], info, "canon-info8");
+            copyData(state_data[i], info, "canon-info9");
+            copyData(state_data[i], info, "canon-info10");
 
             std::cout << "Found: "<<info["background"] <<std::endl;
             std::cout << "Found: "<<info["music"] <<std::endl;
@@ -261,7 +271,7 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
         }
     }
     catch(const SettingNotFoundException &nfex)      {
-        cerr << "Setting not found:" << endl;
+        cerr << "State data setting not found: " << nfex.getPath() << endl;
     }
 
     return info;
@@ -304,7 +314,7 @@ std::vector<TransitionInfo> SceneMachine::getTransitionData() {
     }
     catch(const SettingNotFoundException &nfex)
     {
-        cerr << "Setting not found:" << endl;
+        cerr << "Transitions setting not found: " << nfex.getPath() << endl;
     }
     
     return result;

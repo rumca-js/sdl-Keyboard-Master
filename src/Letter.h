@@ -10,7 +10,7 @@
 
 #include <SDL2/SDL_ttf.h>
 #include "./Images/DrawLetter.h"
-#include "ScreenStateElement.h"
+#include "./ScreenCore/ScreenStateElement.h"
 
 class Letter : public ScreenStateElement {
     /*!
@@ -21,6 +21,8 @@ class Letter : public ScreenStateElement {
     const unsigned int STATE_NORMAL = 0;
     const unsigned int STATE_DESTROYED = 1;
     const unsigned int STATE_TO_REMOVE = 2;
+    std::string direction;
+    unsigned int force;
 
 public:
     /*!
@@ -29,6 +31,7 @@ public:
     Letter(SDL_Renderer *ren, TTF_Font* Sans, char letter, SDL_Color aColor);
     virtual ~Letter();
     bool is(char key);
+    void move();
     bool setDestroyed();
     bool setToRemove();
     bool isRemovable();

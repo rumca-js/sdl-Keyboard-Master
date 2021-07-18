@@ -4,9 +4,9 @@
 #include <SDL2/SDL_ttf.h>
 #include <map>
 
-#include "./Images/DrawLetter.h"
-#include "./GUI/ScreenElement.h"
-#include "./GUI/ScreenElement.cpp"
+#include "./ScreenElement.h"
+#include "./ScreenElement.cpp"
+#include "../Images/DrawItem.h"
 
 class ScreenStateElement : public ScreenElement<unsigned int> {
   protected:

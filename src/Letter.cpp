@@ -29,6 +29,9 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
     }
 
     setPosition(0,0);
+
+	direction = "down";
+	force = 0;
 }
 
 Letter::~Letter() {
@@ -38,6 +41,21 @@ bool Letter::is(char key) {
     if (key == letter)
         return true;
     return false;
+}
+
+void Letter::move() {
+	if (direction == "down") {
+		setPositionY( getPositionY() + force);
+	}
+	else if (direction == "up") {
+		setPositionY(getPositionY() - force);
+	}
+	else if (direction == "right") {
+		setPositionX(getPositionX() + force);
+	}
+	else if (direction == "left") {
+		setPositionX(getPositionX() - force);
+	}
 }
 
 bool Letter::setDestroyed() {

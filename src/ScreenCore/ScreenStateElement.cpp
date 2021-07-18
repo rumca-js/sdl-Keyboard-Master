@@ -4,9 +4,6 @@
 
 #include "./ScreenStateElement.h"
 
-#include "MainConfiguration.h"
-#include "ScreenStateElement.h"
-
 ScreenStateElement::ScreenStateElement(SDL_Renderer *ren) {
     renderer = ren;
 

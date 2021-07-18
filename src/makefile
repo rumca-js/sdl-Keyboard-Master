@@ -15,9 +15,7 @@ SRCS := \
   Images/SDL_gifwrap.cpp \
   Letter.cpp \
   GUI/SdlButton.cpp \
-  GUI/ScreenElement.cpp \
   GUI/SdlGui.cpp \
-  GUI/ScreenElement.cpp \
   GameEventLogger.cpp \
   Scenes/SceneMachine.cpp \
   Scenes/IntroScene.cpp \
@@ -25,9 +23,10 @@ SRCS := \
   Scenes/GameScene.cpp \
   Scenes/MenuScene.cpp \
   Scenes/SlideScene.cpp \
+  ScreenCore/ScreenElement.cpp \
+  ScreenCore/ScreenStateElement.cpp \
   MainController.cpp \
   MainConfiguration.cpp \
-  ScreenStateElement.cpp \
   Utilities.cpp \
   main.cpp
 
