@@ -155,9 +155,17 @@ void GameScene::close() {
 		for(unsigned int i=0; i<letters_active.size(); i++)
 		{
 		   delete letters_active[i];
-		   letters_active.clear();
 		}
+	   letters_active.clear();
+	}
 
+	if (letters_inactive.size() != 0)
+	{
+		for(unsigned int i=0; i<letters_inactive.size(); i++)
+		{
+		   delete letters_inactive[i];
+		}
+	   letters_inactive.clear();
 	}
 
 	if (Sans != NULL)
@@ -171,6 +179,12 @@ void GameScene::close() {
     {
         cannons.clear();
     }
+
+    if (counter_text != NULL)
+	{
+		delete counter_text;
+		counter_text = NULL;
+	}
 }
 
 void GameScene::reset() {
