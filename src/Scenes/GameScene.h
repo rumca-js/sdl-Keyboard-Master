@@ -26,11 +26,15 @@
 
 #define _C_STD_C14___
 
+class CannonInformation;
+class GameScene;
+
 class CannonInformation : public TimeUpdateableItem {
 public:
    std::string direction;
    int forceX;
    int forceY;
+   GameScene * scene;
 
    void timeUpdateEvent() override;
 };
@@ -142,6 +146,7 @@ public:
      */
     void kill_letter(Letter * letter);
     void create_new_letter();
+    void create_cannon_letter(CannonInformation & info);
     /**
      * @brief Closes the scene, disposes elements.
      */

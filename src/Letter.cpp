@@ -65,3 +65,8 @@ void Letter::setForce(int aforceX, int aforceY) {
     forceX = aforceX;
     forceY = aforceY;
 }
+
+char Letter::getCode()
+{
+    return letter;
+}

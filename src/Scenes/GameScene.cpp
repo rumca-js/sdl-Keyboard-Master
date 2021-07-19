@@ -17,6 +17,7 @@ void CannonInformation::timeUpdateEvent()
 {
     //create new letter
     std::cout << "Creating new cannon letter" << std::endl; 
+    scene->create_new_letter(this);
 }
 
 static Uint32 my_callbackfunc(Uint32 interval, void *param) {
@@ -46,6 +47,7 @@ void GameScene::parseCannonInfo() {
 	while(std::getline(stream, segment, ';'))
 	{
 		CannonInformation cannon;
+        cannon.scene = this;
 		if (i == 0)
 			cannon.direction = segment;
 		if (i == 1)
@@ -192,10 +194,55 @@ void GameScene::create_new_letter()
     SDL_Color color = {r, g, b, 255};
 
     letters_active.push_back(new Letter(renderer, Sans, letter, color));
-    letters_active[0]->setForce(0, speed_factor);
-    letters_active[0]->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
-    letters_active[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    letters_active[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+
+    Letter * letter = letters_active[letters_active.size()-1];
+
+    letter->setForce(0, speed_factor);
+    letter->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
+    letter->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
+    letter->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+}
+
+void GameScene::create_cannon_letter(CannonInformation & aCannon) {
+	char letter = get_rand_string_letter(sceneInfo["letters"]);
+
+	Uint8 r = std::stoi(sceneInfo["letter-r"]);
+	Uint8 g = std::stoi(sceneInfo["letter-g"]);
+	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+
+    SDL_Color color = {r, g, b, 255};
+
+    letters_active.push_back(new Letter(renderer, Sans, letter, color));
+
+    Letter * letter = letters_active[letters_active.size()-1];
+    letter->setForce(aCannon.getForceX(), aCannon.getForceY());
+    letter->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
+    letter->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+
+    unsigned int letter_width = config->getLetterWidth();
+    unsigned int letter_height = config->getLetterHeight();
+
+    if (aCannon.direction == "south") {
+        letter->setPosition( 
+                 rand_min_max(0, config->getWinWidth()-letter_width),
+                 0);
+    }
+    else if (aCannon.direction == "north") {
+        letter->setPosition( 
+                 rand_min_max(0, config->getWinWidth()-letter_width),
+                 config->getWinHeight()-letter_height );
+    }
+    else if (aCannon.direction == "left") {
+        letter->setPosition( 
+                config->getWinWidth()-letter_width,
+                rand_min_max(0, config->getWinHeight()-height);
+    }
+    else if (aCannon.direction == "right") {
+        letter->setPosition( 
+                 0,
+                 rand_min_max(0, config->getWinHeight()-letter_height );
+    }
+         
 }
 
 void GameScene::update_cannon_time() {
@@ -213,16 +260,22 @@ bool GameScene::move_letters() {
         // by window relative value
 
         if (letters_active[i]->getPositionY() > config->getWinHeight())  {
-
-            if( !note_eog.play()) {
-                printf("Could not play a note");
-            }
+            handle_not_caught_letter(i);
 
             return true;
         }
     }
 
     return false;
+}
+
+void GameScene::handle_not_caught_letter(unsigned int letterID)
+{
+    if( !note_eog.play()) {
+        printf("Could not play a note");
+    }
+	GameEventLogger & logger = GameEventLogger::getObject();
+    logger.notCaughtLetter(letters_active[letterID]);
 }
 
 void GameScene::display_letters() {

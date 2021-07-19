@@ -35,6 +35,7 @@ public:
     bool setToRemove();
     bool isRemovable();
     void setForce(int aforceX, int aforceY);
+    char getCode();
 };
 
 #endif /* LETTER_H_ */

@@ -10,6 +10,7 @@ typedef struct _SceneInformation
    unsigned int keyStrokes;
    unsigned int keySuccessful;
    unsigned int keyFailed;
+   unsigned int notCaughtLetters;
    std::chrono::steady_clock::time_point time_start;
    std::chrono::steady_clock::time_point time_stop;
 } SceneInformation;
@@ -26,6 +27,7 @@ class GameEventLogger
       void sceneStop(unsigned int scene);
       void addSuccessfulKeyStroke();
       void addUnSuccessfulKeyStroke();
+      void notCaughtLetter(Letter * letter);
       unsigned int getSuccessfulKeyStrokes();
       unsigned int getUnSuccessfulKeyStrokes();
 };
