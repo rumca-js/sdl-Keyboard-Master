@@ -108,7 +108,8 @@ class GameScene : public SceneInterface {
      */
     void MakeSureMyMusicIsPlaying();
     std::vector<CannonInformation> cannons;
-    void parseCannonInfo();
+    void parseCannonsInfo();
+    void parseCannonInfo(std::string cannonID);
 
 public:
     /*!

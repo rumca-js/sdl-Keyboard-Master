@@ -17,6 +17,7 @@ class TimeUpdateableItem {
 #endif
 
    public:
+   TimeUpdateableItem();
    void updateTime();
    bool isLimitReached();
    virtual void limitRelease();

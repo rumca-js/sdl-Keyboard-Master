@@ -52,8 +52,6 @@ void DrawTexture::draw(SDL_Rect * SrcR, SDL_Rect * DestR) {
 void DrawTexture::close() {
     if (texture == NULL)
     {
-        std::cout << "Closing texture" << std::endl;
-
         SDL_DestroyTexture(texture);
         texture = NULL;
     }

@@ -17,6 +17,8 @@ void CannonInformation::timeUpdateEvent()
 {
     //create new letter
     std::cout << "Creating new cannon letter" << std::endl; 
+	std::cout << release_ms << std::endl;
+
     scene->create_cannon_letter(this);
 }
 
@@ -50,15 +52,26 @@ static Uint32 my_callbackfunc(Uint32 interval, void *param) {
     return(interval);
 }
 
-void GameScene::parseCannonInfo() {
-	std::stringstream stream(sceneInfo["cannon-info1"]);
+void GameScene::parseCannonsInfo() {
+	for(int i=1; i<=10; i++)
+	{
+		parseCannonInfo("cannon-info" + std::to_string(i) );
+	}
+}
+
+void GameScene::parseCannonInfo(std::string cannonID) {
+	if (sceneInfo[cannonID] == "")
+		return;
+
+	std::stringstream stream(sceneInfo[cannonID]);
 	std::string segment;
 	int i = 0;
 
+	CannonInformation cannon;
+	cannon.scene = this;
+
 	while(std::getline(stream, segment, ';'))
 	{
-		CannonInformation cannon;
-        cannon.scene = this;
 		if (i == 0)
 			cannon.direction = segment;
 		if (i == 1)
@@ -68,9 +81,9 @@ void GameScene::parseCannonInfo() {
 		if (i == 3)
 			cannon.forceY = std::stoi(segment);
 		i++;
-
-        cannons.push_back(cannon);
 	}
+
+	cannons.push_back(cannon);
 }
 
 GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
@@ -136,7 +149,7 @@ void GameScene::init() {
 
     note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
 
-	parseCannonInfo();
+	parseCannonsInfo();
 
     reset();
 
@@ -276,6 +289,13 @@ void GameScene::create_cannon_letter(CannonInformation * aCannon) {
                  0,
                  rand_min_max(0, config->getWinHeight()-letter_height));
     }
+	else
+	{
+		std::cerr << "Unkown direction" << std::endl;
+
+        letterObj->setPosition( 
+                 0,0);
+	}
          
 }
 
@@ -294,6 +314,10 @@ bool GameScene::move_letters() {
         // by window relative value
 
         if (letters_active[i]->getPositionY() > config->getWinHeight())  {
+			std::cout << "position fail " << i << std::endl;
+			std::cout << letters_active[i]->getPositionY() << std::endl;
+			std::cout << config->getWinHeight() << std::endl;
+
             handle_not_caught_letter(i);
 
             return true;
@@ -403,7 +427,7 @@ int GameScene::handleEvents()
             update_cannon_time();
 
             if (this->move_letters() ) {
-                return 0;
+                return 1;
             }
         }
     }
