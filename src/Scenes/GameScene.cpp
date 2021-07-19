@@ -77,10 +77,12 @@ void GameScene::parseCannonInfo(std::string cannonID) {
 		if (i == 1)
 			cannon.setReleaseTime(std::stoi(segment));
 		if (i == 2)
-			cannon.forceX = std::stoi(segment);
+			cannon.forceX = config->getXpercent(std::stod(segment));
 		if (i == 3)
-			cannon.forceY = std::stoi(segment);
+			cannon.forceY = config->getYpercent(std::stod(segment));
+
 		i++;
+
 	}
 
 	cannons.push_back(cannon);

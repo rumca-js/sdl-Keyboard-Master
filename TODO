@@ -1,18 +1,17 @@
 
  statescreenentity:
  - unlcok story pictures by progressing game
+ - cannon letters force by width percent
  - accelerate story pictures by key presses
  - inform user that menu works by keyboard
  - put story music on menu
  - music autoplay on sceneinterface
  - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
  - store high scores in a file
- - letters can come in different directons
- - maybe they could come 'at you'
+ - implement left right north cannons
+ - fix dot width
  - menu should recognize mouse input
  - raster letters? gif letters?
- - multiple letters in one scene (configurable)   (letter_cannon_time, letter cannons. Cannon south, cannon east, each timeout different)
- - fix dot width
  - create debian package
  - author: Piotr Zieliński write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - move updateable items from drawbuilder queue to time updateable items queue?
