@@ -47,5 +47,5 @@ unsigned int GameEventLogger::getUnSuccessfulKeyStrokes()
 
 void GameEventLogger::notCaughtLetter(Letter * letter)
 {
-    notCaughtLetters++;
+    sceneLog[current_scene].notCaughtLetters++;
 }

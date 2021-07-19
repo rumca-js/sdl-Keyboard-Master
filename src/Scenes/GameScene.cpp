@@ -17,7 +17,17 @@ void CannonInformation::timeUpdateEvent()
 {
     //create new letter
     std::cout << "Creating new cannon letter" << std::endl; 
-    scene->create_new_letter(this);
+    scene->create_cannon_letter(this);
+}
+
+int CannonInformation::getForceX()
+{
+	return forceX;
+}
+
+int CannonInformation::getForceY()
+{
+	return forceY;
 }
 
 static Uint32 my_callbackfunc(Uint32 interval, void *param) {
@@ -51,7 +61,7 @@ void GameScene::parseCannonInfo() {
 		if (i == 0)
 			cannon.direction = segment;
 		if (i == 1)
-			cannon.reload_ms = std::stoi(segment);
+			cannon.setReleaseTime(std::stoi(segment));
 		if (i == 2)
 			cannon.forceX = std::stoi(segment);
 		if (i == 3)
@@ -195,15 +205,15 @@ void GameScene::create_new_letter()
 
     letters_active.push_back(new Letter(renderer, Sans, letter, color));
 
-    Letter * letter = letters_active[letters_active.size()-1];
+    Letter * letterObj = letters_active[letters_active.size()-1];
 
-    letter->setForce(0, speed_factor);
-    letter->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
-    letter->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    letter->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+    letterObj->setForce(0, speed_factor);
+    letterObj->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
+    letterObj->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
+    letterObj->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 }
 
-void GameScene::create_cannon_letter(CannonInformation & aCannon) {
+void GameScene::create_cannon_letter(CannonInformation * aCannon) {
 	char letter = get_rand_string_letter(sceneInfo["letters"]);
 
 	Uint8 r = std::stoi(sceneInfo["letter-r"]);
@@ -214,39 +224,39 @@ void GameScene::create_cannon_letter(CannonInformation & aCannon) {
 
     letters_active.push_back(new Letter(renderer, Sans, letter, color));
 
-    Letter * letter = letters_active[letters_active.size()-1];
-    letter->setForce(aCannon.getForceX(), aCannon.getForceY());
-    letter->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    letter->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
+    Letter * letterObj = letters_active[letters_active.size()-1];
+    letterObj->setForce(aCannon->getForceX(), aCannon->getForceY());
+    letterObj->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
+    letterObj->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
     unsigned int letter_width = config->getLetterWidth();
     unsigned int letter_height = config->getLetterHeight();
 
-    if (aCannon.direction == "south") {
-        letter->setPosition( 
+    if (aCannon->direction == "south") {
+        letterObj->setPosition( 
                  rand_min_max(0, config->getWinWidth()-letter_width),
                  0);
     }
-    else if (aCannon.direction == "north") {
-        letter->setPosition( 
+    else if (aCannon->direction == "north") {
+        letterObj->setPosition( 
                  rand_min_max(0, config->getWinWidth()-letter_width),
                  config->getWinHeight()-letter_height );
     }
-    else if (aCannon.direction == "left") {
-        letter->setPosition( 
+    else if (aCannon->direction == "left") {
+        letterObj->setPosition( 
                 config->getWinWidth()-letter_width,
-                rand_min_max(0, config->getWinHeight()-height);
+                rand_min_max(0, config->getWinHeight()-letter_height));
     }
-    else if (aCannon.direction == "right") {
-        letter->setPosition( 
+    else if (aCannon->direction == "right") {
+        letterObj->setPosition( 
                  0,
-                 rand_min_max(0, config->getWinHeight()-letter_height );
+                 rand_min_max(0, config->getWinHeight()-letter_height));
     }
          
 }
 
 void GameScene::update_cannon_time() {
-    for(int i=0; i<cannnons.size(); i++) {
+    for(unsigned int i=0; i<cannons.size(); i++) {
         cannons[i].updateTime();
     }
 }

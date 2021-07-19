@@ -37,6 +37,8 @@ public:
    GameScene * scene;
 
    void timeUpdateEvent() override;
+   int getForceX();
+   int getForceY();
 };
 
 class GameScene : public SceneInterface {
@@ -146,7 +148,7 @@ public:
      */
     void kill_letter(Letter * letter);
     void create_new_letter();
-    void create_cannon_letter(CannonInformation & info);
+    void create_cannon_letter(CannonInformation * info);
     /**
      * @brief Closes the scene, disposes elements.
      */
@@ -155,6 +157,8 @@ public:
     static std::string getEngineName();
     int handleEvents();
     void check_if_remove_letters();
+    void update_cannon_time();
+    void handle_not_caught_letter(unsigned int letterID);
 };
 
 #endif /* GAMESCENE_H_ */

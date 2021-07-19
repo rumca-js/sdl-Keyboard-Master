@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <vector>
+#include "Letter.h"
 
 typedef struct _SceneInformation
 {

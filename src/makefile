@@ -27,6 +27,7 @@ SRCS := \
   ScreenCore/ScreenStateElement.cpp \
   MainController.cpp \
   MainConfiguration.cpp \
+  TimeUpdateableItem.cpp \
   Utilities.cpp \
   main.cpp
 

@@ -19,7 +19,7 @@ void TimeUpdateableItem::updateTime() {
 }
 
 bool TimeUpdateableItem::isLimitReached() {
-    if (time_accumulated >= reload_ms)
+    if (time_accumulated_ms >= release_ms)
     {
         return true;
     }
@@ -27,5 +27,16 @@ bool TimeUpdateableItem::isLimitReached() {
 }
 
 void TimeUpdateableItem::limitRelease() {
-    time_accumulated - reload_ms;
+	if (isLimitReached() ) {
+		time_accumulated_ms - release_ms;
+		timeUpdateEvent();
+	}
+}
+
+void TimeUpdateableItem::setReleaseTime(unsigned long long aReleaseTime)
+{
+	release_ms = aReleaseTime;
+}
+
+void TimeUpdateableItem::timeUpdateEvent() {
 }
