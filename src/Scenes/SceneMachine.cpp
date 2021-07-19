@@ -268,16 +268,16 @@ map<std::string, std::string> SceneMachine::getSceneInformation(std::string scen
             copyData(state_data[i], info, "slide-text1");
             copyData(state_data[i], info, "slide-text2");
             copyData(state_data[i], info, "slide-text3");
-            copyData(state_data[i], info, "canon-info1");
-            copyData(state_data[i], info, "canon-info2");
-            copyData(state_data[i], info, "canon-info3");
-            copyData(state_data[i], info, "canon-info4");
-            copyData(state_data[i], info, "canon-info5");
-            copyData(state_data[i], info, "canon-info6");
-            copyData(state_data[i], info, "canon-info7");
-            copyData(state_data[i], info, "canon-info8");
-            copyData(state_data[i], info, "canon-info9");
-            copyData(state_data[i], info, "canon-info10");
+            copyData(state_data[i], info, "cannon-info1");
+            copyData(state_data[i], info, "cannon-info2");
+            copyData(state_data[i], info, "cannon-info3");
+            copyData(state_data[i], info, "cannon-info4");
+            copyData(state_data[i], info, "cannon-info5");
+            copyData(state_data[i], info, "cannon-info6");
+            copyData(state_data[i], info, "cannon-info7");
+            copyData(state_data[i], info, "cannon-info8");
+            copyData(state_data[i], info, "cannon-info9");
+            copyData(state_data[i], info, "cannon-info10");
 
             std::cout << "Found: "<<info["background"] <<std::endl;
             std::cout << "Found: "<<info["music"] <<std::endl;

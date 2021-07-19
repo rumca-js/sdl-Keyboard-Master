@@ -54,6 +54,7 @@ void GameScene::parseCannonInfo() {
 	std::stringstream stream(sceneInfo["cannon-info1"]);
 	std::string segment;
 	int i = 0;
+
 	while(std::getline(stream, segment, ';'))
 	{
 		CannonInformation cannon;
@@ -195,7 +196,13 @@ void GameScene::reset() {
 
     letters_active.clear();
 
-	create_new_letter();
+	if (cannons.size() == 0)
+		create_new_letter();
+
+	for(unsigned int i=0; i<cannons.size(); i++)
+	{
+		create_cannon_letter(&cannons[i]);
+	}
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(letter_ms_move_time, my_callbackfunc, &param);
@@ -355,7 +362,9 @@ bool GameScene::check_if_killed(char key) {
 
     for(unsigned int i=0; i<letters_inactive.size(); i++) {
 		kill_letter(letters_inactive[i]);
-		create_new_letter();
+
+		if (cannons.size() == 0)
+			create_new_letter();
 	}
 
     if (killed) {
