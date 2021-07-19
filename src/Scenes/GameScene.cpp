@@ -116,6 +116,8 @@ void GameScene::MakeSureMyMusicIsPlaying() {
 }
 
 void GameScene::init() {
+	std::cout << "Game scene init" << std::endl;
+
     config = &MainConfiguration::getConfig();
 
 	wall = DrawBuilder::Build(sceneInfo["background"], renderer);
@@ -138,6 +140,7 @@ void GameScene::init() {
     reset();
 
     MakeSureMyMusicIsPlaying();
+	std::cout << "Game scene init done" << std::endl;
 }
 
 void GameScene::close() {

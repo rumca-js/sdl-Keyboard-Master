@@ -31,11 +31,13 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     std::cout << "Loading configuration" << std::endl;
     load_config();
 
+    std::cout << "Loading states" << std::endl;
 	std::vector<std::string> states = getStateInformation();
 
 	for(unsigned int i=0; i<states.size(); i++)
 	{
 		map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
+		std::cout << "State: "<<states[i] << std::endl;
 
 		if (sceneInfo["engine"] == GameScene::getEngineName())
 			scenes.push_back(new GameScene(renderer, window, sceneInfo) );
@@ -47,6 +49,18 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 			scenes.push_back(new GoodBye(renderer, window, sceneInfo) );
         else if (sceneInfo["engine"] == SlideScene::getEngineName())
 			scenes.push_back(new SlideScene(renderer, window, sceneInfo) );
+		else {
+			// INIT and quit are without scen
+			if (states[i] == "INIT" || states[i] == "QUIT")
+			{
+				continue;
+			}
+			else
+			{
+				std::cout << "Unknown engine '" << sceneInfo["engine"] <<"'"<< std::endl;
+				return false;
+			}
+		}
 	}
 
 	GameEventLogger & logger = GameEventLogger::getObject();
@@ -54,6 +68,7 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 
     this->renderer = renderer;
     
+    std::cout << "Loading transition data" << std::endl;
     std::vector<TransitionInfo> trans_data = getTransitionData();
     
     for(unsigned int i=0; i<trans_data.size(); i++)
@@ -162,7 +177,7 @@ void SceneMachine::write() {
 void SceneMachine::performTransition(std::string new_state) {
 	std::cout << "Close state: "<<scenes[current_scene]->getName() << std::endl;
     scenes[current_scene]->close();
-	std::cout << "Close state: done" << std::endl;
+	std::cout << "Close state: "<<scenes[current_scene]->getName() << " done" << std::endl;
 
 	GameEventLogger & logger = GameEventLogger::getObject();
 	logger.sceneStop(current_scene);
@@ -171,7 +186,7 @@ void SceneMachine::performTransition(std::string new_state) {
     current_scene = getStateNameToId(current_state_name);
 	std::cout << "Init state: "<<scenes[current_scene]->getName() << std::endl;
     scenes[current_scene]->init();
-	std::cout << "Init state: done" << std::endl;
+	std::cout << "Init state: "<<scenes[current_scene]->getName() << " done" << std::endl;
 
 	logger.sceneStart(current_scene);
 }

@@ -45,8 +45,6 @@ SlideScene::SlideScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
 
     this->sceneInfo = sceneInfo;
 
-    std::cout << "Scene information" << sceneInfo["background"] << std::endl;
-
     my_timer_id = -1;
 
     config = &MainConfiguration::getConfig();
