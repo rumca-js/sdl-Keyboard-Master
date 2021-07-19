@@ -13,6 +13,12 @@
 #include "GameScene.h"
 
 
+void CannonInformation::timeUpdateEvent()
+{
+    //create new letter
+    std::cout << "Creating new cannon letter" << std::endl; 
+}
+
 static Uint32 my_callbackfunc(Uint32 interval, void *param) {
     SDL_Event event;
     SDL_UserEvent userevent;
@@ -45,8 +51,12 @@ void GameScene::parseCannonInfo() {
 		if (i == 1)
 			cannon.reload_ms = std::stoi(segment);
 		if (i == 2)
-			cannon.force = std::stoi(segment);
+			cannon.forceX = std::stoi(segment);
+		if (i == 3)
+			cannon.forceY = std::stoi(segment);
 		i++;
+
+        cannons.push_back(cannon);
 	}
 }
 
@@ -65,8 +75,6 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
     my_timer_id  = -1;
     letter_ms_move_time  = 50;
     speed_factor = 1.0;
-
-	parseCannonInfo();
 }
 
 GameScene::~GameScene() {
@@ -113,6 +121,8 @@ void GameScene::init() {
 
     note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
 
+	parseCannonInfo();
+
     reset();
 
     MakeSureMyMusicIsPlaying();
@@ -144,6 +154,11 @@ void GameScene::close() {
 		Sans = NULL;
 
 	}
+
+    if (cannons.size() != 0)
+    {
+        cannons.clear();
+    }
 }
 
 void GameScene::reset() {
@@ -177,15 +192,22 @@ void GameScene::create_new_letter()
     SDL_Color color = {r, g, b, 255};
 
     letters_active.push_back(new Letter(renderer, Sans, letter, color));
+    letters_active[0]->setForce(0, speed_factor);
     letters_active[0]->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
     letters_active[0]->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
     letters_active[0]->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 }
 
+void GameScene::update_cannon_time() {
+    for(int i=0; i<cannnons.size(); i++) {
+        cannons[i].updateTime();
+    }
+}
+
 bool GameScene::move_letters() {
     for(unsigned int i=0; i<letters_active.size();i++)
     {
-        letters_active[i]->setPositionY(letters_active[i]->getPositionY() + speed_factor);
+        letters_active[i]->move();
 
         // It does not depend on windows size, because Y position is incremented
         // by window relative value
@@ -289,6 +311,7 @@ int GameScene::handleEvents()
         }
         else if (e.type == SDL_USEREVENT) {
 			check_if_remove_letters();
+            update_cannon_time();
 
             if (this->move_letters() ) {
                 return 0;

@@ -30,8 +30,8 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
 
     setPosition(0,0);
 
-	direction = "down";
-	force = 0;
+	forceX = 0;
+	forceY = 0;
 }
 
 Letter::~Letter() {
@@ -44,18 +44,8 @@ bool Letter::is(char key) {
 }
 
 void Letter::move() {
-	if (direction == "down") {
-		setPositionY( getPositionY() + force);
-	}
-	else if (direction == "up") {
-		setPositionY(getPositionY() - force);
-	}
-	else if (direction == "right") {
-		setPositionX(getPositionX() + force);
-	}
-	else if (direction == "left") {
-		setPositionX(getPositionX() - force);
-	}
+    setPositionX(getPositionX() + forceX);
+    setPositionY(getPositionY() + forceY);
 }
 
 bool Letter::setDestroyed() {
@@ -69,4 +59,9 @@ bool Letter::isRemovable() {
 
 	return getState() == STATE_DESTROYED &&
 		gif->getCycles() > 0;
+}
+
+void Letter::setForce(int aforceX, int aforceY) {
+    forceX = aforceX;
+    forceY = aforceY;
 }

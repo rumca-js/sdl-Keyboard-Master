@@ -21,8 +21,7 @@ class Letter : public ScreenStateElement {
     const unsigned int STATE_NORMAL = 0;
     const unsigned int STATE_DESTROYED = 1;
     const unsigned int STATE_TO_REMOVE = 2;
-    std::string direction;
-    unsigned int force;
+    unsigned int forceX, forceY;
 
 public:
     /*!
@@ -35,6 +34,7 @@ public:
     bool setDestroyed();
     bool setToRemove();
     bool isRemovable();
+    void setForce(int aforceX, int aforceY);
 };
 
 #endif /* LETTER_H_ */

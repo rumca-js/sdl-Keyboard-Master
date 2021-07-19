@@ -12,6 +12,8 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <chrono>
+#include <ctime>
 
 #include <SDL2/SDL_mixer.h>
 
@@ -20,11 +22,17 @@
 #include "../Audio/SdlAudio.h"
 #include "SceneInterface.h"
 #include "../MainConfiguration.h"
+#include "../TimeUpdateableItem.h"
 
-struct CannonInformation {
+#define _C_STD_C14___
+
+class CannonInformation : public TimeUpdateableItem {
+public:
    std::string direction;
-   unsigned int reload_ms=0;
-   int force;
+   int forceX;
+   int forceY;
+
+   void timeUpdateEvent() override;
 };
 
 class GameScene : public SceneInterface {
