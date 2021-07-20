@@ -91,7 +91,8 @@ void MenuScene::onEnter() {
 
     MakeSureMyMusicIsPlaying();
 }
-void MenuScen::onLeave() {
+
+void MenuScene::onLeave() {
 }
 
 int MenuScene::handleEvents()

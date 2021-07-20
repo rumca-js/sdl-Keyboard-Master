@@ -8,9 +8,9 @@
 #ifndef SCENEINTERFACE_H_
 #define SCENEINTERFACE_H_
 
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <map>
 
 class SceneInterface
 {
@@ -21,6 +21,10 @@ protected:
     std::map<std::string, std::string> sceneInfo;
 
 public:
+    /*!
+     * \brief Provied destructor. Otherwise compiler would complain.
+     */
+    virtual ~SceneInterface() {}
     /*!
      \brief Initializes scene.
     */
@@ -42,10 +46,6 @@ public:
      * called when we leave scene
      */
     virtual void onLeave() = 0;
-    /*!
-     * \brief Provied destructor. Otherwise compiler would complain.
-     */
-    virtual ~SceneInterface() {}
     /*!
      * \brief returns scene unique name. Used by scene configuration
      */

@@ -14,12 +14,12 @@
 
 #include "../Images/DrawTexture.h"
 #include "../Images/DrawText.h"
-#include "SceneInterface.h"
+#include "SceneCommons.h"
 #include "../MainConfiguration.h"
 
 #define TEXT_LOGO "SLAVE STUDIO 1"
 
-class SlideScene : public SceneInterface {
+class SlideScene : public SceneCommons {
     /*!
      * \brief SDL Renderer pointer.
      */

@@ -1,4 +1,8 @@
+
 #include "SceneCommons.h"
+
+#include "../Audio/MusicManager.h"
+
 
 void SceneCommons::MakeSureMyMusicIsPlaying() {
     MusicManager & man = MusicManager::getObject();

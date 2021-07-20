@@ -107,5 +107,5 @@ int MainConfiguration::getConfigInt(std::string name) {
 }
 
 TTF_Font* MainConfiguration::getDefaultFont() {
-    Sans = TTF_OpenFont(getConfigString("FONT_NAME").c_str(), getConfigInt("FONT_SIZE") );
+    return TTF_OpenFont(getConfigString("FONT_NAME").c_str(), getConfigInt("FONT_SIZE") );
 }

@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "../Images/DrawTexture.h"
-#include "SceneInterface.h"
+#include "SceneCommons.h"
 #include "../MainConfiguration.h"
 
 #include "../GUI/SdlButton.h"
@@ -25,7 +25,7 @@
 #define TEXT_ESCAPE "EXIT"
 
 
-class MenuScene : public SceneInterface {
+class MenuScene : public SceneCommons {
     /*!
      * \brief SDL Renderer pointer.
      */
