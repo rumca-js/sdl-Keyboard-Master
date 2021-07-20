@@ -52,20 +52,20 @@ public:
 	/*!
 	 * \brief Scene init function.
 	 */
-	void init();
+	virtual void init() override;
 	/*!
 	 * \brief Scene write function.
 	 */
-	int write();
+	virtual int write() override;
 	/*!
 	 * \brief Scene close function.
 	 */
-	void close();
-	std::string getName();
+	virtual void close() override;
+	virtual std::string getName() override;
+    virtual int handleEvents() override;
+    virtual void onEnter() override;
+    virtual void onLeave() override;
 	static std::string getEngineName();
-    int handleEvents();
-    void onEnter();
-    void onLeave();
 };
 
 #endif /* INITSCENE_H_ */

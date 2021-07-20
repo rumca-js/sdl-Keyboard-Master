@@ -75,26 +75,26 @@ public:
     /*!
      * \brief Scene init function.
      */
-    void init();
+    virtual void init() override;
     /*!
      * \brief Scene write function.
      */
-    int write();
+    virtual int write() override;
     /*!
      * \brief Scene close function.
      */
-    void close();
+    virtual void close() override;
     /*!
      * Returns Name of Scene Engine
      */
-    std::string getName();
-    static std::string getEngineName();
+    virtual std::string getName() override;
     /*!
      * handles SDL events
      */
-    int handleEvents();
-    void onEnter();
-    void onLeave();
+    virtual int handleEvents() override;
+    virtual void onEnter() override;
+    virtual void onLeave() override;
+    static std::string getEngineName();
 };
 
 #endif /* _H_SLIDESCENE_H_ */

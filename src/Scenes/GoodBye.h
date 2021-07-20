@@ -39,14 +39,14 @@ public:
     GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
     virtual ~GoodBye();
 
-    void init();
-    int write();
-    void close();
-    std::string getName();
+    virtual void init() override;
+    virtual int write() override;
+    virtual void close() override;
+    virtual std::string getName() override;
+    virtual int handleEvents() override;
+    virtual void onEnter() override;
+    virtual void onLeave() override;
     static std::string getEngineName();
-    int handleEvents();
-    void onEnter();
-    void onLeave();
 };
 
 #endif /* SCENES_GOODBYE_H_ */

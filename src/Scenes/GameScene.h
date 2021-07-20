@@ -119,11 +119,20 @@ public:
     /**
      * @brief Performs initialization
      */
-    void init();
+    virtual void init() override;
     /**
      * @brief Writes scene on the window
      */
-    int write();
+    virtual int write() override;
+    /**
+     * @brief Closes the scene, disposes elements.
+     */
+    virtual void close() override;
+    virtual std::string getName() override;
+    virtual int handleEvents() override;
+    virtual void onEnter() override;
+    virtual void onLeave() override;
+    static std::string getEngineName();
     /**
      * @brief Updates letter positions. Every timer event.
      */
@@ -146,19 +155,10 @@ public:
     void kill_letter(Letter * letter);
     void create_new_letter();
     void create_cannon_letter(CannonInformation * info);
-    /**
-     * @brief Closes the scene, disposes elements.
-     */
-    void close();
-    std::string getName();
-    static std::string getEngineName();
-    int handleEvents();
     void check_if_remove_letters();
     void update_cannon_time();
     void handle_not_caught_letter(Letter * letter);
     bool is_letter_outside_window(Letter * letter);
-    void onEnter();
-    void onLeave();
 };
 
 #endif /* GAMESCENE_H_ */
