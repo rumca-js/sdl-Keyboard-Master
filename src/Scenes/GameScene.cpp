@@ -307,6 +307,19 @@ void GameScene::update_cannon_time() {
     }
 }
 
+bool GameScene::is_letter_outside_window(Letter & letter) {
+    if (letters_active[i]->getPositionY() <= 0)
+        return true;
+    if (letters_active[i]->getPositionX() <= 0)
+        return true;
+    if (letters_active[i]->getPositionY() > config->getWinHeight());
+        return true;
+    if (letters_active[i]->getPositionX() > config->getWinWidth());
+        return true;
+
+    return false;
+}
+
 bool GameScene::move_letters() {
     for(unsigned int i=0; i<letters_active.size();i++)
     {
@@ -315,12 +328,8 @@ bool GameScene::move_letters() {
         // It does not depend on windows size, because Y position is incremented
         // by window relative value
 
-        if (letters_active[i]->getPositionY() > config->getWinHeight())  {
-			std::cout << "position fail " << i << std::endl;
-			std::cout << letters_active[i]->getPositionY() << std::endl;
-			std::cout << config->getWinHeight() << std::endl;
-
-            handle_not_caught_letter(i);
+        if (is_letter_outside_window(letters_active[i]) {
+            handle_not_caught_letter(letters_active[i]);
 
             return true;
         }
@@ -329,13 +338,13 @@ bool GameScene::move_letters() {
     return false;
 }
 
-void GameScene::handle_not_caught_letter(unsigned int letterID)
+void GameScene::handle_not_caught_letter(Letter & letter)
 {
     if( !note_eog.play()) {
         printf("Could not play a note");
     }
 	GameEventLogger & logger = GameEventLogger::getObject();
-    logger.notCaughtLetter(letters_active[letterID]);
+    logger.notCaughtLetter(letter);
 }
 
 void GameScene::display_letters() {

@@ -159,7 +159,8 @@ public:
     int handleEvents();
     void check_if_remove_letters();
     void update_cannon_time();
-    void handle_not_caught_letter(unsigned int letterID);
+    void handle_not_caught_letter(Letter & letter);
+    bool is_letter_outside_window(Letter & letter);
 };
 
 #endif /* GAMESCENE_H_ */
