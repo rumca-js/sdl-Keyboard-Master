@@ -15,6 +15,7 @@
  - scene looks unintresting
  - full screen some pixels missing
  - hud?
+ - full screen stored in configuration file
  - create debian package
  - create flatpack
  - creating letters slows down movement (new timer?)
