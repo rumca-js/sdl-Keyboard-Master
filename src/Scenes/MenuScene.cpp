@@ -87,7 +87,8 @@ void MenuScene::close() {
 }
 
 void MenuScene::onEnter() {
-    select_new_button(0, 0);
+	deselectAll();
+    selectNewButton(0, 0);
 
     MakeSureMyMusicIsPlaying();
 }
@@ -182,12 +183,20 @@ void MenuScene::setFullScreen() {
     }
 }
 
-void MenuScene::select_new_button(unsigned int oldButtonId, unsigned int newButtonId) {
+void MenuScene::selectNewButton(unsigned int oldButtonId, unsigned int newButtonId) {
     buttons[oldButtonId]->setHover(false);
     std::cout << "Selected button: "<<selected_button << std::endl;
     buttons[newButtonId]->setHover(true);
 
     selected_button = newButtonId;
+}
+
+void MenuScene::deselectAll()
+{
+	for(unsigned int i=0; i<buttons.size(); i++)
+	{
+		buttons[i]->setHover(false);
+	}
 }
 
 void MenuScene::selected_increment() {
@@ -204,7 +213,7 @@ void MenuScene::selected_increment() {
     }
 
     if (old_button != new_button)
-        select_new_button(old_button, new_button);
+        selectNewButton(old_button, new_button);
 
 }
 
@@ -221,7 +230,7 @@ void MenuScene::selected_decrement() {
     }
 
     if (old_button != new_button)
-        select_new_button(old_button, new_button);
+        selectNewButton(old_button, new_button);
 }
 
 std::string MenuScene::getName() {

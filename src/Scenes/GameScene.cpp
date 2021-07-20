@@ -236,8 +236,6 @@ void GameScene::create_new_letter()
 
     letterObj->setForce(0, speed_factor);
     letterObj->setPosition( rand_min_max(0, config->getWinWidth()-config->getLetterWidth()), 0);
-    //letterObj->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    //letterObj->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 }
 
 void GameScene::create_cannon_letter(CannonInformation * aCannon) {
@@ -253,8 +251,6 @@ void GameScene::create_cannon_letter(CannonInformation * aCannon) {
 
     Letter * letterObj = letters_active[letters_active.size()-1];
     letterObj->setForce(aCannon->getForceX(), aCannon->getForceY());
-    //letterObj->setWidth( rand_min_max(config->getLetterWidth()/2, config->getLetterWidth()));
-    //letterObj->setHeight( rand_min_max(config->getLetterHeight()/2, config->getLetterHeight()));
 
     unsigned int letter_width = config->getLetterWidth();
     unsigned int letter_height = config->getLetterHeight();

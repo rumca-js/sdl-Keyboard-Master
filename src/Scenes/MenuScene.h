@@ -82,7 +82,8 @@ public:
     virtual void onEnter() override;
     virtual void onLeave() override;
     static std::string getEngineName();
-    void select_new_button(unsigned int oldButtonId, unsigned int newButtonId);
+    void selectNewButton(unsigned int oldButtonId, unsigned int newButtonId);
+    void deselectAll();
 };
 
 #endif /* MENUSCENE_H_ */
