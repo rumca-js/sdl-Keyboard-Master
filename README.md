@@ -74,6 +74,11 @@ To add a new scene:
     - implement functions like getEngineName in source file
     - add the new game scene engine to the state machine (Scenes/SceneMachine.cpp)
 
+To validate any changes a valgrind script was provided.
+It can be used to find memory leaks.
+Please note that it may report memory leaks, even if there are none:
+ - [stackoverflow.com](https://stackoverflow.com/questions/1997171/why-does-valgrind-say-basic-sdl-program-is-leaking-memory)
+
 # License
 
 GPLv3
