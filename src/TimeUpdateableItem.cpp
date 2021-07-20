@@ -4,9 +4,8 @@
 
 
 TimeUpdateableItem::TimeUpdateableItem() {
-    last_time_stamp = std::chrono::high_resolution_clock::now();
-	time_accumulated_ms = 0;
 	release_ms = 0;
+	startCounting();
 }
 
 /**
@@ -57,4 +56,9 @@ void TimeUpdateableItem::setReleaseTime(unsigned long long aReleaseTime)
 
 void TimeUpdateableItem::timeUpdateEvent() {
 	std::cout << "Time update event" << std::endl;
+}
+
+void TimeUpdateableItem::startCounting() {
+    last_time_stamp = std::chrono::high_resolution_clock::now();
+	time_accumulated_ms = 0;
 }

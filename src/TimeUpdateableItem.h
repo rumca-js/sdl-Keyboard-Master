@@ -23,6 +23,7 @@ class TimeUpdateableItem {
    virtual void limitRelease();
    virtual void timeUpdateEvent();
    void setReleaseTime(unsigned long long aReleaseTime);
+   void startCounting();
 };
 
 #endif // _H_TIMEUPDATEABLEITEM_H_

@@ -102,6 +102,7 @@ class GameScene : public SceneCommons {
     std::vector<CannonInformation> cannons;
     void parseCannonsInfo();
     void parseCannonInfo(std::string cannonID);
+    void clearLetters();
 
 public:
     /*!

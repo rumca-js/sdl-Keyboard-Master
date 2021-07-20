@@ -134,14 +134,7 @@ void GameScene::init() {
     std::cout << "Game scene init done" << std::endl;
 }
 
-void GameScene::close() {
-
-    if (wall != NULL)
-    {
-        delete wall;
-        wall = NULL;
-    }
-
+void GameScene::clearLetters() {
     if (letters_active.size() != 0)
     {
         for(unsigned int i=0; i<letters_active.size(); i++)
@@ -159,6 +152,17 @@ void GameScene::close() {
         }
        letters_inactive.clear();
     }
+}
+
+void GameScene::close() {
+
+    if (wall != NULL)
+    {
+        delete wall;
+        wall = NULL;
+    }
+
+	clearLetters();
 
     if (Sans != NULL)
     {
@@ -192,13 +196,14 @@ void GameScene::onLeave() {
 void GameScene::reset() {
     speed_factor = config->getYpercent(0.005);
 
-    letters_active.clear();
+	clearLetters();
 
     if (cannons.size() == 0)
         create_new_letter();
 
     for(unsigned int i=0; i<cannons.size(); i++)
     {
+		cannons[i].startCounting();
         create_cannon_letter(&cannons[i]);
     }
 
