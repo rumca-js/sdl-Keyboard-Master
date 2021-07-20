@@ -16,6 +16,7 @@
  - author: Piotr Zieliński write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - move updateable items from drawbuilder queue to time updateable items queue?
  - drawitems hsould implement timeupdateable item?
+ - init - to reset data, should be loadresources also
 
 
 make flatpack. How to distribute? 

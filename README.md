@@ -37,7 +37,7 @@ Uses the following libraries:
 
 ## Scenes
 
-The game is divided into several 'scenes'. Each one follows abstract class representign scene interface.
+The game is divided into several 'scenes'. Each one follows abstract class representing scene interface.
 
 Each scene provides a method for drawing items in it. Each scene can have different background,
 music.
