@@ -185,7 +185,6 @@ void MenuScene::setFullScreen() {
 
 void MenuScene::selectNewButton(unsigned int oldButtonId, unsigned int newButtonId) {
     buttons[oldButtonId]->setHover(false);
-    std::cout << "Selected button: "<<selected_button << std::endl;
     buttons[newButtonId]->setHover(true);
 
     selected_button = newButtonId;

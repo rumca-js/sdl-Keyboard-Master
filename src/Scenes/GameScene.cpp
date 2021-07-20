@@ -110,8 +110,6 @@ GameScene::~GameScene() {
 }
 
 void GameScene::init() {
-    std::cout << "Game scene init" << std::endl;
-
     config = &MainConfiguration::getConfig();
 
     wall = DrawBuilder::Build(sceneInfo["background"], renderer);

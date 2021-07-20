@@ -42,13 +42,11 @@ bool MusicManager::play(int loops)
 
 void MusicManager::pause()
 {
-  std::cout << "MusicManager::pause"<<std::endl;
    SdlMusic::pause();
 }
 
 void MusicManager::stop()
 {
-  std::cout << "MusicManager::stop"<<std::endl;
   SdlMusic::pause();
   SdlMusic::rewind();
 }

@@ -22,8 +22,11 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
     _w = rand_min_max(_w/2, _w);
     _h = rand_min_max(_h/2, _h);
 
-    if (letter == '.' || letter == ',' || letter == ';')
+    if (letter == '.' || letter == ',' || letter == ';' || letter == 'i' ||
+			letter == 'l')
+	{
         _w = _w/2;
+	}
 
     setDimensions(_w, _h);
 
