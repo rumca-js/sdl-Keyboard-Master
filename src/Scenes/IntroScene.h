@@ -39,10 +39,6 @@ class IntroScene : public SceneInterface {
 	 * Timer for displaying logo.
 	 */
 	SDL_TimerID my_timer_id;
-    /*!
-     * state name
-     */
-    std::map<std::string,std::string> sceneInfo;
     bool display;
 public:
 	/*!
@@ -68,6 +64,8 @@ public:
 	std::string getName();
 	static std::string getEngineName();
     int handleEvents();
+    void onEnter();
+    void onLeave();
 };
 
 #endif /* INITSCENE_H_ */

@@ -20,7 +20,7 @@
 #include "../Images/DrawBuilder.h"
 #include "../Letter.h"
 #include "../Audio/SdlAudio.h"
-#include "SceneInterface.h"
+#include "SceneCommons.h"
 #include "../MainConfiguration.h"
 #include "../TimeUpdateableItem.h"
 
@@ -41,7 +41,7 @@ public:
    int getForceY();
 };
 
-class GameScene : public SceneInterface {
+class GameScene : public SceneCommons {
     /*!
      * \brief SDL Renderer pointer.
      */
@@ -100,10 +100,6 @@ class GameScene : public SceneInterface {
      */
     void updateCounter();
     /*!
-     * state name
-     * */
-    std::map<std::string, std::string> sceneInfo;
-    /*!
      * Sets up music for scene
      */
     void MakeSureMyMusicIsPlaying();
@@ -161,6 +157,8 @@ public:
     void update_cannon_time();
     void handle_not_caught_letter(Letter & letter);
     bool is_letter_outside_window(Letter & letter);
+    void onEnter();
+    void onLeave();
 };
 
 #endif /* GAMESCENE_H_ */

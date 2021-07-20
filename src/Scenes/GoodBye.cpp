@@ -9,9 +9,9 @@
 
 
 static Uint32 my_callbackfunc2(Uint32 interval, void *param) {
-	static int counter = 0;
+    static int counter = 0;
 
-	counter ++;
+    counter ++;
 
     SDL_Event event;
     SDL_UserEvent userevent;
@@ -33,28 +33,32 @@ static Uint32 my_callbackfunc2(Uint32 interval, void *param) {
 }
 
 GoodBye::GoodBye(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
-	win      = window;
-	renderer = ren;
+    win      = window;
+    renderer = ren;
 
     this->sceneInfo = sceneInfo;
 
-	my_timer_id = -1;
+    my_timer_id = -1;
 
-	config = &MainConfiguration::getConfig();
+    config = &MainConfiguration::getConfig();
 }
 
 GoodBye::~GoodBye() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }
 
 void GoodBye::init() {
-	wall.open(sceneInfo["background"], renderer);
+    wall.open(sceneInfo["background"], renderer);
+}
 
+void GoodBye::onEnter() {
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc2, 0);
+}
+void GoodBye::onLeave() {
+    SDL_RemoveTimer(my_timer_id);
 }
 
 void GoodBye::close() {
-	SDL_RemoveTimer(my_timer_id);
 }
 
 int GoodBye::handleEvents() {
@@ -67,9 +71,9 @@ int GoodBye::handleEvents() {
             status = 1;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-		{
+        {
             status = 1;
-		}
+        }
         else if (e.type == SDL_USEREVENT)
         {
             if (e.user.code == 4)
@@ -82,22 +86,22 @@ int GoodBye::handleEvents() {
 }
 
 int GoodBye::write() {
-	int status = 0;
+    int status = 0;
 
     status = handleEvents();
-	if (status != -1)
-		return status;
+    if (status != -1)
+        return status;
 
     SDL_Rect texr = config->getFullScreenSize();
     wall.draw(NULL, &texr);
 
-	return status;
+    return status;
 }
 
 std::string GoodBye::getName() {
-	return sceneInfo["name"];
+    return sceneInfo["name"];
 }
 
 std::string GoodBye::getEngineName() {
-	return "GOODBYE";
+    return "GOODBYE";
 }

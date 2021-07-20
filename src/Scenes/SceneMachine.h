@@ -105,7 +105,7 @@ public:
      */
     std::vector<TransitionInfo> getTransitionData();
     bool copyData(libconfig::Setting & setting, std::map<std::string, std::string> & aMap, std::string var);
-	std::vector<std::string> getStateInformation();
+    std::vector<std::string> getStateInformation();
 };
 
 #endif /* SCENEMACHINE_H_ */

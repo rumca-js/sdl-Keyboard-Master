@@ -41,7 +41,7 @@ SlideScene::SlideScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::st
     win = window;
     renderer = ren;
 
-	Sans = NULL;
+    Sans = NULL;
 
     this->sceneInfo = sceneInfo;
 
@@ -58,43 +58,37 @@ SlideScene::~SlideScene() {
     // TODO Auto-generated destructor stub
 }
 
-void SlideScene::MakeSureMyMusicIsPlaying() {
-	MusicManager & man = MusicManager::getObject();
-    std::string myMusic = sceneInfo["music"];
-
-    if (!man.isPlaying())
-    {
-        man.addMusic(myMusic);
-        man.play();
-    }
-    else
-    {
-        if (!man.isMyMusicPlaying(myMusic, true)) {
-            man.resetQueue();
-            man.stop();
-
-            man.addMusic( myMusic );
-            man.play();
-        }
-    }
-}
-
 void SlideScene::init() {
-	seconds_counter = 0;
 
     logo.open(sceneInfo["background"], renderer);
 
-	Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
+    Sans = config->getDefaultFont();
 
-	Uint8 r = std::stoi(sceneInfo["letter-r"]);
-	Uint8 g = std::stoi(sceneInfo["letter-g"]);
-	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+    Uint8 r = std::stoi(sceneInfo["letter-r"]);
+    Uint8 g = std::stoi(sceneInfo["letter-g"]);
+    Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
     SDL_Color color = {r, g, b, 255};
 
-	text1.open(sceneInfo["slide-text1"], renderer, Sans, color);
-	text2.open(sceneInfo["slide-text2"], renderer, Sans, color);
-	text3.open(sceneInfo["slide-text3"], renderer, Sans, color);
+    text1.open(sceneInfo["slide-text1"], renderer, Sans, color);
+    text2.open(sceneInfo["slide-text2"], renderer, Sans, color);
+    text3.open(sceneInfo["slide-text3"], renderer, Sans, color);
+}
+
+void SlideScene::close() {
+    if (Sans)
+    {
+        TTF_CloseFont(Sans);
+        Sans = NULL;
+    }
+
+    text1.close();
+    text2.close();
+    text3.close();
+}
+
+void SlideScene::onEnter() {
+    seconds_counter = 0;
 
     my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
 
@@ -103,18 +97,8 @@ void SlideScene::init() {
     MakeSureMyMusicIsPlaying();
 }
 
-void SlideScene::close() {
+void SlideScene::onLeave() {
     SDL_RemoveTimer(my_timer_id);
-
-    if (Sans)
-    {
-        TTF_CloseFont(Sans);
-        Sans = NULL;
-    }
-
-	text1.close();
-	text2.close();
-	text3.close();
 }
 
 int SlideScene::handleEvents() {
@@ -132,7 +116,7 @@ int SlideScene::handleEvents() {
             // code represents time in seconds
             unsigned int seconds = e.user.code;
             
-			// do not use else if, since fade in and fade out can be 0s
+            // do not use else if, since fade in and fade out can be 0s
             if (seconds == time_fade_in) {
                 display = true;
             }
@@ -173,18 +157,18 @@ int SlideScene::write() {
 
         texr.y = config->getWinHeight()-margin;
         texr.h = margin/4;
-		texr.w = text1.getText().size() * margin/7.0;
-		text1.draw(NULL, &texr);
+        texr.w = text1.getText().size() * margin/7.0;
+        text1.draw(NULL, &texr);
 
         texr.y = config->getWinHeight()-margin+(margin/4);
         texr.h = margin/4;
-		texr.w = text2.getText().size() * margin/7.0;
-		text2.draw(NULL, &texr);
+        texr.w = text2.getText().size() * margin/7.0;
+        text2.draw(NULL, &texr);
 
         texr.y = config->getWinHeight()-margin+(2*margin/4);
         texr.h = margin/4;
-		texr.w = text3.getText().size() * margin/7.0;
-		text3.draw(NULL, &texr);
+        texr.w = text3.getText().size() * margin/7.0;
+        text3.draw(NULL, &texr);
     }
 
     return status;

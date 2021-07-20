@@ -14,6 +14,12 @@
 
 class SceneInterface
 {
+protected:
+    /**
+     * scene parameters
+     */
+    std::map<std::string, std::string> sceneInfo;
+
 public:
     /*!
      \brief Initializes scene.
@@ -28,6 +34,14 @@ public:
      \brief Closes scene.
     */
     virtual void close() = 0;
+    /**
+     * called when scene is entered
+     */
+    virtual void onEnter() = 0;
+    /**
+     * called when we leave scene
+     */
+    virtual void onLeave() = 0;
     /*!
      * \brief Provied destructor. Otherwise compiler would complain.
      */

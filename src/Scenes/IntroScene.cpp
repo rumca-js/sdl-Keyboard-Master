@@ -51,13 +51,18 @@ IntroScene::~IntroScene() {
 }
 
 void IntroScene::init() {
-	seconds_counter = 0;
+    seconds_counter = 0;
     logo.open(sceneInfo["background"], renderer);
-    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
-    display = false;
 }
 
 void IntroScene::close() {
+}
+
+void IntroScene::onEnter() {
+    my_timer_id = SDL_AddTimer(1000, my_callbackfunc1, 0);
+    display = false;
+}
+void IntroScene::onLeave() {
     SDL_RemoveTimer(my_timer_id);
 }
 

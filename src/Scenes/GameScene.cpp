@@ -17,19 +17,19 @@ void CannonInformation::timeUpdateEvent()
 {
     //create new letter
     std::cout << "Creating new cannon letter" << std::endl; 
-	std::cout << release_ms << std::endl;
+    std::cout << release_ms << std::endl;
 
     scene->create_cannon_letter(this);
 }
 
 int CannonInformation::getForceX()
 {
-	return forceX;
+    return forceX;
 }
 
 int CannonInformation::getForceY()
 {
-	return forceY;
+    return forceY;
 }
 
 static Uint32 my_callbackfunc(Uint32 interval, void *param) {
@@ -53,39 +53,39 @@ static Uint32 my_callbackfunc(Uint32 interval, void *param) {
 }
 
 void GameScene::parseCannonsInfo() {
-	for(int i=1; i<=10; i++)
-	{
-		parseCannonInfo("cannon-info" + std::to_string(i) );
-	}
+    for(int i=1; i<=10; i++)
+    {
+        parseCannonInfo("cannon-info" + std::to_string(i) );
+    }
 }
 
 void GameScene::parseCannonInfo(std::string cannonID) {
-	if (sceneInfo[cannonID] == "")
-		return;
+    if (sceneInfo[cannonID] == "")
+        return;
 
-	std::stringstream stream(sceneInfo[cannonID]);
-	std::string segment;
-	int i = 0;
+    std::stringstream stream(sceneInfo[cannonID]);
+    std::string segment;
+    int i = 0;
 
-	CannonInformation cannon;
-	cannon.scene = this;
+    CannonInformation cannon;
+    cannon.scene = this;
 
-	while(std::getline(stream, segment, ';'))
-	{
-		if (i == 0)
-			cannon.direction = segment;
-		if (i == 1)
-			cannon.setReleaseTime(std::stoi(segment));
-		if (i == 2)
-			cannon.forceX = config->getXpercent(std::stod(segment));
-		if (i == 3)
-			cannon.forceY = config->getYpercent(std::stod(segment));
+    while(std::getline(stream, segment, ';'))
+    {
+        if (i == 0)
+            cannon.direction = segment;
+        if (i == 1)
+            cannon.setReleaseTime(std::stoi(segment));
+        if (i == 2)
+            cannon.forceX = config->getXpercent(std::stod(segment));
+        if (i == 3)
+            cannon.forceY = config->getYpercent(std::stod(segment));
 
-		i++;
+        i++;
 
-	}
+    }
 
-	cannons.push_back(cannon);
+    cannons.push_back(cannon);
 }
 
 GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::string, std::string> sceneInfo) {
@@ -97,7 +97,7 @@ GameScene::GameScene(SDL_Renderer *ren, SDL_Window * window,  std::map<std::stri
     counter_text  = NULL;
     config   = NULL;
 
-	wall = NULL;
+    wall = NULL;
 
     //configuration
     my_timer_id  = -1;
@@ -109,37 +109,15 @@ GameScene::~GameScene() {
     // TODO Auto-generated destructor stub
 }
 
-void GameScene::MakeSureMyMusicIsPlaying() {
-	MusicManager & man = MusicManager::getObject();
-    std::string myMusic = sceneInfo["music"];
-
-    if (!MusicManager::isPlaying())
-    {
-        man.addMusic(myMusic);
-        man.play();
-
-    }
-    else
-    {
-        if (!man.isMyMusicPlaying(myMusic, true)) {
-            man.resetQueue();
-            man.stop();
-
-            man.addMusic( myMusic );
-            man.play();
-        }
-    }
-}
-
 void GameScene::init() {
-	std::cout << "Game scene init" << std::endl;
+    std::cout << "Game scene init" << std::endl;
 
     config = &MainConfiguration::getConfig();
 
-	wall = DrawBuilder::Build(sceneInfo["background"], renderer);
+    wall = DrawBuilder::Build(sceneInfo["background"], renderer);
     wall->open( sceneInfo["background"], renderer);
 
-    Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE") );
+    Sans = config->getDefaultFont();
 
     notes[0].open( config->getConfigString("SOUND_A") );
     notes[1].open( config->getConfigString("SOUND_B") );
@@ -151,48 +129,43 @@ void GameScene::init() {
 
     note_eog.open( config->getConfigString("SOUND_END_OF_GAME") );
 
-	parseCannonsInfo();
+    parseCannonsInfo();
 
-    reset();
-
-    MakeSureMyMusicIsPlaying();
-	std::cout << "Game scene init done" << std::endl;
+    std::cout << "Game scene init done" << std::endl;
 }
 
 void GameScene::close() {
 
-	SDL_RemoveTimer( my_timer_id );
+    if (wall != NULL)
+    {
+        delete wall;
+        wall = NULL;
+    }
 
-	if (wall != NULL)
-	{
-		delete wall;
-		wall = NULL;
-	}
+    if (letters_active.size() != 0)
+    {
+        for(unsigned int i=0; i<letters_active.size(); i++)
+        {
+           delete letters_active[i];
+        }
+       letters_active.clear();
+    }
 
-	if (letters_active.size() != 0)
-	{
-		for(unsigned int i=0; i<letters_active.size(); i++)
-		{
-		   delete letters_active[i];
-		}
-	   letters_active.clear();
-	}
+    if (letters_inactive.size() != 0)
+    {
+        for(unsigned int i=0; i<letters_inactive.size(); i++)
+        {
+           delete letters_inactive[i];
+        }
+       letters_inactive.clear();
+    }
 
-	if (letters_inactive.size() != 0)
-	{
-		for(unsigned int i=0; i<letters_inactive.size(); i++)
-		{
-		   delete letters_inactive[i];
-		}
-	   letters_inactive.clear();
-	}
+    if (Sans != NULL)
+    {
+        TTF_CloseFont(Sans);
+        Sans = NULL;
 
-	if (Sans != NULL)
-	{
-		TTF_CloseFont(Sans);
-		Sans = NULL;
-
-	}
+    }
 
     if (cannons.size() != 0)
     {
@@ -200,10 +173,20 @@ void GameScene::close() {
     }
 
     if (counter_text != NULL)
-	{
-		delete counter_text;
-		counter_text = NULL;
-	}
+    {
+        delete counter_text;
+        counter_text = NULL;
+    }
+}
+
+void GameScene::onEnter() {
+    reset();
+    updateCounter();
+
+    MakeSureMyMusicIsPlaying();
+}
+void GameScene::onLeave() {
+    SDL_RemoveTimer( my_timer_id );
 }
 
 void GameScene::reset() {
@@ -211,13 +194,13 @@ void GameScene::reset() {
 
     letters_active.clear();
 
-	if (cannons.size() == 0)
-		create_new_letter();
+    if (cannons.size() == 0)
+        create_new_letter();
 
-	for(unsigned int i=0; i<cannons.size(); i++)
-	{
-		create_cannon_letter(&cannons[i]);
-	}
+    for(unsigned int i=0; i<cannons.size(); i++)
+    {
+        create_cannon_letter(&cannons[i]);
+    }
 
     uint32_t param;
     my_timer_id = SDL_AddTimer(letter_ms_move_time, my_callbackfunc, &param);
@@ -229,16 +212,16 @@ static char get_rand_letter() {
 
 static char get_rand_string_letter(std::string text) {
     int which = rand_min_max(0, text.length()-1 );
-	return text[which];
+    return text[which];
 }
 
 void GameScene::create_new_letter()
 {
-	char letter = get_rand_string_letter(sceneInfo["letters"]);
+    char letter = get_rand_string_letter(sceneInfo["letters"]);
 
-	Uint8 r = std::stoi(sceneInfo["letter-r"]);
-	Uint8 g = std::stoi(sceneInfo["letter-g"]);
-	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+    Uint8 r = std::stoi(sceneInfo["letter-r"]);
+    Uint8 g = std::stoi(sceneInfo["letter-g"]);
+    Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
     SDL_Color color = {r, g, b, 255};
 
@@ -253,11 +236,11 @@ void GameScene::create_new_letter()
 }
 
 void GameScene::create_cannon_letter(CannonInformation * aCannon) {
-	char letter = get_rand_string_letter(sceneInfo["letters"]);
+    char letter = get_rand_string_letter(sceneInfo["letters"]);
 
-	Uint8 r = std::stoi(sceneInfo["letter-r"]);
-	Uint8 g = std::stoi(sceneInfo["letter-g"]);
-	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+    Uint8 r = std::stoi(sceneInfo["letter-r"]);
+    Uint8 g = std::stoi(sceneInfo["letter-g"]);
+    Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
     SDL_Color color = {r, g, b, 255};
 
@@ -291,13 +274,13 @@ void GameScene::create_cannon_letter(CannonInformation * aCannon) {
                  0,
                  rand_min_max(0, config->getWinHeight()-letter_height));
     }
-	else
-	{
-		std::cerr << "Unkown direction" << std::endl;
+    else
+    {
+        std::cerr << "Unkown direction" << std::endl;
 
         letterObj->setPosition( 
                  0,0);
-	}
+    }
          
 }
 
@@ -343,7 +326,7 @@ void GameScene::handle_not_caught_letter(Letter & letter)
     if( !note_eog.play()) {
         printf("Could not play a note");
     }
-	GameEventLogger & logger = GameEventLogger::getObject();
+    GameEventLogger & logger = GameEventLogger::getObject();
     logger.notCaughtLetter(letter);
 }
 
@@ -365,10 +348,10 @@ void GameScene::kill_letter(Letter * letter)
         printf("Could not play a note");
     }
 
-	letter->setDestroyed();
+    letter->setDestroyed();
 
-	GameEventLogger & logger = GameEventLogger::getObject();
-	logger.addSuccessfulKeyStroke();
+    GameEventLogger & logger = GameEventLogger::getObject();
+    logger.addSuccessfulKeyStroke();
 
     updateCounter();
 }
@@ -376,31 +359,31 @@ void GameScene::kill_letter(Letter * letter)
 bool GameScene::check_if_killed(char key) {
     bool killed = false;
 
-	std::vector<Letter*> alive;
-	std::vector<Letter*> to_kill;
+    std::vector<Letter*> alive;
+    std::vector<Letter*> to_kill;
 
-	// Do not operate on active letters. Cannot remove elements
-	// while iterating over it.
+    // Do not operate on active letters. Cannot remove elements
+    // while iterating over it.
     for(unsigned int i=0; i<letters_active.size(); i++) {
         if (letters_active[i]->is(key)) {
             killed = true;
-			to_kill.push_back(letters_active[i]);
+            to_kill.push_back(letters_active[i]);
         }
-		else
-		{
-			alive.push_back(letters_active[i]);
-		}
+        else
+        {
+            alive.push_back(letters_active[i]);
+        }
     }
 
-	letters_active = alive;
-	letters_inactive = to_kill;
+    letters_active = alive;
+    letters_inactive = to_kill;
 
     for(unsigned int i=0; i<letters_inactive.size(); i++) {
-		kill_letter(letters_inactive[i]);
+        kill_letter(letters_inactive[i]);
 
-		if (cannons.size() == 0)
-			create_new_letter();
-	}
+        if (cannons.size() == 0)
+            create_new_letter();
+    }
 
     if (killed) {
         //speed_factor++;
@@ -416,25 +399,25 @@ int GameScene::handleEvents()
     SDL_Event e;
     if ( SDL_PollEvent(&e) ) {
         if (e.type == SDL_QUIT)
-			return 1;
+            return 1;
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_ESCAPE)
-			return 1;
+            return 1;
         else if (e.type == SDL_KEYDOWN) {
-			GameEventLogger & logger = GameEventLogger::getObject();
+            GameEventLogger & logger = GameEventLogger::getObject();
 
             if (check_if_killed((char)e.key.keysym.sym)) {
-				unsigned int limit = std::stoi(sceneInfo["limit"]);
+                unsigned int limit = std::stoi(sceneInfo["limit"]);
 
                 if (logger.getSuccessfulKeyStrokes() > limit) {
-					return 0;
+                    return 0;
                 }
             }
-			else {
-				logger.addUnSuccessfulKeyStroke();
-			}
+            else {
+                logger.addUnSuccessfulKeyStroke();
+            }
         }
         else if (e.type == SDL_USEREVENT) {
-			check_if_remove_letters();
+            check_if_remove_letters();
             update_cannon_time();
 
             if (this->move_letters() ) {
@@ -447,41 +430,41 @@ int GameScene::handleEvents()
 }
 
 void GameScene::check_if_remove_letters() {
-	std::vector<Letter*> to_leave;
-	std::vector<Letter*> to_remove;
+    std::vector<Letter*> to_leave;
+    std::vector<Letter*> to_remove;
 
-	for(unsigned int i=0; i<letters_inactive.size(); i++)
-	{
-		if (letters_inactive[i]->isRemovable())
-			to_remove.push_back(letters_inactive[i]);
-		else
-			to_leave.push_back(letters_inactive[i]);
-	}
+    for(unsigned int i=0; i<letters_inactive.size(); i++)
+    {
+        if (letters_inactive[i]->isRemovable())
+            to_remove.push_back(letters_inactive[i]);
+        else
+            to_leave.push_back(letters_inactive[i]);
+    }
 
-	letters_inactive = to_leave;
+    letters_inactive = to_leave;
 
-	for(unsigned int i=0; i<to_remove.size(); i++)
-	{
-		delete to_remove[i];
-	}
+    for(unsigned int i=0; i<to_remove.size(); i++)
+    {
+        delete to_remove[i];
+    }
 }
 
 int GameScene::write() {
     int status = -1;
 
     SDL_Rect texr;
-	texr.x = 0; texr.y = 0;
-	texr.w = config->getWinWidth();
-	texr.h = config->getWinHeight();
+    texr.x = 0; texr.y = 0;
+    texr.w = config->getWinWidth();
+    texr.h = config->getWinHeight();
 
     status = handleEvents();
-	if (status != -1)
-		return status;
+    if (status != -1)
+        return status;
 
     wall->draw(NULL, &texr);
 
     this->display_letters();
-	this->display_exploded();
+    this->display_exploded();
 
     if (counter_text) {
         SDL_Rect Message_rect;
@@ -496,9 +479,9 @@ int GameScene::write() {
 }
 
 void GameScene::updateCounter() {
-	Uint8 r = std::stoi(sceneInfo["letter-r"]);
-	Uint8 g = std::stoi(sceneInfo["letter-g"]);
-	Uint8 b = std::stoi(sceneInfo["letter-b"]);
+    Uint8 r = std::stoi(sceneInfo["letter-r"]);
+    Uint8 g = std::stoi(sceneInfo["letter-g"]);
+    Uint8 b = std::stoi(sceneInfo["letter-b"]);
 
     GameEventLogger & logger = GameEventLogger::getObject();
 
@@ -506,7 +489,7 @@ void GameScene::updateCounter() {
     counter_string = std::to_string(logger.getSuccessfulKeyStrokes() );
 
     if (counter_text != NULL) {
-		delete counter_text;
+        delete counter_text;
     }
 
     counter_text = new DrawText(counter_string, renderer, Sans, color);

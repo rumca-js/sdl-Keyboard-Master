@@ -70,10 +70,6 @@ class MenuScene : public SceneInterface {
      * \brief Toggles full screen.
      */
     void setFullScreen();
-    /*!
-     * state name
-     * */
-    std::map<std::string, std::string> sceneInfo;
 public:
     MenuScene(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
     virtual ~MenuScene();
@@ -85,6 +81,8 @@ public:
     static std::string getEngineName();
     int handleEvents();
     void select_new_button(unsigned int oldButtonId, unsigned int newButtonId);
+    void onEnter();
+    void onLeave();
 };
 
 #endif /* MENUSCENE_H_ */

@@ -89,6 +89,10 @@ public:
      * \return configured letter height
      */
     unsigned int getLetterHeight();
+    /*!
+     * returns default font
+     */
+    TTF_Font* getDefaultFont();
 };
 
 #endif /* MAINCONFIGURATION_H_ */

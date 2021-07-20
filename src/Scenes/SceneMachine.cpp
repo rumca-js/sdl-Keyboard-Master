@@ -32,39 +32,44 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
     load_config();
 
     std::cout << "Loading states" << std::endl;
-	std::vector<std::string> states = getStateInformation();
+    std::vector<std::string> states = getStateInformation();
 
-	for(unsigned int i=0; i<states.size(); i++)
-	{
-		map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
-		std::cout << "State: "<<states[i] << std::endl;
+    for(unsigned int i=0; i<states.size(); i++)
+    {
+        map<std::string, std::string> sceneInfo = getSceneInformation(states[i]);
+        std::cout << "State: "<<states[i] << std::endl;
 
-		if (sceneInfo["engine"] == GameScene::getEngineName())
-			scenes.push_back(new GameScene(renderer, window, sceneInfo) );
+        if (sceneInfo["engine"] == GameScene::getEngineName())
+            scenes.push_back(new GameScene(renderer, window, sceneInfo) );
         else if (sceneInfo["engine"] == IntroScene::getEngineName())
-			scenes.push_back(new IntroScene(renderer, window, sceneInfo) );
+            scenes.push_back(new IntroScene(renderer, window, sceneInfo) );
         else if (sceneInfo["engine"] == MenuScene::getEngineName())
-			scenes.push_back(new MenuScene(renderer, window, sceneInfo) );
+            scenes.push_back(new MenuScene(renderer, window, sceneInfo) );
         else if (sceneInfo["engine"] == GoodBye::getEngineName())
-			scenes.push_back(new GoodBye(renderer, window, sceneInfo) );
+            scenes.push_back(new GoodBye(renderer, window, sceneInfo) );
         else if (sceneInfo["engine"] == SlideScene::getEngineName())
-			scenes.push_back(new SlideScene(renderer, window, sceneInfo) );
-		else {
-			// INIT and quit are without scen
-			if (states[i] == "INIT" || states[i] == "QUIT")
-			{
-				continue;
-			}
-			else
-			{
-				std::cout << "Unknown engine '" << sceneInfo["engine"] <<"'"<< std::endl;
-				return false;
-			}
-		}
-	}
+            scenes.push_back(new SlideScene(renderer, window, sceneInfo) );
+        else {
+            // INIT and quit are without scen
+            if (states[i] == "INIT" || states[i] == "QUIT")
+            {
+                continue;
+            }
+            else
+            {
+                std::cout << "Unknown engine '" << sceneInfo["engine"] <<"'"<< std::endl;
+                return false;
+            }
+        }
+    }
 
-	GameEventLogger & logger = GameEventLogger::getObject();
-	logger.setScenes(scenes.size());
+    for(unsigned int i=0; i<scenes.size(); i++)
+    {
+        scenes[i]->init();
+    }
+
+    GameEventLogger & logger = GameEventLogger::getObject();
+    logger.setScenes(scenes.size());
 
     this->renderer = renderer;
     
@@ -82,11 +87,11 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
         {
             performTransition(new_state);
         }
-		else
-		{
-			return false;
-		}
-        scenes[current_scene]->init();
+        else
+        {
+            return false;
+        }
+        scenes[current_scene]->onEnter();
     }
 
     std::cout << "Loading configuration done" << std::endl;
@@ -96,22 +101,22 @@ bool SceneMachine::load(SDL_Renderer *renderer, SDL_Window *window) {
 
 std::vector<std::string> SceneMachine::getStateInformation()
 {
-	std::vector<std::string> result;
+    std::vector<std::string> result;
 
-	try {
+    try {
         const Setting & states = cfg.lookup("states");
         int count = states.getLength();
         
         for(int i=0; i<count; i++) {
-			std::string val = states[i];
-			result.push_back(val);
-		}
+            std::string val = states[i];
+            result.push_back(val);
+        }
 
     }
     catch(const SettingNotFoundException &nfex)      {
         cerr << "State setting not found" << endl;
     }
-	return result;
+    return result;
 }
 
 void SceneMachine::close() {
@@ -158,37 +163,37 @@ void SceneMachine::write() {
         }
         else
         {
-			std::cout << "Leaving state: "<<current_state_name<<std::endl;
+            std::cout << "Leaving state: "<<current_state_name<<std::endl;
 
             std::string new_state;
             if (findTransition(current_state_name, status, new_state))
             {
-				std::cout << "New state: "<<new_state<<std::endl;
+                std::cout << "New state: "<<new_state<<std::endl;
                 performTransition(new_state);
             }
             else
-			{
+            {
                 break;
-			}
+            }
         }
     }
 }
 
 void SceneMachine::performTransition(std::string new_state) {
-	std::cout << "Close state: "<<scenes[current_scene]->getName() << std::endl;
-    scenes[current_scene]->close();
-	std::cout << "Close state: "<<scenes[current_scene]->getName() << " done" << std::endl;
+    std::cout << "Close state: "<<scenes[current_scene]->getName() << std::endl;
+    scenes[current_scene]->onLeave();
+    std::cout << "Close state: "<<scenes[current_scene]->getName() << " done" << std::endl;
 
-	GameEventLogger & logger = GameEventLogger::getObject();
-	logger.sceneStop(current_scene);
+    GameEventLogger & logger = GameEventLogger::getObject();
+    logger.sceneStop(current_scene);
 
     current_state_name = new_state;
     current_scene = getStateNameToId(current_state_name);
-	std::cout << "Init state: "<<scenes[current_scene]->getName() << std::endl;
-    scenes[current_scene]->init();
-	std::cout << "Init state: "<<scenes[current_scene]->getName() << " done" << std::endl;
+    std::cout << "Init state: "<<scenes[current_scene]->getName() << std::endl;
+    scenes[current_scene]->onEnter();
+    std::cout << "Init state: "<<scenes[current_scene]->getName() << " done" << std::endl;
 
-	logger.sceneStart(current_scene);
+    logger.sceneStart(current_scene);
 }
 
 bool SceneMachine::findTransition(std::string state_name, int status, std::string & result_state)

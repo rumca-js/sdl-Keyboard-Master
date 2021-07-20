@@ -16,6 +16,10 @@ Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor
 
     unsigned int _w = MainConfiguration::getConfig().getLetterWidth();
     unsigned int _h = MainConfiguration::getConfig().getLetterHeight();
+
+    if (letter == '.' || letter == ',' || letter == ';')
+        _w = _w/2;
+
 	setDimensions(_w, _h);
 
 	state = 0;

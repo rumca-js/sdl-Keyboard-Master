@@ -23,6 +23,7 @@ SRCS := \
   Scenes/GameScene.cpp \
   Scenes/MenuScene.cpp \
   Scenes/SlideScene.cpp \
+  Scenes/SceneCommons.cpp \
   ScreenCore/ScreenElement.cpp \
   ScreenCore/ScreenStateElement.cpp \
   MainController.cpp \

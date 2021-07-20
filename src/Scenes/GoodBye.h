@@ -11,10 +11,10 @@
 #include <map>
 
 #include "../Images/DrawTexture.h"
-#include "SceneInterface.h"
+#include "SceneCommons.h"
 #include "../MainConfiguration.h"
 
-class GoodBye : public SceneInterface {
+class GoodBye : public SceneCommons {
     /*!
      * \brief SDL Renderer pointer.
      */
@@ -35,10 +35,6 @@ class GoodBye : public SceneInterface {
      * \brief The background picture.
      */
     DrawTexture wall;
-    /*!
-     * state name
-     */
-    std::map<std::string, std::string> sceneInfo;
 public:
     GoodBye(SDL_Renderer *ren, SDL_Window * window, std::map<std::string, std::string> sceneInfo);
     virtual ~GoodBye();
@@ -49,6 +45,8 @@ public:
     std::string getName();
     static std::string getEngineName();
     int handleEvents();
+    void onEnter();
+    void onLeave();
 };
 
 #endif /* SCENES_GOODBYE_H_ */

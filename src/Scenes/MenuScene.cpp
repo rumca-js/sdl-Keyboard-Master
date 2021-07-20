@@ -32,7 +32,7 @@ void MenuScene::init() {
 
     config = &MainConfiguration::getConfig();
 
-    Sans = TTF_OpenFont(config->getConfigString("FONT_NAME").c_str(), config->getConfigInt("FONT_SIZE"));
+    Sans = config->getDefaultFont();
 
     wall.open(sceneInfo["background"], renderer);
 
@@ -67,8 +67,6 @@ void MenuScene::init() {
     buttons[3]->setTextures(config->getConfigString("TEXTURE_BUTTON1"), config->getConfigString("TEXTURE_BUTTON1_HOVER") );
     buttons[3]->load();
 
-	select_new_button(0, 0);
-
     //buttons[0]->setHover(true);
 }
 
@@ -88,6 +86,14 @@ void MenuScene::close() {
     }
 }
 
+void MenuScene::onEnter() {
+    select_new_button(0, 0);
+
+    MakeSureMyMusicIsPlaying();
+}
+void MenuScen::onLeave() {
+}
+
 int MenuScene::handleEvents()
 {
     int status = -1;
@@ -100,28 +106,28 @@ int MenuScene::handleEvents()
             status = 1;
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_RETURN) {
-			if (selected_button == -1)
-				return status;
+            if (selected_button == -1)
+                return status;
 
-			if (buttons[selected_button]->getText() == TEXT_ENTER) {
-				status = 0;
-			}
-			else if (buttons[selected_button]->getText() == TEXT_STORY) {
-				status = 2;
-			}
-			else if (buttons[selected_button]->getText() == TEXT_FULL_SCREEN) {
-				setFullScreen();
-			}
-			else if (buttons[selected_button]->getText() == TEXT_ESCAPE) {
-				status = 1;
-			}
+            if (buttons[selected_button]->getText() == TEXT_ENTER) {
+                status = 0;
+            }
+            else if (buttons[selected_button]->getText() == TEXT_STORY) {
+                status = 2;
+            }
+            else if (buttons[selected_button]->getText() == TEXT_FULL_SCREEN) {
+                setFullScreen();
+            }
+            else if (buttons[selected_button]->getText() == TEXT_ESCAPE) {
+                status = 1;
+            }
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_UP) {
-			std::cout << "Keyup" << std::endl;
+            std::cout << "Keyup" << std::endl;
             selected_decrement();
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_DOWN) {
-			std::cout << "Keydown" << std::endl;
+            std::cout << "Keydown" << std::endl;
             selected_increment();
         }
         else if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f) {
@@ -176,45 +182,45 @@ void MenuScene::setFullScreen() {
 }
 
 void MenuScene::select_new_button(unsigned int oldButtonId, unsigned int newButtonId) {
-	buttons[oldButtonId]->setHover(false);
-	std::cout << "Selected button: "<<selected_button << std::endl;
-	buttons[newButtonId]->setHover(true);
+    buttons[oldButtonId]->setHover(false);
+    std::cout << "Selected button: "<<selected_button << std::endl;
+    buttons[newButtonId]->setHover(true);
 
-	selected_button = newButtonId;
+    selected_button = newButtonId;
 }
 
 void MenuScene::selected_increment() {
 
-	unsigned int old_button = selected_button;
-	unsigned int new_button = selected_button;
+    unsigned int old_button = selected_button;
+    unsigned int new_button = selected_button;
 
     if (selected_button <= (int)buttons.size()-2) {
         new_button = selected_button+1;
     }
-	else
-	{
-		std::cout << "Could not increment" << std::endl;
-	}
+    else
+    {
+        std::cout << "Could not increment" << std::endl;
+    }
 
-	if (old_button != new_button)
-		select_new_button(old_button, new_button);
+    if (old_button != new_button)
+        select_new_button(old_button, new_button);
 
 }
 
 void MenuScene::selected_decrement() {
-	unsigned int old_button = selected_button;
-	unsigned int new_button = selected_button;
+    unsigned int old_button = selected_button;
+    unsigned int new_button = selected_button;
 
     if (selected_button >= (int)1) {
         new_button = selected_button-1;
     }
-	else
-	{
-		std::cout << "Could not decrement" << std::endl;
-	}
+    else
+    {
+        std::cout << "Could not decrement" << std::endl;
+    }
 
-	if (old_button != new_button)
-		select_new_button(old_button, new_button);
+    if (old_button != new_button)
+        select_new_button(old_button, new_button);
 }
 
 std::string MenuScene::getName() {

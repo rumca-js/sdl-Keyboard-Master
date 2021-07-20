@@ -1,27 +1,23 @@
 
  statescreenentity:
+ - scene should handle events passed by state machine
  - unlcok story pictures by progressing game
- - cannon letters force by width percent
  - accelerate story pictures by key presses
  - inform user that menu works by keyboard
- - put story music on menu
- - music autoplay on sceneinterface
  - high score scene + accuracy, total number of keys hit, total number of lost, scene avarage time
  - store high scores in a file
  - implement left right north cannons
- - fix dot width
  - menu should recognize mouse input
- - raster letters? gif letters?
- - create debian package
+ - raster letters? gif letters? (backgroudn?
  - author: Piotr Zieliński write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - move updateable items from drawbuilder queue to time updateable items queue?
  - drawitems hsould implement timeupdateable item?
- - init - to reset data, should be loadresources also
  - scene looks unintresting
+ - test full screen
+ - full screen some pixels missing
  - hud?
-
-
-make flatpack. How to distribute? 
+ - create debian package
+ - create flatpack
 
  make debian package scripts
  distribute https://www.debian.org/doc/manuals/distribute-deb/distribute-deb.html
