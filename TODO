@@ -13,7 +13,6 @@
  - move updateable items from drawbuilder queue to time updateable items queue?
  - drawitems hsould implement timeupdateable item?
  - scene looks unintresting
- - test full screen
  - full screen some pixels missing
  - hud?
  - create debian package
