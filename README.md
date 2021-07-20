@@ -43,13 +43,13 @@ Uses the following libraries:
 # Engine
 
 To add a new scene:
- * update scenes.cfg directory
-    ** add a new scene state
-    ** add a new state_transition
-    ** provide scene/state information
- * add a class in Scenes directory (use previous classes to identify what has to be written). SceneInterface.h describes the interface.
-    ** implement functions like getEngineName in source file
-    ** add the new game scene engine to the state machine (Scenes/SceneMachine.cpp)
+ - update scenes.cfg directory
+    - add a new scene state
+    - add a new state_transition
+    - provide scene/state information
+ - add a class in Scenes directory (use previous classes to identify what has to be written). SceneInterface.h describes the interface.
+    - implement functions like getEngineName in source file
+    - add the new game scene engine to the state machine (Scenes/SceneMachine.cpp)
 
 # License
 GPLv3
