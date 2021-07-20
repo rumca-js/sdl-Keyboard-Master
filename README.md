@@ -5,17 +5,19 @@ Keyboard-Master is a game in which user has to press keyboard letter to destroy 
 
 Can be built using:
 
- - Eclipse
- - G++ make
+ - G++ make (just enter src directory and make)
+ - Eclipse (I have not updated project file in really long time)
 
-src/install_sdl2.sh can be used to install dependencies on Linux Mint.
+src/install_sdl2.sh can be used to install dependencies on Ubuntu based system.
 
 # Design
+
 The game is divided into several 'scenes'. Each scene follows abstract class SceneInterface.h interface. To provide easy access to all scenes resources all scenes are loaded when the program starts.
 We transition from scene to scene until the end of the game. We start with intro scene, then through menu we can reach the game. This mechanism is implemented in the SceneMachine.h file that provides scene state machine implementation.
 Each particular section should be as closed entity as possible. There might be some exceptions (like music from the intro could encompass the menu also).
 
 # Implementation
+
 This program is written in SDL2.
 Uses the following libraries:
  - SDL2
@@ -25,10 +27,29 @@ Uses the following libraries:
  - libgif
  - libconfig++
 
-Developped using eclipse.
-
 # Screenshot
-[![Screenshot](https://github.com/rumca-js/Keyboard-Master/raw/master/data/wallpapers/screenshot1.png)]
+
+![Screenshot](https://github.com/rumca-js/Keyboard-Master/raw/master/data/wallpapers/screenshot1.png)
+
+## Features
+
+ - Scenes are configurable via scenes.cfg
+ - Music can be played in the background of game (SDL music)
+ - When letters are destroyed a sound is played (SDL sounds)
+ - mp3 files are supported
+ - Gifs can be used as textures (and they do animate)
+ - Limited button support
+
+# Engine
+
+To add a new scene:
+ * update scenes.cfg directory
+    ** add a new scene state
+    ** add a new state_transition
+    ** provide scene/state information
+ * add a class in Scenes directory (use previous classes to identify what has to be written). SceneInterface.h describes the interface.
+    ** implement functions like getEngineName in source file
+    ** add the new game scene engine to the state machine (Scenes/SceneMachine.cpp)
 
 # License
 GPLv3
@@ -36,12 +57,3 @@ GPLv3
 Program uses graphics from 
 https://www.pexels.com
 www.freepik.com
-
-# Engine
-
-To add a new scene:
- * add a class in Scenes directory (use previous classes to identify what has to be written). SceneInterface.h describes the interface.
- * update scenes.cfg directory
-    * add a new scene state
-    * add a new state_transition
-    * provide scene/state information
