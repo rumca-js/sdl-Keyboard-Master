@@ -57,7 +57,6 @@ class SlideScene : public SceneCommons {
     unsigned int time_display;
 
     bool display;
-    void MakeSureMyMusicIsPlaying();
     /*!
      * \brief Font that is used.
      */

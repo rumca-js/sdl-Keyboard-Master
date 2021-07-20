@@ -99,10 +99,6 @@ class GameScene : public SceneCommons {
      * \brief Updates high score counter.
      */
     void updateCounter();
-    /*!
-     * Sets up music for scene
-     */
-    void MakeSureMyMusicIsPlaying();
     std::vector<CannonInformation> cannons;
     void parseCannonsInfo();
     void parseCannonInfo(std::string cannonID);
