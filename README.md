@@ -1,31 +1,6 @@
 # Overview
+
 Keyboard-Master is a game in which user has to press keyboard letter to destroy letters that fall from above. It reminds of tetris game.
-
-# Build
-
-Can be built using:
-
- - G++ make (just enter src directory and make)
- - Eclipse (I have not updated project file in really long time)
-
-src/install_sdl2.sh can be used to install dependencies on Ubuntu based system.
-
-# Design
-
-The game is divided into several 'scenes'. Each scene follows abstract class SceneInterface.h interface. To provide easy access to all scenes resources all scenes are loaded when the program starts.
-We transition from scene to scene until the end of the game. We start with intro scene, then through menu we can reach the game. This mechanism is implemented in the SceneMachine.h file that provides scene state machine implementation.
-Each particular section should be as closed entity as possible. There might be some exceptions (like music from the intro could encompass the menu also).
-
-# Implementation
-
-This program is written in SDL2.
-Uses the following libraries:
- - SDL2
- - SDL2_image
- - SDL2_ttf
- - SDL2_mixer
- - libgif
- - libconfig++
 
 # Screenshot
 
@@ -40,6 +15,54 @@ Uses the following libraries:
  - Gifs can be used as textures (and they do animate)
  - Limited button support
 
+# Build
+
+Can be built using:
+
+ - G++ make (just enter src directory and make)
+ - Eclipse (I have not updated project file in really long time)
+
+src/install_sdl2.sh can be used to install dependencies on Ubuntu based system.
+
+This program is written in SDL2.
+Uses the following libraries:
+ - SDL2
+ - SDL2_image
+ - SDL2_ttf
+ - SDL2_mixer
+ - libgif
+ - libconfig++
+
+# Design
+
+## Scenes
+
+The game is divided into several 'scenes'. Each one follows abstract class representign scene interface.
+
+Each scene provides a method for drawing items in it. Each scene can have different background,
+music.
+
+Assets are read on program start, and released when scene ends.
+
+Each scene can define it's timers to perform various tasks (letter movement etc., creating new letters)
+
+## Scene State machine
+
+To provide easy access to all scenes resources all scenes are loaded when the program starts.
+
+Order of scenes:
+ - intro
+ - menu
+ - game, etc.
+
+Transitions are configurable, creating loops is possible (from menu, to story, back to menu).
+
+## Time flow
+
+Time flow is managed for each scene separately.
+
+Exceptions are gifs that are animated by engine.
+
 # Engine
 
 To add a new scene:
@@ -52,6 +75,7 @@ To add a new scene:
     - add the new game scene engine to the state machine (Scenes/SceneMachine.cpp)
 
 # License
+
 GPLv3
 
 Program uses graphics from 
