@@ -19,6 +19,7 @@
  - create debian package
  - create flatpack
  - creating letters slows down movement (new timer?)
+ - directories 'Main' and 'Game'
 
  make debian package scripts
  distribute https://www.debian.org/doc/manuals/distribute-deb/distribute-deb.html
