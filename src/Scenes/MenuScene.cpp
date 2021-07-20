@@ -177,7 +177,7 @@ void MenuScene::setFullScreen() {
     }
     else {
         // TODO do not use WIDTH or HEIGHT definitions directly
-        config->setWindowSize(config->getConfigInt("WIDTH"), config->getConfigInt("HEIGHT") );
+        config->setWindowSize(config->getConfigInt("WINDOW_WIDTH"), config->getConfigInt("WINDOW_HEIGHT") );
 
         SDL_SetWindowFullscreen(win, 0);
     }
