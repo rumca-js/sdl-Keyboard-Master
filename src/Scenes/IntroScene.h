@@ -14,7 +14,7 @@
 
 #include "../Images/DrawTexture.h"
 #include "SceneInterface.h"
-#include "../MainConfiguration.h"
+#include "../Main/MainConfiguration.h"
 
 #define TEXT_LOGO "SLAVE STUDIO 1"
 

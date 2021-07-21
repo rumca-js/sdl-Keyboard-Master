@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "SceneMachine.h"
-#include "../GameEventLogger.h"
+#include "../Game/GameEventLogger.h"
 
 #include "MenuScene.h"
 #include "IntroScene.h"

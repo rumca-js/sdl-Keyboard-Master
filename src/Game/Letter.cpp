@@ -4,10 +4,10 @@
 
 #include "Letter.h"
 
-#include "MainConfiguration.h"
-#include "./Images/DrawLetter.h"
-#include "./Images/DrawGif.h"
-#include "Utilities.h"
+#include "../Main/MainConfiguration.h"
+#include "../Images/DrawLetter.h"
+#include "../Images/DrawGif.h"
+#include "../Utilities.h"
 
 Letter::Letter(SDL_Renderer *ren, TTF_Font* Sans, char _letter, SDL_Color aColor) 
     : ScreenStateElement(ren)

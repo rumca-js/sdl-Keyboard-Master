@@ -18,10 +18,10 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "../Images/DrawBuilder.h"
-#include "../Letter.h"
+#include "../Game/Letter.h"
 #include "../Audio/SdlAudio.h"
 #include "SceneCommons.h"
-#include "../MainConfiguration.h"
+#include "../Main/MainConfiguration.h"
 #include "../TimeUpdateableItem.h"
 
 #define _C_STD_C14___

@@ -14,7 +14,7 @@
 
 #include "../Images/DrawTexture.h"
 #include "SceneCommons.h"
-#include "../MainConfiguration.h"
+#include "../Main/MainConfiguration.h"
 
 #include "../GUI/SdlButton.h"
 

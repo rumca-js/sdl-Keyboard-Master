@@ -9,8 +9,8 @@
 #define LETTER_H_
 
 #include <SDL2/SDL_ttf.h>
-#include "./Images/DrawLetter.h"
-#include "./ScreenCore/ScreenStateElement.h"
+#include "../Images/DrawLetter.h"
+#include "../ScreenCore/ScreenStateElement.h"
 
 class Letter : public ScreenStateElement {
     /*!

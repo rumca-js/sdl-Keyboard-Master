@@ -16,7 +16,7 @@
 
 #include "../Images/DrawText.h"
 #include "../Images/DrawTexture.h"
-#include "../MainConfiguration.h"
+#include "../Main/MainConfiguration.h"
 
 class SdlButton {
     SDL_Renderer * _r;

@@ -9,7 +9,7 @@
 
 #include "../Utilities.h"
 #include "../Audio/MusicManager.h"
-#include "../GameEventLogger.h"
+#include "../Game/GameEventLogger.h"
 #include "GameScene.h"
 
 
