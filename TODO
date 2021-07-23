@@ -8,6 +8,7 @@
  - store high scores in a file
  - implement left right north cannons
  - menu should recognize mouse input
+ - music should change in cannon scenes?
  - raster letters? gif letters? (backgroudn?
  - author: Piotr Zieliński write author to be renegat0x0, rumcajs, rozbujnik (the holy trinity, with divine graphics)
  - move updateable items from drawbuilder queue to time updateable items queue?
