@@ -1,14 +1,4 @@
 new:
-pexels-pixabay-33688.jpg
-pexels-pixabay-356968.jpg
-pexels-reynaldo-brigworkz-brigantty-773297.jpg
-pexels-jeremy-bishop-8241099.jpg
-pexels-mostafa-el-shershaby-3772630.jpg
-pexels-oleg-magni-861318.jpg
-pexels-pixabay-259411.jpg
-pexels-burst-374870.jpg
-pexels-lukas-kloeppel-466685.jpg
-pexels-sergio-souza-5048522.jpg
 pexels-mali-maeder-70419.jpg
 pexels-engin-akyurt-2767815.jpg
 pexels-mudassir-ali-1619854.jpg
